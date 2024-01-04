@@ -56,7 +56,7 @@ const ProfileModal = ({ user, children }) => {
                             d="flex"
                             justifyContent="center"
                         >
-                            UserName: {user.firstName + " " + user.lastName}
+                            UserName: {user.username}
                         </ModalHeader>
                         <ModalHeader
                             fontSize="30px"

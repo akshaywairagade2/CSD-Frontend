@@ -192,8 +192,8 @@ const ResetPassword = () => {
 
                         </Stack>
                     </Box>
-                </Stack >
-            </Flex >
+                </Stack>
+            </Flex>
 
             <Footer />
         </>

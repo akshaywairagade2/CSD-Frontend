@@ -76,68 +76,8 @@ const Header = () => {
                         >
                             Home
                         </Box>
-                        {
-                            user ? (
-                                <Box as="a" href={'/requests'}
-                                    _hover={{
-                                        color: "white",
-                                        borderRadius: '5',
-                                        backgroundColor: "gray"
-                                    }}
-                                    color={path == "/requests" ? "green" : null}
-                                    padding={2}
-                                >
-                                    Requests
-                                </Box>
-                            ) : null
-                        }
-                        {
-                            (user && isAdmin) ? (
-                                <Box as="a" href={'/search_by_user'}
-                                    _hover={{
-                                        color: "white",
-                                        borderRadius: '5',
-                                        backgroundColor: "gray"
-                                    }}
-                                    color={path == "/search_by_user" ? "green" : null}
-                                    padding={2}
-                                >
-                                    Search By Users
-                                </Box>
-                            ) : null
-                        }
-                        {
-                            (user && isAdmin) ? (
-                                <Box as="a" href={'/search_by_place'}
-                                    _hover={{
-                                        color: "white",
-                                        borderRadius: '5',
-                                        backgroundColor: "gray"
-                                    }}
-                                    color={path == "/search_by_place" ? "green" : null}
-                                    padding={2}
-                                >
-                                    Search By Place
-                                </Box>
-                            ) : null
-                        }
-                        {
-                            (user && !isAdmin) ? (
-                                <Box as="a" href={'/issue'}
-                                    _hover={{
-                                        color: "white",
-                                        borderRadius: '5',
-                                        backgroundColor: "gray"
-                                    }}
-                                    color={path == "/issue" ? "green" : null}
-                                    padding={2}
-                                >
-                                    CreateIssue
-                                </Box>
-                            ) : null
-                        }
 
-                    </Stack >
+                    </Stack>
 
                 </HStack>
 
