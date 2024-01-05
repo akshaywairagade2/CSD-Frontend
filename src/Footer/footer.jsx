@@ -47,14 +47,14 @@ const Footer = () => {
             bg={useColorModeValue('gray.200', 'gray.900')}
             color={useColorModeValue('gray.700', 'gray.200')}
         >
-            <Container as={Stack} maxW={'6xl'} py={10}>
+            <Container as={Stack} maxW={'6xl'} py={6}>
                 <SimpleGrid
                     templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
-                    spacing={8}>
+                    spacing={6}>
                     <Stack spacing={6}>
                         <Box>
                             <Image
-                                boxSize='150px'
+                                boxSize='100px'
                                 src={logo}
                                 alt='Logo'
                                 borderRadius="100px"
@@ -84,12 +84,8 @@ const Footer = () => {
                         <Box as="a" href={'#'}>
                             Contact us
                         </Box>
-                        <Box as="a" href={'#'}>
-                            Pricing
-                        </Box>
-                        <Box as="a" href={'#'}>
-                            Testimonials
-                        </Box>
+
+
                     </Stack>
                     <Stack align={'flex-start'}>
                         <Box><b>Support</b></Box>
@@ -100,14 +96,9 @@ const Footer = () => {
                             Terms of Service
                         </Box>
                         <Box as="a" href={'#'}>
-                            Legal
-                        </Box>
-                        <Box as="a" href={'#'}>
                             Privacy Policy
                         </Box>
-                        <Box as="a" href={'#'}>
-                            Satus
-                        </Box>
+
                     </Stack>
                     <Stack align={'flex-start'}>
                         <Box><b>Stay up to date</b></Box>

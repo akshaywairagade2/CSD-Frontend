@@ -56,7 +56,8 @@ const Header = () => {
         <Box
             bg={useColorModeValue('gray.100', 'gray.900')}
             px={4}
-            position={"auto"}
+            // position={"auto"}
+            position={"fixed"}
             top={0}
             width="100%"
         >
@@ -82,6 +83,34 @@ const Header = () => {
                         >
                             Home
                         </Box>
+                        {
+                            user &&
+                            <Box as="a" href={'/sender'}
+                                color={path == "/sender" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                Sender
+                            </Box>
+                        }
+                        {
+                            user &&
+                            <Box as="a" href={'/buyer'}
+                                color={path == "/buyer" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                Buyer
+                            </Box>
+                        }
                     </Stack>
                 </HStack>
 

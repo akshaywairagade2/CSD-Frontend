@@ -1,9 +1,8 @@
 import react, { useState, useEffect } from "react"
-
-import { useNavigate } from 'react-router-dom';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import {
     Flex,
     Box,
@@ -30,13 +29,15 @@ import {
 import Header from "../../Header/Header";
 import Footer from "../../Footer/footer";
 
-const Homepage = () => {
+const Buyer = () => {
+
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const user = userInfo ? userInfo.User : null
-    const path = window.location.pathname;
+    const user = userInfo ? userInfo.User : null;
 
-
+    useEffect(() => {
+        if (!user) navigate('/login')
+    }, [user])
 
     return (
         <>
@@ -46,11 +47,11 @@ const Homepage = () => {
                 align={'center'}
                 justify={'center'}
                 bg={useColorModeValue('gray.50', 'gray.800')}>
-                Home
+                Buyer
             </Flex>
             <Footer />
         </>
     )
-}
+};
 
-export default Homepage;
+export default Buyer;
