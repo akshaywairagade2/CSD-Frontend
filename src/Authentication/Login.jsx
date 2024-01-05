@@ -379,8 +379,8 @@ const Login = () => {
                             </Stack>
                         </Stack>
                     </Box>
-                </Stack >
-            </Flex >
+                </Stack>
+            </Flex>
 
             <Footer />
         </>

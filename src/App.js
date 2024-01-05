@@ -8,6 +8,8 @@ import Verified from "./Authentication/Verified"
 import VerifiedMail from './Authentication/VerifyMail';
 import Buyer from './pages/Buyer/buyer';
 import Sender from './pages/Sender/sender';
+import Catalog from './pages/Catalogs/catalog';
+import AddItem from './pages/AddItem/additem';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/verifymail" element={<VerifiedMail />} />
         <Route path="/sender" element={<Sender />} />
         <Route path="/buyer" element={<Buyer />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/additem" element={<AddItem />} />
       </Routes>
 
     </BrowserRouter>

@@ -24,7 +24,7 @@ root.render(
         <App />
       </GoogleOAuthProvider>
     </Provider>
-  </ChakraProvider >
+  </ChakraProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

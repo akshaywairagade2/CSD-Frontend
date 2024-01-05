@@ -112,6 +112,34 @@ const Header = () => {
                                 Buyer
                             </Box>
                         }
+                        {
+                            user &&
+                            <Box as="a" href={'/catalog'}
+                                color={path == "/catalog" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                Catalog
+                            </Box>
+                        }
+                        {
+                            user &&
+                            <Box as="a" href={'/additem'}
+                                color={path == "/additem" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                Add Item
+                            </Box>
+                        }
                     </Stack>
                 </HStack>
 
