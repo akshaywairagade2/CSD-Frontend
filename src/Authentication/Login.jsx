@@ -205,17 +205,20 @@ const Login = () => {
                 config
             );
 
-
-            toast({
-                title: "Please Check Email",
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            // toast({
+            //     title: "Please Check Email",
+            //     status: "success",
+            //     duration: 5000,
+            //     isClosable: true,
+            //     position: "bottom",
+            // });
             if (data) {
                 setforgotEmail("")
             }
+
+            setTimeout(() => { navigate("/verifymail") }, 200);
+
+
 
         } catch (error) {
             toast({

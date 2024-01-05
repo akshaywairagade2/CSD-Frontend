@@ -78,7 +78,6 @@ const Verified = () => {
                         {/* <Text align={'center'} fontSize="20px">Congratulations! Your email has been successfully verified.</Text> */}
                     </div>
                     <div>
-
                         <Image
                             src={Congrats}
                             alt='Congrats'

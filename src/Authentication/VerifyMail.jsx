@@ -11,7 +11,7 @@ const VerifiedMail = () => {
 
     return (
         <>
-            <Header />
+            <Header Flag={0} />
             <Flex
                 minH={'80vh'}
                 align={'center'}

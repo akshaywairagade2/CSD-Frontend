@@ -23,7 +23,7 @@ import {
 
 import ProfileModal from "./Profile/profilemodal"
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
-import logo from "../logo.svg"
+import logo from "../logo.png"
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
@@ -46,6 +46,11 @@ const Header = () => {
         navigate("/login");
     };
 
+
+    useEffect(() => {
+        if (path == "verifymail") localStorage.removeItem("userInfo");
+    }, [])
+
     return (
 
         <Box
@@ -59,9 +64,10 @@ const Header = () => {
                 <HStack spacing={8} alignItems={'center'}>
 
                     <Image
-                        boxSize='80px'
+                        boxSize='60px'
                         src={logo}
                         alt='Logo'
+                        borderRadius="50px"
                     />
 
                     <Stack direction={'row'} spacing={6}>
@@ -76,9 +82,7 @@ const Header = () => {
                         >
                             Home
                         </Box>
-
                     </Stack>
-
                 </HStack>
 
 
@@ -100,36 +104,20 @@ const Header = () => {
 
                 <HStack alignItems={'end'}>
                     {
-                        user ?
-                            <Menu>
-                                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                                    <Avatar
-                                        size="sm"
-                                        cursor="pointer"
-                                        name={user.firstName}
-                                        src={user.pic}
-                                    />
-                                </MenuButton>
-                                <MenuList>
-                                    <ProfileModal user={user}>
-                                        <MenuItem>My Profile</MenuItem>{" "}
-                                    </ProfileModal>
-                                    <MenuDivider />
-                                    <MenuItem onClick={logoutHandler}>Logout</MenuItem>
-                                </MenuList>
-                                {/* <MenuList>
-                                    <MenuItem size='sm' onClick={logoutHandler}>Logout</MenuItem>
-                                </MenuList> */}
-                            </Menu> :
+                        (user && path != "verifymail") ?
+                            <Button colorScheme='blue' size='sm' variant='outline' onClick={logoutHandler}>
+                                Logout
+                            </Button>
+                            :
                             (
                                 path == '/login' || path == '/signup' ?
                                     null
                                     :
-                                    <Menu>
-                                        <Button colorScheme='black' size='sm' variant='outline' onClick={() => navigate('/login')}>
-                                            Login
-                                        </Button>
-                                    </Menu>
+
+                                    <Button colorScheme='blue' size='sm' variant='outline' onClick={() => navigate('/login')}>
+                                        Login
+                                    </Button>
+
                             )
                     }
                 </HStack>

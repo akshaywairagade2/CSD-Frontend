@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
-import logo from "../logo.svg"
+import logo from "../logo.png"
 
 
 
@@ -57,9 +57,10 @@ const Footer = () => {
                                 boxSize='150px'
                                 src={logo}
                                 alt='Logo'
+                                borderRadius="100px"
                             />
                         </Box>
-                        <Text fontSize={'sm'}>© 2023 Kagaj. All rights reserved</Text>
+                        <Text fontSize={'sm'}>© 2023 Campus Delivery Services. All rights reserved</Text>
                         <Stack direction={'row'} spacing={6}>
                             <SocialButton label={'Twitter'} href={'#'}>
                                 <FaTwitter />
