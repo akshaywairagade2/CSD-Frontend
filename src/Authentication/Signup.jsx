@@ -22,6 +22,8 @@ import googleImage from '../assets/googleImage.jpg';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { signup, signupGoogle } from "../redux/actions/auth";
+import Header from "../Header/Header";
+import Footer from "../Footer/footer";
 
 
 const SignUp = () => {
@@ -93,7 +95,7 @@ const SignUp = () => {
             });
 
             localStorage.setItem("userInfo", JSON.stringify(data));
-            // setTimeout(() => { navigate("/") }, 200);
+            setTimeout(() => { navigate("/") }, 300);
 
         } catch (error) {
 
@@ -170,12 +172,13 @@ const SignUp = () => {
 
     return (
         <>
-
+            <Header />
             <Flex
                 minH={'80vh'}
                 align={'center'}
                 justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
+                bg={useColorModeValue('gray.50', 'gray.800')}
+                padding={10}>
                 <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6} width="100%">
                     <Stack align={'center'}>
                         <Heading fontSize={'5xl'}>Create an Account </Heading>
@@ -264,6 +267,7 @@ const SignUp = () => {
                     </Box>
                 </Stack>
             </Flex>
+            <Footer />
         </>
     )
 };

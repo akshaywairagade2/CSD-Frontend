@@ -60,6 +60,7 @@ const Header = () => {
             position={"fixed"}
             top={0}
             width="100%"
+            zIndex={5}
         >
             <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                 <HStack spacing={8} alignItems={'center'}>

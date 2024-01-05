@@ -45,7 +45,8 @@ const Homepage = () => {
                 minH={'80vh'}
                 align={'center'}
                 justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
+                bg={useColorModeValue('gray.50', 'gray.800')}
+            >
                 Home
             </Flex>
             <Footer />

@@ -20,11 +20,11 @@ root.render(
   <ChakraProvider>
     <Provider store={store}>
       <GoogleOAuthProvider
-        clientId="871044395075-8gceg2h15qhviio13ocl00qp3i1fl637.apps.googleusercontent.com">
+        clientId="798079972938-m4rquq9tk1q01mq6op742o1e87mm44tn.apps.googleusercontent.com">
         <App />
       </GoogleOAuthProvider>
     </Provider>
-  </ChakraProvider>
+  </ChakraProvider >
 );
 
 // If you want to start measuring performance in your app, pass a function
