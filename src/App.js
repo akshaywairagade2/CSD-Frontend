@@ -23,7 +23,7 @@ function App() {
         <Route path="/verifymail" element={<VerifiedMail />} />
         <Route path="/sender" element={<Sender />} />
         <Route path="/buyer" element={<Buyer />} />
-        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/catalog/:id" element={<Catalog />} />
         <Route path="/additem" element={<AddItem />} />
       </Routes>
 

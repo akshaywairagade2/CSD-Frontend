@@ -24,6 +24,7 @@ import {
 import ProfileModal from "./Profile/profilemodal"
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import logo from "../logo.png"
+// import { addtocart } from "../addtocart.svg"
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
@@ -84,7 +85,7 @@ const Header = () => {
                         >
                             Home
                         </Box>
-                        {
+                        {/* {
                             user &&
                             <Box as="a" href={'/sender'}
                                 color={path == "/sender" ? "green" : null}
@@ -111,8 +112,8 @@ const Header = () => {
                             >
                                 Buyer
                             </Box>
-                        }
-                        {
+                        } */}
+                        {/* {
                             user &&
                             <Box as="a" href={'/catalog'}
                                 color={path == "/catalog" ? "green" : null}
@@ -125,7 +126,7 @@ const Header = () => {
                             >
                                 Catalog
                             </Box>
-                        }
+                        } */}
                         {
                             user &&
                             <Box as="a" href={'/additem'}
@@ -166,6 +167,7 @@ const Header = () => {
                             <Button colorScheme='blue' size='sm' variant='outline' onClick={logoutHandler}>
                                 Logout
                             </Button>
+
                             :
                             (
                                 path == '/login' || path == '/signup' ?
