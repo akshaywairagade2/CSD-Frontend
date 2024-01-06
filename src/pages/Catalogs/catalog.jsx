@@ -25,10 +25,12 @@ import axios from "axios";
 import Header from '../../Header/Header';
 import Footer from '../../Footer/footer';
 import food from '../../food.png';
+import { useParams } from 'react-router-dom';
 
 const Catalog = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-
+    const params = useParams()
+    const hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const keys = ["name", "description"];
     const initialCatalogItems = [
         { id: 1, name: 'Groceries', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
@@ -42,6 +44,11 @@ const Catalog = () => {
         { id: 9, name: 'Favorite Dishes', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
     ];
 
+
+    useEffect(() => {
+        if (hotelid != params.id || hotelid == null)
+            localStorage.setItem("hotelid", JSON.stringify(params.id));
+    }, [])
 
     const fetchallitems = async () => {
         try {

@@ -39,7 +39,7 @@ const Homepage = () => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const user = userInfo ? userInfo.User : null
     const path = window.location.pathname;
-
+    const hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const keys = ["name", "description"]
     const initialHotels = [
         { id: 1, name: 'Tech Cafe', description: "dummy1" },
@@ -53,6 +53,11 @@ const Homepage = () => {
     const [hotels, setHotels] = useState(initialHotels);
     const [searchQuery, setSearchQuery] = useState('');
 
+    useEffect(() => {
+        if (hotelid) {
+            localStorage.removeItem("hotelid");
+        }
+    }, [])
 
     return (
         <>

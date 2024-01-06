@@ -22,9 +22,9 @@ import {
 } from '@chakra-ui/react'
 
 import ProfileModal from "./Profile/profilemodal"
-import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, SearchIcon, AddIcon } from "@chakra-ui/icons";
 import logo from "../logo.png"
-// import { addtocart } from "../addtocart.svg"
+import { addtocart } from "../addtocart.svg"
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
@@ -40,7 +40,7 @@ const Header = () => {
 
     const email = user?.emailId;
     const isAdmin = user?.isAdmin;
-
+    const hotelid = JSON.parse(localStorage.getItem('hotelid'));
 
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");
@@ -128,6 +128,20 @@ const Header = () => {
                             </Box>
                         } */}
                         {
+                            (user && path == "/addtocart" && hotelid != null) &&
+                            <Box as="a" href={`/catalog/${hotelid}`}
+                                // color={path == "/addtocart" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                Catalogs
+                            </Box>
+                        }
+                        {
                             user &&
                             <Box as="a" href={'/additem'}
                                 color={path == "/additem" ? "green" : null}
@@ -164,9 +178,22 @@ const Header = () => {
                 <HStack alignItems={'end'}>
                     {
                         (user && path != "verifymail") ?
-                            <Button colorScheme='blue' size='sm' variant='outline' onClick={logoutHandler}>
-                                Logout
-                            </Button>
+                            <>
+                                {user && (
+                                    path != "/" &&
+                                    <IconButton
+                                        aria-label="Add to Cart"
+                                        icon={<AddIcon />}
+                                        colorScheme="blue"
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={() => { navigate(`/addtocart`) }}
+                                    />
+                                )}
+                                <Button colorScheme='blue' size='sm' variant='outline' onClick={logoutHandler}>
+                                    Logout
+                                </Button>
+                            </>
 
                             :
                             (
