@@ -17,7 +17,10 @@ import {
     ModalCloseButton,
     useDisclosure,
     Image,
+    InputGroup,
+    InputLeftElement
 } from '@chakra-ui/react';
+import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import Header from '../../Header/Header';
 import Footer from '../../Footer/footer';
@@ -87,14 +90,21 @@ const Catalog = () => {
                         Catalogs
                     </Heading>
 
-                    <Input
-                        width="1200px"
-                        placeholder="Search items..."
-                        mb={4}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        borderColor={"black"}
-                    />
+
+                    <InputGroup   >
+                        <InputLeftElement pointerEvents='none'>
+                            <SearchIcon color='gray.300' />
+                        </InputLeftElement>
+                        <Input
+                            width="1200px"
+                            placeholder="Search items..."
+                            mb={4}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            borderColor={"black"}
+                        />
+                    </InputGroup>
+
 
                     {
                         catalogItems.length ? <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4} width={"100%"}>

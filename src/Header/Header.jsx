@@ -148,15 +148,15 @@ const Header = () => {
 
                 {/* -- Serach Bar -- */}
                 {/* {
-                        user ? (
-                            <InputGroup borderRadius={20} width={600} backgroundColor="white" boxShadow="1px 1px black"   >
-                                <InputLeftElement pointerEvents='none'>
-                                    <SearchIcon color='gray.300' />
-                                </InputLeftElement>
-                                <Input type='text' placeholder='Search By User' borderRadius={20} />
-                            </InputGroup>
-                        ) : null
-                    } */}
+                    user ? (
+                        <InputGroup borderRadius={20} width={600} backgroundColor="white" boxShadow="1px 1px black"   >
+                            <InputLeftElement pointerEvents='none'>
+                                <SearchIcon color='gray.300' />
+                            </InputLeftElement>
+                            <Input type='text' placeholder='Search By User' borderRadius={20} />
+                        </InputGroup>
+                    ) : null
+                } */}
                 {/* -- Serach Bar -- */}
 
 

@@ -28,7 +28,9 @@ import {
     Image,
     Grid,
     GridItem,
+    InputLeftElement
 } from '@chakra-ui/react'
+import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/footer";
 
@@ -66,14 +68,20 @@ const Homepage = () => {
                             Hotels
                         </Heading>
 
-                        <Input
-                            width="1250px"
-                            placeholder="Search items..."
-                            mb={4}
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            borderColor={"black"}
-                        />
+                        <InputGroup   >
+                            <InputLeftElement pointerEvents='none'>
+                                <SearchIcon color='gray.300' />
+                            </InputLeftElement>
+                            <Input
+                                width="1250px"
+                                placeholder="Search items..."
+                                mb={4}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                borderColor={"black"}
+                            />
+
+                        </InputGroup>
 
                         {
                             hotels.length ? <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4} width="100%">
