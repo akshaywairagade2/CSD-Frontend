@@ -21,6 +21,7 @@ const AddToCart = () => {
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const user = userInfo ? userInfo.User : null;
+    const amount = 300;
 
     const [cartItems, setCartItems] = useState([
         {
@@ -45,26 +46,6 @@ const AddToCart = () => {
         },
         {
             id: '3',
-            price: 39.99,
-            currency: 'GBP',
-            name: 'Yeezy Sneakers',
-            description: 'Tan, 40mm',
-            quantity: 3,
-            imageUrl:
-                'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        },
-        {
-            id: '4',
-            price: 39.99,
-            currency: 'GBP',
-            name: 'Yeezy Sneakers',
-            description: 'Tan, 40mm',
-            quantity: 3,
-            imageUrl:
-                'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        },
-        {
-            id: '5',
             price: 39.99,
             currency: 'GBP',
             name: 'Yeezy Sneakers',
@@ -102,14 +83,13 @@ const AddToCart = () => {
         return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     };
 
-    // You can add more logic to calculate shipping, tax, and total
+
 
     return (
         <>
             <Header />
             <Flex
                 minH={'80vh'}
-
                 p={20}
             >
 
@@ -191,8 +171,8 @@ const AddToCart = () => {
                                             <Text fontSize="lg">$300</Text>
                                         </HStack>
                                         <Center >
-                                            <Button colorScheme="green" size="lg" fontSize="md" mt="4" width={500}>
-                                                Checkout
+                                            <Button colorScheme="green" size="lg" fontSize="md" mt="4" width={500} onClick={() => { navigate(`/payment/${amount}`) }}>
+                                                Payment
                                             </Button>
                                         </Center>
                                     </Stack>

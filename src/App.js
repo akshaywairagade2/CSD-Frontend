@@ -11,6 +11,7 @@ import Sender from './pages/Sender/sender';
 import Catalog from './pages/Catalogs/catalog';
 import AddItem from './pages/AddItem/additem';
 import AddToCart from './pages/AddtoCart/addtocart';
+import Payment from './pages/Payment/payment';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/catalog/:id" element={<Catalog />} />
         <Route path="/additem" element={<AddItem />} />
         <Route path="/addtocart" element={<AddToCart />} />
+        <Route path="/payment/:id" element={<Payment />} />
       </Routes>
     </BrowserRouter>
   );
