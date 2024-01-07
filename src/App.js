@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from './pages/HomePage/homepage';
+import Home from './pages/HomePage/home';
 import Login from './Authentication/Login';
 import SignUp from './Authentication/Signup';
 import ResetPassword from './Authentication/Resetpassword';
@@ -12,12 +12,13 @@ import Catalog from './pages/Catalogs/catalog';
 import AddItem from './pages/AddItem/additem';
 import AddToCart from './pages/AddtoCart/addtocart';
 import Payment from './pages/Payment/payment';
+import HotelItems from './pages/HotelItems/hotelitems';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Homepage />} exact />
+        <Route path="/" element={<Home />} exact />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
@@ -29,6 +30,7 @@ function App() {
         <Route path="/additem" element={<AddItem />} />
         <Route path="/addtocart" element={<AddToCart />} />
         <Route path="/payment/:id" element={<Payment />} />
+        <Route path="/items" element={<HotelItems />} />
       </Routes>
     </BrowserRouter>
   );

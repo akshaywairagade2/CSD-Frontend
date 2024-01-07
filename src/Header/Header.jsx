@@ -40,6 +40,7 @@ const Header = () => {
 
     const email = user?.emailId;
     const isAdmin = user?.isAdmin;
+    const role = 'user'
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
 
     const logoutHandler = () => {
@@ -85,10 +86,10 @@ const Header = () => {
                         >
                             Home
                         </Box>
-                        {/* {
-                            user &&
-                            <Box as="a" href={'/sender'}
-                                color={path == "/sender" ? "green" : null}
+
+                        {role == "hotelowner" &&
+                            <Box as="a" href={'/items'}
+                                color={path == "/items" ? "green" : null}
                                 _hover={{
                                     color: "white",
                                     borderRadius: '5',
@@ -96,37 +97,10 @@ const Header = () => {
                                 }}
                                 padding={2}
                             >
-                                Sender
+                                Items
                             </Box>
                         }
-                        {
-                            user &&
-                            <Box as="a" href={'/buyer'}
-                                color={path == "/buyer" ? "green" : null}
-                                _hover={{
-                                    color: "white",
-                                    borderRadius: '5',
-                                    backgroundColor: "gray"
-                                }}
-                                padding={2}
-                            >
-                                Buyer
-                            </Box>
-                        } */}
-                        {/* {
-                            user &&
-                            <Box as="a" href={'/catalog'}
-                                color={path == "/catalog" ? "green" : null}
-                                _hover={{
-                                    color: "white",
-                                    borderRadius: '5',
-                                    backgroundColor: "gray"
-                                }}
-                                padding={2}
-                            >
-                                Catalog
-                            </Box>
-                        } */}
+
                         {
                             (user && path == "/addtocart" && hotelid != null) &&
                             <Box as="a" href={`/catalog/${hotelid}`}
@@ -142,7 +116,7 @@ const Header = () => {
                             </Box>
                         }
                         {
-                            user &&
+                            role == "hotelowner" &&
                             <Box as="a" href={'/additem'}
                                 color={path == "/additem" ? "green" : null}
                                 _hover={{
@@ -158,28 +132,11 @@ const Header = () => {
                     </Stack>
                 </HStack>
 
-
-
-                {/* -- Serach Bar -- */}
-                {/* {
-                    user ? (
-                        <InputGroup borderRadius={20} width={600} backgroundColor="white" boxShadow="1px 1px black"   >
-                            <InputLeftElement pointerEvents='none'>
-                                <SearchIcon color='gray.300' />
-                            </InputLeftElement>
-                            <Input type='text' placeholder='Search By User' borderRadius={20} />
-                        </InputGroup>
-                    ) : null
-                } */}
-                {/* -- Serach Bar -- */}
-
-
-
                 <HStack alignItems={'end'}>
                     {
                         (user && path != "verifymail") ?
                             <>
-                                {user && (
+                                {user && role == "user" && (
                                     path != "/" &&
                                     <IconButton
                                         aria-label="Add to Cart"

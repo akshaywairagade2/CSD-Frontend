@@ -31,6 +31,8 @@ const AddItem = () => {
         console.log('Added Item:', item);
     };
 
+
+
     const postDetails = (pics) => {
         setPicLoading(true);
         if (pics === undefined) {
@@ -120,9 +122,15 @@ const AddItem = () => {
 
                             <FormControl id="price" isRequired>
                                 <FormLabel>Price</FormLabel>
-                                <NumberInput mb={4} value={item.price} onChange={(value) => setItem({ ...item, price: value })}>
+                                <Input
+                                    type="number"
+                                    placeholder="Price"
+                                    value={item.price}
+                                    onChange={(e) => setItem({ ...item, price: e.target.value })}
+                                />
+                                {/* <NumberInput mb={4} value={item.price} onChange={(value) => setItem({ ...item, price: value })}>
                                     <NumberInputField placeholder="Price" />
-                                </NumberInput>
+                                </NumberInput> */}
                             </FormControl>
 
                             <FormControl id="pic" isRequired>
