@@ -45,12 +45,7 @@ const HotelItems = () => {
     const [picLoading, setPicLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
-    const [item, setItem] = useState({
-        name: '',
-        description: '',
-        price: 0,
-        photo: null,
-    });
+
     const keys = ["name", "description"];
     const initialCatalogItems = [
         { id: 1, name: 'Groceries', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
@@ -149,6 +144,8 @@ const HotelItems = () => {
             isClosable: true,
             position: "bottom",
         });
+
+        console.log(selectedItem, "selected")
     }
 
     useEffect(() => {
@@ -156,7 +153,13 @@ const HotelItems = () => {
     }, [])
 
 
-
+    const removeItem = (itemId) => {
+        const answer = window.confirm('Do you want to proceed?');
+        if (answer) {
+            const updatedItems = catalogItems.filter(item => item.id !== itemId);
+            setCatalogItems(updatedItems);
+        }
+    };
 
     return (
         <>
@@ -200,17 +203,9 @@ const HotelItems = () => {
                                         p={4}
                                         borderRadius="md"
                                         boxShadow="md">
-                                        <Flex height="300px" overflowY="auto" >
-                                            <Box
-                                                width="350px"
-                                            >
-                                                <Box
-                                                    onClick={() => {
-                                                        setSelectedItem(item);
-                                                        onOpen();
-                                                    }}
-                                                    direction="column" alignItems="center" textAlign="center"
-                                                >
+                                        <Flex height="350px" overflowY="auto" >
+                                            <Box width="350px" >
+                                                <Box direction="column" alignItems="center" textAlign="center" >
 
                                                     <Heading as="h3" size="lg" mb={2}>
                                                         {item.name}
@@ -222,6 +217,26 @@ const HotelItems = () => {
                                                     <Text fontSize="xl" color="black" mb={4} >
                                                         Description: {item?.description}
                                                     </Text>
+                                                    <Flex justify={"space-between"}>
+
+                                                        <Button
+                                                            mt={6}
+                                                            colorScheme="red"
+                                                            onClick={() => removeItem(item?.id)}
+                                                        >
+                                                            Delete
+                                                        </Button>
+                                                        <Button
+                                                            mt={6}
+                                                            colorScheme="green"
+                                                            onClick={() => {
+                                                                setSelectedItem(item);
+                                                                onOpen();
+                                                            }}
+                                                        >
+                                                            Update
+                                                        </Button>
+                                                    </Flex>
                                                 </Box>
                                             </Box>
                                         </Flex>
@@ -295,15 +310,6 @@ const HotelItems = () => {
                                 </Button>
                             </Stack>
                         </Stack>
-                        {/* <Flex direction="column" alignItems="center" textAlign="center">
-                            <Image src={food} alt={selectedItem?.name} mb={4} />
-                            <Text fontSize="xl" color="black">
-                                Price: {selectedItem?.price.toFixed(2)} Rs
-                            </Text>
-                            <Text fontSize="xl" color="black" mb={4} width="500px" overflowY="auto">
-                                Description: {selectedItem?.description}
-                            </Text>
-                        </Flex> */}
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={onClose}>

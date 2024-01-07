@@ -13,6 +13,11 @@ import AddItem from './pages/AddItem/additem';
 import AddToCart from './pages/AddtoCart/addtocart';
 import Payment from './pages/Payment/payment';
 import HotelItems from './pages/HotelItems/hotelitems';
+import NewOrders from './pages/HotelsOrders/neworders';
+import AcceptedOrders from './pages/HotelsOrders/acceptedorder';
+import RejectedOrders from './pages/HotelsOrders/rejectedorders';
+import UserOrders from './pages/UserOrders/userorders';
+
 
 function App() {
   return (
@@ -31,6 +36,10 @@ function App() {
         <Route path="/addtocart" element={<AddToCart />} />
         <Route path="/payment/:id" element={<Payment />} />
         <Route path="/items" element={<HotelItems />} />
+        <Route path="/neworders" element={<NewOrders />} />
+        <Route path="/acceptedorders" element={<AcceptedOrders />} />
+        <Route path="/rejectedorders" element={<RejectedOrders />} />
+        <Route path="/userorders" element={<UserOrders />} />
       </Routes>
     </BrowserRouter>
   );

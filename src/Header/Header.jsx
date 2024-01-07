@@ -115,6 +115,50 @@ const Header = () => {
                                 Catalogs
                             </Box>
                         }
+
+                        {
+                            role == "hotelowner" &&
+                            <Box as="a" href={'/neworders'}
+                                color={path == "/neworders" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                New Orders
+                            </Box>
+                        }
+                        {
+                            role == "hotelowner" &&
+                            <Box as="a" href={'/acceptedorders'}
+                                color={path == "/acceptedorders" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                Accepted Orders
+                            </Box>
+                        }
+                        {
+                            role == "hotelowner" &&
+                            <Box as="a" href={'/rejectedorders'}
+                                color={path == "/rejectedorders" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                Rejected Orders
+                            </Box>
+                        }
+
                         {
                             role == "hotelowner" &&
                             <Box as="a" href={'/additem'}
@@ -127,6 +171,20 @@ const Header = () => {
                                 padding={2}
                             >
                                 Add Item
+                            </Box>
+                        }
+                        {
+                            role != "hotelowner" &&
+                            <Box as="a" href={'/userorders'}
+                                color={path == "/userorders" ? "green" : null}
+                                _hover={{
+                                    color: "white",
+                                    borderRadius: '5',
+                                    backgroundColor: "gray"
+                                }}
+                                padding={2}
+                            >
+                                Orders
                             </Box>
                         }
                     </Stack>

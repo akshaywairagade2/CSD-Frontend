@@ -41,7 +41,7 @@ const HomePageUser = () => {
     const keys = ["name", "description"]
     const initialHotels = [
         { id: 1, name: 'Tech Cafe', description: "dummy1" },
-        { id: 2, name: 'At Mark', description: "dummy2" },
+        { id: 2, name: 'D-Mark', description: "dummy2" },
         { id: 3, name: 'Galav', description: "dummy3" },
         { id: 4, name: 'Sai', description: "dummy4" },
         { id: 5, name: 'amrutulya ', description: "dummy5" },
