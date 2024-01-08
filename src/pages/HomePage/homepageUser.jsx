@@ -33,6 +33,8 @@ import { SearchIcon } from "@chakra-ui/icons";
 
 
 const HomePageUser = () => {
+
+
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const user = userInfo ? userInfo.User : null

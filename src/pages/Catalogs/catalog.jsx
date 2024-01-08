@@ -26,33 +26,37 @@ import Header from '../../Header/Header';
 import Footer from '../../Footer/footer';
 import food from '../../food.png';
 import { useParams } from 'react-router-dom';
+import { useToast } from "@chakra-ui/react";
 
 const Catalog = () => {
 
-
+    const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const params = useParams()
-    const hotelid = JSON.parse(localStorage.getItem('hotelid'));
+    var hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-    console.log(userInfo?.Token['token'], "userinfo")
+
     const keys = ["name", "description"];
     const initialCatalogItems = [
-        { id: 1, name: 'Groceries', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 2, name: 'Pharmacy', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 3, name: 'Favorite Dishes', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 4, name: 'Groceries', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 5, name: 'Pharmacy', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 6, name: 'Favorite Dishes', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 7, name: 'Groceries', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 8, name: 'Pharmacy', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 9, name: 'Favorite Dishes', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 1, name: 'Groceries', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 2, name: 'Pharmacy', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 3, name: 'Favorite Dishes', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 4, name: 'Groceries', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 5, name: 'Pharmacy', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 6, name: 'Favorite Dishes', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 7, name: 'Groceries', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 8, name: 'Pharmacy', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { _id: 9, name: 'Favorite Dishes', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
     ];
 
 
     useEffect(() => {
-        if (hotelid != params.id || hotelid == null)
+        if (hotelid != params.id || hotelid == null) {
             localStorage.setItem("hotelid", JSON.stringify(params.id));
+            hotelid = params.id;
+
+        }
     }, [])
 
     const fetchallitems = async () => {
@@ -70,8 +74,6 @@ const Catalog = () => {
             //     },
             //     config
             // );
-
-            console.log("fetch")
 
 
         } catch (error) {
@@ -91,10 +93,12 @@ const Catalog = () => {
             const config = {
                 headers: {
                     "Content-type": "application/json",
-                    "Authorization": `Bearer ${userInfo?.Token['token']}`
+                    "authorization": `Bearer ${userInfo?.Token['token']}`
                 },
             };
-
+            console.log(config);
+            console.log(item);
+            console.log(hotelid)
             const { data } = await axios.post(
                 "http://localhost:5000/api/v1/add",
                 {
@@ -104,14 +108,23 @@ const Catalog = () => {
                 config
             );
 
-            console.log(data, "fetch")
+            toast({
+                title: "Added Successful",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
 
 
         } catch (error) {
 
-            console.log("Error")
+            console.log(error)
         }
     }
+
+
+
 
     const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
     const [searchQuery, setSearchQuery] = useState('');
@@ -150,7 +163,7 @@ const Catalog = () => {
                     {
                         catalogItems.length ? <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4} width={"100%"}>
                             {catalogItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery))).map((item) => (
-                                <GridItem key={item.id}>
+                                <GridItem key={item._id}>
                                     <Box
                                         _hover={{
                                             bg: 'green.200',

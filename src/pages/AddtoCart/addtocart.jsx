@@ -15,7 +15,7 @@ import Footer from "../../Footer/footer";
 import Header from "../../Header/Header";
 import food from "../../food.png"
 import axios from "axios";
-
+import { useToast } from "@chakra-ui/react";
 
 const AddToCart = () => {
 
@@ -25,6 +25,7 @@ const AddToCart = () => {
     const user = userInfo ? userInfo.User : null;
     const [amount, setAmount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
+    const toast = useToast();
 
     useEffect(() => {
         if (!user) navigate('/login');
@@ -42,7 +43,7 @@ const AddToCart = () => {
             };
 
             const { data } = await axios.get(
-                `http://localhost:5000/api/v1/cart/1`,
+                `http://localhost:5000/api/v1/cart/${hotelid}`,
                 config
             );
 
@@ -61,6 +62,7 @@ const AddToCart = () => {
 
 
     const increaseQuantity = async (item) => {
+
         try {
             const config = {
                 headers: {
