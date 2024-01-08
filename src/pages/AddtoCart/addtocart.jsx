@@ -5,9 +5,7 @@ import {
     Flex,
     Heading,
     HStack,
-    Link,
     Stack,
-    useColorModeValue,
     Text,
     Button,
     Image,
@@ -16,73 +14,136 @@ import {
 import Footer from "../../Footer/footer";
 import Header from "../../Header/Header";
 import food from "../../food.png"
+import axios from "axios";
+
 
 const AddToCart = () => {
+
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const user = userInfo ? userInfo.User : null;
-    const amount = 300;
-
-    const [cartItems, setCartItems] = useState([
-        {
-            id: '1',
-            price: 39.99,
-            currency: 'GBP',
-            name: 'Ferragamo bag',
-            description: 'Tan, 40mm',
-            quantity: 3,
-            imageUrl:
-                'https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80',
-        },
-        {
-            id: '2',
-            price: 39.99,
-            currency: 'GBP',
-            name: 'Bamboo Tan',
-            description: 'Tan, 40mm',
-            quantity: 3,
-            imageUrl:
-                'https://images.unsplash.com/photo-1591561954557-26941169b49e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80',
-        },
-        {
-            id: '3',
-            price: 39.99,
-            currency: 'GBP',
-            name: 'Yeezy Sneakers',
-            description: 'Tan, 40mm',
-            quantity: 3,
-            imageUrl:
-                'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80',
-        },
-    ]);
+    const [amount, setAmount] = useState(0);
+    const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
         if (!user) navigate('/login');
     }, [user]);
 
-    const increaseQuantity = (itemId) => {
-        const updatedCartItems = cartItems.map(item =>
-            item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-        );
-        setCartItems(updatedCartItems);
+
+    const GetAllItems = async () => {
+
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${userInfo?.Token['token']}`
+                },
+            };
+
+            const { data } = await axios.get(
+                `http://localhost:5000/api/v1/cart/1`,
+                config
+            );
+
+            var amount1 = 0;
+            for (let i = 0; i < data.items.length; i++) {
+                amount1 += (data.items[i].price) * (data.items[i].quantity)
+            }
+            setAmount(amount1)
+            setCartItems(data.items);
+
+        } catch (error) {
+            console.log(error)
+
+        }
     };
 
-    const decreaseQuantity = (itemId) => {
-        const updatedCartItems = cartItems.map(item =>
-            item.id === itemId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-        );
-        setCartItems(updatedCartItems);
+
+    const increaseQuantity = async (item) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${userInfo?.Token['token']}`
+                },
+            };
+
+            const { data, status } = await axios.post(
+                `http://localhost:5000/api/v1/add`,
+                {
+                    "hotelID": hotelid,
+                    "item": item
+                },
+                config
+            );
+
+            if (status == 200) {
+                GetAllItems();
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
     };
 
-    const removeItem = (itemId) => {
-        const updatedCartItems = cartItems.filter(item => item.id !== itemId);
-        setCartItems(updatedCartItems);
+    const decreaseQuantity = async (item) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${userInfo?.Token['token']}`
+                },
+            };
+
+            const { data, status } = await axios.post(
+                `http://localhost:5000/api/v1/remove`,
+                {
+                    "hotelID": hotelid,
+                    "item": item
+                },
+                config
+            );
+
+            if (status == 200) {
+                GetAllItems();
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
     };
 
-    const calculateSubtotal = () => {
-        return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const removeItem = async (item) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${userInfo?.Token['token']}`
+                },
+            };
+
+            // const { data, status } = await axios.post(
+            //     `http://localhost:5000/api/v1/remove`, {
+            //     "hotelID": hotelid,
+            //     "item": item
+            // },
+            //     config
+            // );
+
+            // if (status == 200) {
+            //     GetAllItems();
+            // }
+
+        } catch (error) {
+            console.log(error)
+        }
     };
 
+
+    useEffect(() => {
+        GetAllItems()
+    }, []);
 
 
     return (
@@ -126,14 +187,14 @@ const AddToCart = () => {
                                             loading="lazy"
                                         />
                                         <Flex alignItems="center">
-                                            <Button onClick={() => decreaseQuantity(item.id)} size="sm" variant="outline">
+                                            <Button onClick={() => decreaseQuantity(item)} size="sm" variant="outline">
                                                 -
                                             </Button>
                                             <Text mx={2}>{item.quantity}</Text>
-                                            <Button onClick={() => increaseQuantity(item.id)} size="sm" variant="outline">
+                                            <Button onClick={() => increaseQuantity(item)} size="sm" variant="outline">
                                                 +
                                             </Button>
-                                            <Button onClick={() => removeItem(item.id)} colorScheme="red" size="sm" m={1}>
+                                            <Button onClick={() => removeItem(item)} colorScheme="red" size="sm" m={1}>
                                                 Remove
                                             </Button>
                                         </Flex>
@@ -168,7 +229,7 @@ const AddToCart = () => {
                                         </HStack>
                                         <HStack justify="space-between">
                                             <Text fontSize="lg" fontWeight="semibold">Total:</Text>
-                                            <Text fontSize="lg">$300</Text>
+                                            <Text fontSize="lg">{amount}Rs</Text>
                                         </HStack>
                                         <Center >
                                             <Button colorScheme="green" size="lg" fontSize="md" mt="4" width={500} onClick={() => { navigate(`/payment/${amount}`) }}>

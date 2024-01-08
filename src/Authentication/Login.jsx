@@ -143,6 +143,9 @@ const Login = () => {
             );
 
 
+            console.log(data, "data")
+
+
             if (data.msg == "Please Verify Mail") {
                 toast({
                     title: "Please Verify Mail",

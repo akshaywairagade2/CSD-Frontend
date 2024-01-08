@@ -33,6 +33,9 @@ const Catalog = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const params = useParams()
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+    console.log(userInfo?.Token['token'], "userinfo")
     const keys = ["name", "description"];
     const initialCatalogItems = [
         { id: 1, name: 'Groceries', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
@@ -80,6 +83,35 @@ const Catalog = () => {
     useEffect(() => {
         fetchallitems();
     }, [])
+
+
+    const AddtoCart = async (item) => {
+
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${userInfo?.Token['token']}`
+                },
+            };
+
+            const { data } = await axios.post(
+                "http://localhost:5000/api/v1/add",
+                {
+                    "hotelID": hotelid,
+                    "item": item,
+                },
+                config
+            );
+
+            console.log(data, "fetch")
+
+
+        } catch (error) {
+
+            console.log("Error")
+        }
+    }
 
     const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
     const [searchQuery, setSearchQuery] = useState('');
@@ -157,7 +189,7 @@ const Catalog = () => {
                                                 <Button
                                                     mt={6}
                                                     colorScheme="blue"
-                                                    onClick={() => console.log(`Added ${item.name} to cart`)}
+                                                    onClick={(e) => { AddtoCart(item) }}
                                                 >
                                                     Add to Cart
                                                 </Button>

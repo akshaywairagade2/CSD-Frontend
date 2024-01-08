@@ -138,9 +138,12 @@ const SignUp = () => {
                     "userName": username,
                     "emailId": email,
                     "password": password,
+                    // "role": "user"
                 },
                 config
             );
+
+            console.log(data, "datahuh")
 
             toast({
                 title: "Account created Successfully",
