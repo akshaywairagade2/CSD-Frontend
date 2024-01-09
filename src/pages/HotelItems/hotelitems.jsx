@@ -48,15 +48,42 @@ const HotelItems = () => {
 
     const keys = ["name", "description"];
     const initialCatalogItems = [
-        { id: 1, name: 'Groceries', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 2, name: 'Pharmacy', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 3, name: 'Favorite Dishes', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 4, name: 'Groceries', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 5, name: 'Pharmacy', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 6, name: 'Favorite Dishes', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 7, name: 'Groceries', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 8, name: 'Pharmacy', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 9, name: 'Favorite Dishes', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 1, name: 'Groceries1', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 2, name: 'Pharmacy1', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 3, name: 'Favorite Dishes1', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 4, name: 'Groceries1', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 5, name: 'Pharmacy1', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 6, name: 'Favorite Dishes1', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 7, name: 'Groceries1', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 8, name: 'Pharmacy1', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 9, name: 'Favorite Dishes1', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 10, name: 'Groceries2', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 11, name: 'Pharmacy2', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 12, name: 'Favorite Dishes2', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 13, name: 'Groceries2', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 14, name: 'Pharmacy2', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 15, name: 'Favorite Dishes2', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 16, name: 'Groceries2', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 17, name: 'Pharmacy2', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 18, name: 'Favorite Dishes2', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 19, name: 'Groceries3', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 20, name: 'Pharmacy3', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 21, name: 'Favorite Dishes3', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 22, name: 'Groceries3', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 23, name: 'Pharmacy3', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 24, name: 'Favorite Dishes3', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 25, name: 'Groceries3', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 26, name: 'Pharmacy3', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 27, name: 'Favorite Dishes3', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 28, name: 'Groceries4', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 29, name: 'Pharmacy4', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 30, name: 'Favorite Dishes4', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 31, name: 'Groceries4', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 32, name: 'Pharmacy4', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 33, name: 'Favorite Dishes4', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 34, name: 'Groceries4', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 35, name: 'Pharmacy4', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
+        { id: 36, name: 'Favorite Dishes4', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
     ];
 
     const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
@@ -148,11 +175,6 @@ const HotelItems = () => {
         console.log(selectedItem, "selected")
     }
 
-    useEffect(() => {
-        fetchallitems();
-    }, [])
-
-
     const removeItem = (itemId) => {
         const answer = window.confirm('Do you want to proceed?');
         if (answer) {
@@ -160,6 +182,26 @@ const HotelItems = () => {
             setCatalogItems(updatedItems);
         }
     };
+
+    useEffect(() => {
+        fetchallitems();
+    }, [])
+
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const ItemsPerPage = 6;
+    const totalPages = Math.ceil(catalogItems.length / ItemsPerPage)
+
+    const indexOfLastItem = (currentPage + 1) * ItemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
+    const currentItems = catalogItems.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+
+
 
     return (
         <>
@@ -191,59 +233,99 @@ const HotelItems = () => {
 
 
                     {
-                        catalogItems.length ? <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4} width={"100%"}>
-                            {catalogItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery))).map((item) => (
-                                <GridItem key={item.id}>
-                                    <Box
-                                        _hover={{
-                                            bg: 'green.200',
-                                            cursor: 'pointer',
-                                        }}
-                                        border="1px"
-                                        p={4}
-                                        borderRadius="md"
-                                        boxShadow="md">
-                                        <Flex height="350px" overflowY="auto" >
-                                            <Box width="350px" >
-                                                <Box direction="column" alignItems="center" textAlign="center" >
+                        catalogItems.length > 0 ?
 
-                                                    <Heading as="h3" size="lg" mb={2}>
-                                                        {item.name}
-                                                    </Heading>
-                                                    <Image src={food} alt={item?.name} mb={4} boxSize={'150px'} />
-                                                    <Text fontSize="xl" color="black">
-                                                        Price: {item?.price.toFixed(2)} Rs
-                                                    </Text>
-                                                    <Text fontSize="xl" color="black" mb={4} >
-                                                        Description: {item?.description}
-                                                    </Text>
-                                                    <Flex justify={"space-between"}>
+                            <Box>
+                                <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4} width={"100%"}>
+                                    {currentItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery))).map((item) => (
+                                        <GridItem key={item.id}>
+                                            <Box
+                                                _hover={{
+                                                    bg: 'green.200',
+                                                    cursor: 'pointer',
+                                                }}
+                                                border="1px"
+                                                p={4}
+                                                borderRadius="md"
+                                                boxShadow="md">
+                                                <Flex height="350px" overflowY="auto" >
+                                                    <Box width="350px" >
+                                                        <Box direction="column" alignItems="center" textAlign="center" >
 
-                                                        <Button
-                                                            mt={6}
-                                                            colorScheme="red"
-                                                            onClick={() => removeItem(item?.id)}
-                                                        >
-                                                            Delete
-                                                        </Button>
-                                                        <Button
-                                                            mt={6}
-                                                            colorScheme="green"
-                                                            onClick={() => {
-                                                                setSelectedItem(item);
-                                                                onOpen();
-                                                            }}
-                                                        >
-                                                            Update
-                                                        </Button>
-                                                    </Flex>
-                                                </Box>
+                                                            <Heading as="h3" size="lg" mb={2}>
+                                                                {item.name}
+                                                            </Heading>
+                                                            <Image src={food} alt={item?.name} mb={4} boxSize={'150px'} />
+                                                            <Text fontSize="xl" color="black">
+                                                                Price: {item?.price.toFixed(2)} Rs
+                                                            </Text>
+                                                            <Text fontSize="xl" color="black" mb={4} >
+                                                                Description: {item?.description}
+                                                            </Text>
+                                                            <Flex justify={"space-between"}>
+
+                                                                <Button
+                                                                    mt={6}
+                                                                    colorScheme="red"
+                                                                    onClick={() => removeItem(item?.id)}
+                                                                >
+                                                                    Delete
+                                                                </Button>
+                                                                <Button
+                                                                    mt={6}
+                                                                    colorScheme="green"
+                                                                    onClick={() => {
+                                                                        setSelectedItem(item);
+                                                                        onOpen();
+                                                                    }}
+                                                                >
+                                                                    Update
+                                                                </Button>
+                                                            </Flex>
+                                                        </Box>
+                                                    </Box>
+                                                </Flex>
                                             </Box>
-                                        </Flex>
+                                        </GridItem>
+                                    ))}
+                                </Grid>
+                                {
+                                    catalogItems.length > 6 &&
+                                    <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                                        <Button
+                                            style={{ padding: '10px', marginRight: '10px', cursor: 'pointer' }}
+                                            onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
+                                            disabled={currentPage === 0}
+                                        >
+                                            Previous
+                                        </Button>
+
+                                        {[...Array(totalPages)].map((_, index) => (
+                                            <Button
+                                                key={index + 1}
+                                                style={{
+                                                    padding: '10px',
+                                                    margin: '0 5px',
+                                                    cursor: 'pointer',
+                                                    backgroundColor: currentPage === index ? 'lightblue' : 'lightgray',
+                                                    borderRadius: '5px',
+                                                }}
+                                                onClick={() => handlePageChange(index)}
+                                            >
+                                                {index + 1}
+                                            </Button>
+                                        ))}
+
+                                        <Button
+                                            style={{ padding: '10px', marginLeft: '10px', cursor: 'pointer' }}
+                                            onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
+                                            disabled={currentPage === totalPages - 1}
+                                        >
+                                            Next
+                                        </Button>
                                     </Box>
-                                </GridItem>
-                            ))}
-                        </Grid> :
+                                }
+                            </Box> :
                             <Box align={'center'} color={"red"}  >
                                 -- No Items --
                             </Box>

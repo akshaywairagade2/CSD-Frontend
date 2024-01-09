@@ -46,8 +46,39 @@ const HomePageHotelOwner = () => {
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
-        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg"
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
     ];
+
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const hotelImagesPerPage = 6;
+    const totalPages = Math.ceil(hotelImages.length / hotelImagesPerPage)
+
+    const indexOfLastHotelImage = (currentPage + 1) * hotelImagesPerPage;
+    const indexOfFirstHotelImage = indexOfLastHotelImage - hotelImagesPerPage;
+    const currentHotelImages = hotelImages.slice(indexOfFirstHotelImage, indexOfLastHotelImage);
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
 
 
     return (
@@ -71,10 +102,46 @@ const HomePageHotelOwner = () => {
                     </Box>
                     <Box>
                         <SimpleGrid columns={[1, 2, 3]} gap={4} p={4}>
-                            {hotelImages.map((image, index) => (
+                            {currentHotelImages.map((image, index) => (
                                 <Image key={index} src={image} alt={`Hotel Image ${index + 1}`} />
                             ))}
                         </SimpleGrid>
+                        {
+                            (hotelImages.length > 6) &&
+                            <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                                <Button
+                                    style={{ padding: '10px', marginRight: '10px', cursor: 'pointer' }}
+                                    onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
+                                    disabled={currentPage === 0}
+                                >
+                                    Previous
+                                </Button>
+
+                                {[...Array(totalPages)].map((_, index) => (
+                                    <Button
+                                        key={index + 1}
+                                        style={{
+                                            padding: '10px',
+                                            margin: '0 5px',
+                                            cursor: 'pointer',
+                                            backgroundColor: currentPage === index ? 'lightblue' : 'lightgray',
+                                            borderRadius: '5px',
+                                        }}
+                                        onClick={() => handlePageChange(index)}
+                                    >
+                                        {index + 1}
+                                    </Button>
+                                ))}
+
+                                <Button
+                                    style={{ padding: '10px', marginLeft: '10px', cursor: 'pointer' }}
+                                    onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
+                                    disabled={currentPage === totalPages - 1}
+                                >
+                                    Next
+                                </Button>
+                            </Box>
+                        }
                     </Box>
 
                 </Box>

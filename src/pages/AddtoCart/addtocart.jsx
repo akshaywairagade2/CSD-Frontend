@@ -72,7 +72,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://localhost:5000/api/v1/add`,
+                `http://localhost:5000/api/v1/cart/add`,
                 {
                     "hotelID": hotelid,
                     "item": item
@@ -99,7 +99,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://localhost:5000/api/v1/remove`,
+                `http://localhost:5000/api/v1/cart/remove`,
                 {
                     "hotelID": hotelid,
                     "item": item
@@ -117,6 +117,7 @@ const AddToCart = () => {
     };
 
     const removeItem = async (item) => {
+        // alert("hello")
         try {
             const config = {
                 headers: {
@@ -125,17 +126,14 @@ const AddToCart = () => {
                 },
             };
 
-            // const { data, status } = await axios.post(
-            //     `http://localhost:5000/api/v1/remove`, {
-            //     "hotelID": hotelid,
-            //     "item": item
-            // },
-            //     config
-            // );
+            const { data, status } = await axios.post(
+                `http://localhost:5000/api/v1/cart/erase?itemID='${item}'&hotelID=${hotelid}`, {},
+                config
+            );
 
-            // if (status == 200) {
-            //     GetAllItems();
-            // }
+            if (status == 200) {
+                GetAllItems();
+            }
 
         } catch (error) {
             console.log(error)

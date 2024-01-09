@@ -88,6 +88,7 @@ const Catalog = () => {
 
 
     const AddtoCart = async (item) => {
+        console.log(hotelid, "hotelidhotelid")
 
         try {
             const config = {
@@ -96,11 +97,9 @@ const Catalog = () => {
                     "authorization": `Bearer ${userInfo?.Token['token']}`
                 },
             };
-            console.log(config);
-            console.log(item);
-            console.log(hotelid)
+
             const { data } = await axios.post(
-                "http://localhost:5000/api/v1/add",
+                "http://localhost:5000/api/v1/cart/add",
                 {
                     "hotelID": hotelid,
                     "item": item,
@@ -129,6 +128,20 @@ const Catalog = () => {
     const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
+
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const ItemsPerPage = 6;
+    const totalPages = Math.ceil(catalogItems.length / ItemsPerPage)
+
+    const indexOfLastItem = (currentPage + 1) * ItemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
+    const currentItems = catalogItems.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
 
 
     return (
@@ -161,57 +174,98 @@ const Catalog = () => {
 
 
                     {
-                        catalogItems.length ? <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4} width={"100%"}>
-                            {catalogItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery))).map((item) => (
-                                <GridItem key={item._id}>
-                                    <Box
-                                        _hover={{
-                                            bg: 'green.200',
-                                            cursor: 'pointer',
-                                        }}
-                                        border="1px"
-                                        p={4}
-                                        borderRadius="md"
-                                        boxShadow="md">
-                                        <Flex height="350px" overflowY="auto" >
+                        catalogItems.length ?
+                            <Box>
+                                <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4} width={"100%"}>
+                                    {currentItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery))).map((item) => (
+                                        <GridItem key={item._id}>
                                             <Box
+                                                _hover={{
+                                                    bg: 'green.200',
+                                                    cursor: 'pointer',
+                                                }}
+                                                border="1px"
+                                                p={4}
+                                                borderRadius="md"
+                                                boxShadow="md">
+                                                <Flex height="350px" overflowY="auto" >
+                                                    <Box
 
-                                                width="350px"
-                                            // maxH="350px"
-                                            >
-                                                <Box
-                                                    onClick={() => {
-                                                        setSelectedItem(item);
-                                                        onOpen();
-                                                    }}
-                                                    direction="column" alignItems="center" textAlign="center"
-                                                >
+                                                        width="350px"
+                                                    // maxH="350px"
+                                                    >
+                                                        <Box
+                                                            onClick={() => {
+                                                                setSelectedItem(item);
+                                                                onOpen();
+                                                            }}
+                                                            direction="column" alignItems="center" textAlign="center"
+                                                        >
 
-                                                    <Heading as="h3" size="lg" mb={2}>
-                                                        {item.name}
-                                                    </Heading>
-                                                    <Image src={food} alt={item?.name} mb={4} boxSize={'150px'} />
-                                                    <Text fontSize="xl" color="black">
-                                                        Price: {item?.price.toFixed(2)} Rs
-                                                    </Text>
-                                                    <Text fontSize="xl" color="black" mb={4} >
-                                                        Description: {item?.description}
-                                                    </Text>
-                                                </Box>
+                                                            <Heading as="h3" size="lg" mb={2}>
+                                                                {item.name}
+                                                            </Heading>
+                                                            <Image src={food} alt={item?.name} mb={4} boxSize={'150px'} />
+                                                            <Text fontSize="xl" color="black">
+                                                                Price: {item?.price.toFixed(2)} Rs
+                                                            </Text>
+                                                            <Text fontSize="xl" color="black" mb={4} >
+                                                                Description: {item?.description}
+                                                            </Text>
+                                                        </Box>
 
-                                                <Button
-                                                    mt={6}
-                                                    colorScheme="blue"
-                                                    onClick={(e) => { AddtoCart(item) }}
-                                                >
-                                                    Add to Cart
-                                                </Button>
+                                                        <Button
+                                                            mt={6}
+                                                            colorScheme="blue"
+                                                            onClick={(e) => { AddtoCart(item) }}
+                                                        >
+                                                            Add to Cart
+                                                        </Button>
+                                                    </Box>
+                                                </Flex>
                                             </Box>
-                                        </Flex>
+                                        </GridItem>
+                                    ))}
+                                </Grid>
+
+                                {
+                                    catalogItems.length > 6 &&
+                                    <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                                        <Button
+                                            style={{ padding: '10px', marginRight: '10px', cursor: 'pointer' }}
+                                            onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
+                                            disabled={currentPage === 0}
+                                        >
+                                            Previous
+                                        </Button>
+
+                                        {[...Array(totalPages)].map((_, index) => (
+                                            <Button
+                                                key={index + 1}
+                                                style={{
+                                                    padding: '10px',
+                                                    margin: '0 5px',
+                                                    cursor: 'pointer',
+                                                    backgroundColor: currentPage === index ? 'lightblue' : 'lightgray',
+                                                    borderRadius: '5px',
+                                                }}
+                                                onClick={() => handlePageChange(index)}
+                                            >
+                                                {index + 1}
+                                            </Button>
+                                        ))}
+
+                                        <Button
+                                            style={{ padding: '10px', marginLeft: '10px', cursor: 'pointer' }}
+                                            onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
+                                            disabled={currentPage === totalPages - 1}
+                                        >
+                                            Next
+                                        </Button>
                                     </Box>
-                                </GridItem>
-                            ))}
-                        </Grid> :
+                                }
+                            </Box>
+                            :
                             <Box align={'center'} color={"red"}  >
                                 -- No Items --
                             </Box>
