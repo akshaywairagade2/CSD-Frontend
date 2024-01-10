@@ -174,7 +174,7 @@ const Header = () => {
                             </Box>
                         }
                         {
-                            role != "hotelowner" &&
+                            (role != "hotelowner" && user) &&
                             <Box as="a" href={'/userorders'}
                                 color={path == "/userorders" ? "green" : null}
                                 _hover={{
