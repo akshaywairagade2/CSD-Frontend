@@ -40,7 +40,7 @@ const Header = () => {
 
     const email = user?.emailId;
     const isAdmin = user?.isAdmin;
-    const role = 'hotelowner'
+    const role = 'user'
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
 
     const logoutHandler = () => {

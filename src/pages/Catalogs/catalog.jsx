@@ -20,13 +20,14 @@ import {
     InputGroup,
     InputLeftElement
 } from '@chakra-ui/react';
-import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import Header from '../../Header/Header';
 import Footer from '../../Footer/footer';
 import food from '../../food.png';
 import { useParams } from 'react-router-dom';
 import { useToast } from "@chakra-ui/react";
+import Pagination from '../Pagination/pagination';
 
 const Catalog = () => {
 
@@ -229,40 +230,8 @@ const Catalog = () => {
                                 </Grid>
 
                                 {
-                                    catalogItems.length > 6 &&
-                                    <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                                        <Button
-                                            style={{ padding: '10px', marginRight: '10px', cursor: 'pointer' }}
-                                            onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
-                                            disabled={currentPage === 0}
-                                        >
-                                            Previous
-                                        </Button>
-
-                                        {[...Array(totalPages)].map((_, index) => (
-                                            <Button
-                                                key={index + 1}
-                                                style={{
-                                                    padding: '10px',
-                                                    margin: '0 5px',
-                                                    cursor: 'pointer',
-                                                    backgroundColor: currentPage === index ? 'lightblue' : 'lightgray',
-                                                    borderRadius: '5px',
-                                                }}
-                                                onClick={() => handlePageChange(index)}
-                                            >
-                                                {index + 1}
-                                            </Button>
-                                        ))}
-
-                                        <Button
-                                            style={{ padding: '10px', marginLeft: '10px', cursor: 'pointer' }}
-                                            onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
-                                            disabled={currentPage === totalPages - 1}
-                                        >
-                                            Next
-                                        </Button>
-                                    </Box>
+                                    (catalogItems.length > 6) &&
+                                    <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
                                 }
                             </Box>
                             :
@@ -293,12 +262,6 @@ const Catalog = () => {
                         <Button colorScheme="blue" mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        {/* <Button
-                            colorScheme="green"
-                            onClick={() => console.log(`Added ${selectedItem?.name} to cart`)}
-                        >
-                            Add to Cart
-                        </Button> */}
                     </ModalFooter>
                 </ModalContent>
             </Modal>

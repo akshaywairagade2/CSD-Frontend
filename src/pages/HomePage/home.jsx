@@ -9,7 +9,7 @@ const Home = () => {
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const user = userInfo ? userInfo.User : null
-    const role = 'hotelowner'
+    const role = 'user'
     const navigate = useNavigate();
 
     useEffect(() => {

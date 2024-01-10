@@ -1,35 +1,17 @@
 import react, { useState, useEffect } from "react"
 import { useNavigate } from 'react-router-dom';
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { useToast } from "@chakra-ui/react";
-import axios from "axios";
+import { Input, InputGroup } from "@chakra-ui/input";
 import {
     Flex,
     Box,
-    FormControl,
-    FormLabel,
-    Checkbox,
-    Stack,
-    Button,
     Heading,
     Text,
-    Link,
-    useColorModeValue,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    IconButton,
-    Image,
     Grid,
     GridItem,
     InputLeftElement
 } from '@chakra-ui/react'
 import { SearchIcon } from "@chakra-ui/icons";
+import Pagination from "../Pagination/pagination";
 
 
 const HomePageUser = () => {
@@ -37,8 +19,6 @@ const HomePageUser = () => {
 
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const user = userInfo ? userInfo.User : null
-    const path = window.location.pathname;
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const keys = ["name", "description"]
     const initialHotels = [
@@ -126,11 +106,7 @@ const HomePageUser = () => {
                                                 borderRadius="md"
                                                 boxShadow="md">
                                                 <Flex height="100px" overflowY="auto" >
-                                                    <Box
-
-                                                        width="350px"
-                                                    // maxH="350px"
-                                                    >
+                                                    <Box width="350px">
                                                         <Box direction="column" alignItems="center" textAlign="center" >
                                                             <Heading as="h3" size="lg" mb={2}>
                                                                 {item.name}
@@ -148,40 +124,9 @@ const HomePageUser = () => {
                                     ))}
                                 </Grid>
                                 {
-                                    hotels.length > 6 &&
-                                    <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                                        <Button
-                                            style={{ padding: '10px', marginRight: '10px', cursor: 'pointer' }}
-                                            onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
-                                            disabled={currentPage === 0}
-                                        >
-                                            Previous
-                                        </Button>
+                                    (hotels.length > 6) &&
+                                    <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
 
-                                        {[...Array(totalPages)].map((_, index) => (
-                                            <Button
-                                                key={index + 1}
-                                                style={{
-                                                    padding: '10px',
-                                                    margin: '0 5px',
-                                                    cursor: 'pointer',
-                                                    backgroundColor: currentPage === index ? 'lightblue' : 'lightgray',
-                                                    borderRadius: '5px',
-                                                }}
-                                                onClick={() => handlePageChange(index)}
-                                            >
-                                                {index + 1}
-                                            </Button>
-                                        ))}
-
-                                        <Button
-                                            style={{ padding: '10px', marginLeft: '10px', cursor: 'pointer' }}
-                                            onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
-                                            disabled={currentPage === totalPages - 1}
-                                        >
-                                            Next
-                                        </Button>
-                                    </Box>
                                 }
                             </Box> :
                             <Box align={'center'} color={"red"}  >

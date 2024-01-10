@@ -1,38 +1,14 @@
 import react, { useState, useEffect } from "react"
-import { useNavigate } from 'react-router-dom';
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { useToast } from "@chakra-ui/react";
-import axios from "axios";
 import {
     Flex,
     Box,
-    FormControl,
-    FormLabel,
-    Checkbox,
-    Stack,
-    Button,
     Heading,
     Text,
-    Link,
-    useColorModeValue,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    IconButton,
     Image,
-    Grid,
-    GridItem,
-    InputLeftElement,
     SimpleGrid,
     Badge
 } from '@chakra-ui/react'
-
-
+import Pagination from "../Pagination/pagination";
 
 const HomePageHotelOwner = () => {
 
@@ -65,12 +41,16 @@ const HomePageHotelOwner = () => {
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
+        "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
     ];
 
 
     const [currentPage, setCurrentPage] = useState(0);
     const hotelImagesPerPage = 6;
-    const totalPages = Math.ceil(hotelImages.length / hotelImagesPerPage)
+    const totalLength = hotelImages.length;
+    const totalPages = Math.ceil(totalLength / hotelImagesPerPage)
 
     const indexOfLastHotelImage = (currentPage + 1) * hotelImagesPerPage;
     const indexOfFirstHotelImage = indexOfLastHotelImage - hotelImagesPerPage;
@@ -79,7 +59,6 @@ const HomePageHotelOwner = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
-
 
     return (
         <>
@@ -107,40 +86,8 @@ const HomePageHotelOwner = () => {
                             ))}
                         </SimpleGrid>
                         {
-                            (hotelImages.length > 6) &&
-                            <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                                <Button
-                                    style={{ padding: '10px', marginRight: '10px', cursor: 'pointer' }}
-                                    onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
-                                    disabled={currentPage === 0}
-                                >
-                                    Previous
-                                </Button>
-
-                                {[...Array(totalPages)].map((_, index) => (
-                                    <Button
-                                        key={index + 1}
-                                        style={{
-                                            padding: '10px',
-                                            margin: '0 5px',
-                                            cursor: 'pointer',
-                                            backgroundColor: currentPage === index ? 'lightblue' : 'lightgray',
-                                            borderRadius: '5px',
-                                        }}
-                                        onClick={() => handlePageChange(index)}
-                                    >
-                                        {index + 1}
-                                    </Button>
-                                ))}
-
-                                <Button
-                                    style={{ padding: '10px', marginLeft: '10px', cursor: 'pointer' }}
-                                    onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
-                                    disabled={currentPage === totalPages - 1}
-                                >
-                                    Next
-                                </Button>
-                            </Box>
+                            (totalLength > 6) &&
+                            <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
                         }
                     </Box>
 

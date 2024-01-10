@@ -23,24 +23,19 @@ import {
     Stack,
     FormControl,
     FormLabel,
-    NumberInput,
-    NumberInputField
 } from '@chakra-ui/react';
 
-import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
-import axios from "axios";
+import { SearchIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/react";
 import Header from '../../Header/Header';
 import Footer from '../../Footer/footer';
 import food from '../../food.png';
-import { useParams } from 'react-router-dom';
+import Pagination from "../Pagination/pagination"
 
 const HotelItems = () => {
 
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const params = useParams()
-    const hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const toast = useToast();
     const [picLoading, setPicLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -87,8 +82,6 @@ const HotelItems = () => {
     ];
 
     const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
-
-
 
     const fetchallitems = async () => {
         try {
@@ -172,7 +165,6 @@ const HotelItems = () => {
             position: "bottom",
         });
 
-        console.log(selectedItem, "selected")
     }
 
     const removeItem = (itemId) => {
@@ -199,8 +191,6 @@ const HotelItems = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
-
-
 
 
     return (
@@ -290,40 +280,8 @@ const HotelItems = () => {
                                     ))}
                                 </Grid>
                                 {
-                                    catalogItems.length > 6 &&
-                                    <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                                        <Button
-                                            style={{ padding: '10px', marginRight: '10px', cursor: 'pointer' }}
-                                            onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
-                                            disabled={currentPage === 0}
-                                        >
-                                            Previous
-                                        </Button>
-
-                                        {[...Array(totalPages)].map((_, index) => (
-                                            <Button
-                                                key={index + 1}
-                                                style={{
-                                                    padding: '10px',
-                                                    margin: '0 5px',
-                                                    cursor: 'pointer',
-                                                    backgroundColor: currentPage === index ? 'lightblue' : 'lightgray',
-                                                    borderRadius: '5px',
-                                                }}
-                                                onClick={() => handlePageChange(index)}
-                                            >
-                                                {index + 1}
-                                            </Button>
-                                        ))}
-
-                                        <Button
-                                            style={{ padding: '10px', marginLeft: '10px', cursor: 'pointer' }}
-                                            onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
-                                            disabled={currentPage === totalPages - 1}
-                                        >
-                                            Next
-                                        </Button>
-                                    </Box>
+                                    (catalogItems.length > 6) &&
+                                    <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
                                 }
                             </Box> :
                             <Box align={'center'} color={"red"}  >
