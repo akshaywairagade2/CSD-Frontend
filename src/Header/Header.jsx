@@ -40,7 +40,7 @@ const Header = () => {
 
     const email = user?.emailId;
     const isAdmin = user?.isAdmin;
-    const role = 'user'
+    const role = 'hotelowner'
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
 
     const logoutHandler = () => {
@@ -87,7 +87,7 @@ const Header = () => {
                             Home
                         </Box>
 
-                        {role == "hotelowner" &&
+                        {(role == "hotelowner" && user) &&
                             <Box as="a" href={'/items'}
                                 color={path == "/items" ? "green" : null}
                                 _hover={{
@@ -117,7 +117,7 @@ const Header = () => {
                         }
 
                         {
-                            role == "hotelowner" &&
+                            (role == "hotelowner" && user) &&
                             <Box as="a" href={'/neworders'}
                                 color={path == "/neworders" ? "green" : null}
                                 _hover={{
@@ -131,7 +131,7 @@ const Header = () => {
                             </Box>
                         }
                         {
-                            role == "hotelowner" &&
+                            (role == "hotelowner" && user) &&
                             <Box as="a" href={'/acceptedorders'}
                                 color={path == "/acceptedorders" ? "green" : null}
                                 _hover={{
@@ -145,7 +145,7 @@ const Header = () => {
                             </Box>
                         }
                         {
-                            role == "hotelowner" &&
+                            (role == "hotelowner" && user) &&
                             <Box as="a" href={'/rejectedorders'}
                                 color={path == "/rejectedorders" ? "green" : null}
                                 _hover={{
@@ -160,7 +160,7 @@ const Header = () => {
                         }
 
                         {
-                            role == "hotelowner" &&
+                            (role == "hotelowner" && user) &&
                             <Box as="a" href={'/additem'}
                                 color={path == "/additem" ? "green" : null}
                                 _hover={{

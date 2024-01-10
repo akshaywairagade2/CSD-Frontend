@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from "react"
+import react, { useState, useEffect, useRef } from "react"
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -10,12 +10,11 @@ import Footer from "../../Footer/footer";
 
 const AddItem = () => {
 
+    const fileInput = useRef(null);
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const user = userInfo ? userInfo.User : null;
-    const [picLoading, setPicLoading] = useState(false);
     const toast = useToast();
-    const [pic, setPic] = useState();
     const [item, setItem] = useState({
         name: '',
         description: '',
@@ -23,18 +22,86 @@ const AddItem = () => {
         photo: null,
     });
 
+
     useEffect(() => {
         if (!user) navigate('/login')
     }, [user])
 
-    const handleAddItem = () => {
-        console.log('Added Item:', item);
+
+    const handleAddItem = async () => {
+
+        if (item.name === '' || item.description === '' || item.price === 0 || item.photo === null) {
+            toast({
+                title: "Please Fill all fields",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+            return;
+        }
+
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+
+            const { data, status } = await axios.post(
+                "http://localhost:5000/api/items/additem",
+                {
+                    "name": item.name,
+                    "hotelId": user._id,
+                    "price": item.price,
+                    "imageLink": item.photo,
+                    "quantity": 1,
+                    "availabilityStatus": true,
+                    "description": item.description,
+                    "rating": 4,
+                    "reviews": ["reviews"]
+                },
+                config
+            );
+
+
+            if (status == 201) {
+                setItem({
+                    name: '',
+                    description: '',
+                    price: 0,
+                    photo: null,
+                })
+                toast({
+                    title: "Item Added Successful",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+                fileInput.current.value = ''
+            }
+
+
+
+        } catch (error) {
+            toast({
+                title: "Unable to add a new Item",
+                description: error.response.data.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+        }
     };
 
-
+    const SubmitItem = () => {
+        setTimeout(() => { handleAddItem() }, 500);
+    }
 
     const postDetails = (pics) => {
-        setPicLoading(true);
+
         if (pics === undefined) {
             toast({
                 title: "Please Select an Image!",
@@ -59,11 +126,11 @@ const AddItem = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     setItem({ ...item, photo: data.url.toString() })
-                    setPicLoading(false);
+
                 })
                 .catch((err) => {
                     console.log(err);
-                    setPicLoading(false);
+
                 });
         } else {
             toast({
@@ -73,10 +140,12 @@ const AddItem = () => {
                 isClosable: true,
                 position: "bottom",
             });
-            setPicLoading(false);
+
             return;
         }
     };
+
+
 
     return (
         <>
@@ -123,19 +192,18 @@ const AddItem = () => {
                             <FormControl id="price" isRequired>
                                 <FormLabel>Price</FormLabel>
                                 <Input
+
                                     type="number"
                                     placeholder="Price"
                                     value={item.price}
                                     onChange={(e) => setItem({ ...item, price: e.target.value })}
                                 />
-                                {/* <NumberInput mb={4} value={item.price} onChange={(value) => setItem({ ...item, price: value })}>
-                                    <NumberInputField placeholder="Price" />
-                                </NumberInput> */}
                             </FormControl>
 
                             <FormControl id="pic" isRequired>
                                 <FormLabel>Upload your Picture</FormLabel>
                                 <Input
+                                    ref={fileInput}
                                     type="file"
                                     p={1.5}
                                     accept="image/*"
@@ -144,7 +212,7 @@ const AddItem = () => {
                             </FormControl>
                             <Stack spacing={10}>
                                 <Button
-                                    onClick={handleAddItem}
+                                    onClick={SubmitItem}
                                     bg={'green.400'}
                                     color={'white'}
                                     _hover={{
@@ -157,49 +225,6 @@ const AddItem = () => {
                     </Box>
                 </Stack>
             </Flex>
-            {/* <Flex
-                minH={'80vh'}
-                align={'center'}
-                justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}
-            >
-                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6} >
-                    <Box
-                        rounded={'lg'}
-                        bg={useColorModeValue('white', 'gray.700')}
-                        border="1px solid"
-                        boxShadow="5px 10px 18px #888888"
-                        p={8}
-                        marginTop={6}
-                    >
-                        <Box p={5}>
-                            <Heading as="h2" size="xl" mb={4} align={"center"}>
-                                Add Item
-                            </Heading>
-                            <Input
-                                placeholder="Name of the Item"
-                                mb={4}
-                                value={item.name}
-                                onChange={(e) => setItem({ ...item, name: e.target.value })}
-                            />
-                            <Textarea
-                                placeholder="Description"
-                                mb={4}
-                                value={item.description}
-                                onChange={(e) => setItem({ ...item, description: e.target.value })}
-                            />
-
-                            <NumberInput mb={4} value={item.price} onChange={(value) => setItem({ ...item, price: value })}>
-                                <NumberInputField placeholder="Price" />
-                            </NumberInput>
-
-                            <Button colorScheme="green" onClick={handleAddItem} align={"center"}>
-                                Add Item
-                            </Button>
-                        </Box>
-                    </Box>
-                </Stack>
-            </Flex> */}
             <Footer />
         </>
     )

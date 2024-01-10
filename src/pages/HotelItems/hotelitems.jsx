@@ -30,58 +30,28 @@ import { useToast } from "@chakra-ui/react";
 import Header from '../../Header/Header';
 import Footer from '../../Footer/footer';
 import food from '../../food.png';
+import axios from "axios"
 import Pagination from "../Pagination/pagination"
+import { useNavigate } from 'react-router-dom';
 
 const HotelItems = () => {
 
-
+    const navigate = useNavigate();
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const user = userInfo ? userInfo.User : null;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const [picLoading, setPicLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const keys = ["name", "description"];
-    const initialCatalogItems = [
-        { id: 1, name: 'Groceries1', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 2, name: 'Pharmacy1', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 3, name: 'Favorite Dishes1', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 4, name: 'Groceries1', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 5, name: 'Pharmacy1', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 6, name: 'Favorite Dishes1', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 7, name: 'Groceries1', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 8, name: 'Pharmacy1', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 9, name: 'Favorite Dishes1', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 10, name: 'Groceries2', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 11, name: 'Pharmacy2', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 12, name: 'Favorite Dishes2', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 13, name: 'Groceries2', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 14, name: 'Pharmacy2', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 15, name: 'Favorite Dishes2', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 16, name: 'Groceries2', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 17, name: 'Pharmacy2', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 18, name: 'Favorite Dishes2', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 19, name: 'Groceries3', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 20, name: 'Pharmacy3', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 21, name: 'Favorite Dishes3', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 22, name: 'Groceries3', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 23, name: 'Pharmacy3', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 24, name: 'Favorite Dishes3', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 25, name: 'Groceries3', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 26, name: 'Pharmacy3', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 27, name: 'Favorite Dishes3', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 28, name: 'Groceries4', price: 20.0, description: "dummy1", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 29, name: 'Pharmacy4', price: 15.0, description: "dummy2", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 30, name: 'Favorite Dishes4', price: 25.0, description: "dummy3", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 31, name: 'Groceries4', price: 20.0, description: "dummy4", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 32, name: 'Pharmacy4', price: 15.0, description: "dummy5", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 33, name: 'Favorite Dishes4', price: 25.0, description: "dummy6", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 34, name: 'Groceries4', price: 20.0, description: "dummy7", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 35, name: 'Pharmacy4', price: 15.0, description: "dummy8", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-        { id: 36, name: 'Favorite Dishes4', price: 25.0, description: "dummy9", pic: "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg" },
-    ];
 
-    const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
+    const keys = ["name", "description"];
+    const [catalogItems, setCatalogItems] = useState([]);
+
+    useEffect(() => {
+        if (!user) navigate('/login')
+    }, [user])
 
     const fetchallitems = async () => {
         try {
@@ -91,16 +61,13 @@ const HotelItems = () => {
                 },
             };
 
-            // const { data } = await axios.post(
-            //     "http://localhost:5000/api/allitems",
-            //     {
-            //         // "emailId": id,
-            //     },
-            //     config
-            // );
+            const { data, status } = await axios.get(
+                "http://localhost:5000/api/items/getitems",
+                config
+            );
 
-            console.log("fetch")
-
+            if (status == 201)
+                setCatalogItems(data.items);
 
         } catch (error) {
 
@@ -156,22 +123,89 @@ const HotelItems = () => {
 
 
 
-    const handleUpdateItem = () => {
-        toast({
-            title: "Updated Successful",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-            position: "bottom",
-        });
+    const handleUpdateItem = async () => {
+        const answer = window.confirm('Do you want to Update?');
+        if (answer) {
+
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
+
+                const { data, status } = await axios.post(
+                    "http://localhost:5000/api/items/updateitem",
+                    {
+                        "_id": selectedItem._id,
+                        "name": selectedItem.name,
+                        "hotelId": user._id,
+                        "price": selectedItem.price,
+                        "imageLink": selectedItem.pic,
+                        "quantity": 1,
+                        "availabilityStatus": true,
+                        "description": selectedItem.description,
+                    },
+                    config
+                );
+
+                if (status == 200) {
+
+                    toast({
+                        title: "Item Updated Successful",
+                        status: "success",
+                        duration: 5000,
+                        isClosable: true,
+                        position: "bottom",
+                    });
+                    setTimeout(() => { fetchallitems() }, 200);
+                }
+
+            } catch (error) {
+                console.log("Error")
+            }
+        }
 
     }
 
-    const removeItem = (itemId) => {
-        const answer = window.confirm('Do you want to proceed?');
+    const SubmitupdateForm = () => {
+        setTimeout(() => { handleUpdateItem() }, 500);
+    }
+
+    const removeItem = async (itemId) => {
+        const answer = window.confirm('Do you want to Delete?');
         if (answer) {
-            const updatedItems = catalogItems.filter(item => item.id !== itemId);
-            setCatalogItems(updatedItems);
+
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
+
+                const { data, status } = await axios.post(
+                    "http://localhost:5000/api/items/deleteitem",
+                    {
+                        "itemId": itemId
+                    },
+                    config
+                );
+
+                if (status == 200) {
+
+                    toast({
+                        title: "Item Delete Successful",
+                        status: "success",
+                        duration: 5000,
+                        isClosable: true,
+                        position: "bottom",
+                    });
+                    setTimeout(() => { fetchallitems() }, 200);
+                }
+
+            } catch (error) {
+                console.log("Error")
+            }
         }
     };
 
@@ -191,7 +225,6 @@ const HotelItems = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
-
 
     return (
         <>
@@ -228,7 +261,7 @@ const HotelItems = () => {
                             <Box>
                                 <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4} width={"100%"}>
                                     {currentItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery))).map((item) => (
-                                        <GridItem key={item.id}>
+                                        <GridItem key={item._id}>
                                             <Box
                                                 _hover={{
                                                     bg: 'green.200',
@@ -245,7 +278,7 @@ const HotelItems = () => {
                                                             <Heading as="h3" size="lg" mb={2}>
                                                                 {item.name}
                                                             </Heading>
-                                                            <Image src={food} alt={item?.name} mb={4} boxSize={'150px'} />
+                                                            <Image src={item?.imageLink ? item?.imageLink : food} alt={item?.name} mb={4} boxSize={'150px'} />
                                                             <Text fontSize="xl" color="black">
                                                                 Price: {item?.price.toFixed(2)} Rs
                                                             </Text>
@@ -257,7 +290,7 @@ const HotelItems = () => {
                                                                 <Button
                                                                     mt={6}
                                                                     colorScheme="red"
-                                                                    onClick={() => removeItem(item?.id)}
+                                                                    onClick={() => removeItem(item?._id)}
                                                                 >
                                                                     Delete
                                                                 </Button>
@@ -340,7 +373,7 @@ const HotelItems = () => {
                             </FormControl>
                             <Stack spacing={10}>
                                 <Button
-                                    onClick={handleUpdateItem}
+                                    onClick={SubmitupdateForm}
                                     bg={'green.400'}
                                     color={'white'}
                                     _hover={{
