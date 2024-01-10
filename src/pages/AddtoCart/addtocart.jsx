@@ -47,6 +47,8 @@ const AddToCart = () => {
                 config
             );
 
+            console.log(data, "datadata")
+
             var amount1 = 0;
             for (let i = 0; i < data.items.length; i++) {
                 amount1 += (data.items[i].price) * (data.items[i].quantity)
@@ -140,6 +142,49 @@ const AddToCart = () => {
         }
     };
 
+    const Payment = async () => {
+
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+
+            const { data, status } = await axios.post(
+                "http://localhost:5000/api/orders/addOrder",
+                {
+                    "userId": user._id,
+                    "hotelId": hotelid,
+                    "cartItems": cartItems,
+                },
+                config
+            );
+
+            if (status == 201) {
+                toast({
+                    title: "Order Placed Successful",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+            }
+
+        } catch (error) {
+            toast({
+                title: "unable to Placed Order ",
+                description: error.response.data.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+        }
+    };
+
+
+
 
     useEffect(() => {
         GetAllItems()
@@ -232,7 +277,7 @@ const AddToCart = () => {
                                             <Text fontSize="lg">{amount}Rs</Text>
                                         </HStack>
                                         <Center >
-                                            <Button colorScheme="green" size="lg" fontSize="md" mt="4" width={500} onClick={() => { navigate(`/payment/${amount}`) }}>
+                                            <Button colorScheme="green" size="lg" fontSize="md" mt="4" width={500} onClick={Payment}>
                                                 Payment
                                             </Button>
                                         </Center>

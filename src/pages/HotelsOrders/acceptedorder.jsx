@@ -8,17 +8,18 @@ import {
     Th,
     Thead,
     Tr,
+    Button
 } from '@chakra-ui/react';
 
 import Header from '../../Header/Header';
 import Footer from '../../Footer/footer';
 import Pagination from '../Pagination/pagination';
-
+import axios from "axios"
 const AcceptedOrders = () => {
 
 
     const orders = [
-        { id: 1, name: 'John Doe', items: ['Item 1', 'Item 2'], status: 'Process...' },
+        { id: 1, name: 'John Doe', items: ['Item 1', 'Item 2'], status: 'Delivered' },
         { id: 2, name: 'Jane Doe', items: ['Item 3', 'Item 4'], status: 'Process...' },
         { id: 3, name: 'Jane Doe', items: ['Item 5', 'Item 6'], status: 'Process...' },
         { id: 4, name: 'John Doe', items: ['Item 1', 'Item 2'], status: 'Process...' },
@@ -55,12 +56,26 @@ const AcceptedOrders = () => {
         { id: 35, name: 'Jane Doe', items: ['Item 3', 'Item 4'], status: 'Process...' },
     ];
 
-    const handleAccept = (orderId) => {
-        console.log(`Order ${orderId} accepted`);
-    };
+    const UpdateStatus = async (orderId) => {
 
-    const handleReject = (orderId) => {
-        console.log(`Order ${orderId} rejected`);
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+
+            const { data } = await axios.post(
+                "http://localhost:5000/api/orders/deliveredOrder",
+                {
+                    "orderId": orderId,
+                },
+                config
+            );
+
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const [currentPage, setCurrentPage] = useState(0);
@@ -93,15 +108,25 @@ const AcceptedOrders = () => {
                                     <Th>Name</Th>
                                     <Th>Items</Th>
                                     <Th>Status</Th>
+                                    <Th>Status Update</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
                                 {currentOrders.map((order) => (
                                     <Tr key={order.id}>
-                                        <Td>{order.id}</Td>
-                                        <Td>{order.name}</Td>
-                                        <Td>{order.items.join(', ')}</Td>
-                                        <Td color="green">{order.status}</Td>
+                                        <Td color="black">{order.id}</Td>
+                                        <Td color="black">{order.name}</Td>
+                                        <Td color="black">{order.items.join(', ')}</Td>
+                                        <Td color="blue">{order.status}</Td>
+                                        <Td>
+                                            <Button
+                                                isDisabled={order.status == "Process..." ? false : true}
+                                                colorScheme="green"
+                                                onClick={() => UpdateStatus(order.id)}
+                                            >
+                                                Delivered Order
+                                            </Button>
+                                        </Td>
                                     </Tr>
                                 ))}
                             </Tbody>
@@ -117,7 +142,7 @@ const AcceptedOrders = () => {
                     </Box>
 
                 }
-            </Flex>
+            </Flex >
             <Footer />
         </>
     );

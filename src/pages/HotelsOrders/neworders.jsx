@@ -13,6 +13,7 @@ import {
 import Header from '../../Header/Header';
 import Footer from '../../Footer/footer';
 import Pagination from '../Pagination/pagination';
+import axios from "axios"
 
 const NewOrders = () => {
 
@@ -51,12 +52,46 @@ const NewOrders = () => {
     ];
 
 
-    const handleAccept = (orderId) => {
-        console.log(`Order ${orderId} accepted`);
+    const handleAccept = async (orderId) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+
+            const { data } = await axios.post(
+                "http://localhost:5000/api/orders/acceptOrder",
+                {
+                    "orderId": orderId,
+                },
+                config
+            );
+
+        } catch (error) {
+            console.log(error)
+        }
     };
 
-    const handleReject = (orderId) => {
-        console.log(`Order ${orderId} rejected`);
+    const handleReject = async (orderId) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+
+            const { data } = await axios.post(
+                "http://localhost:5000/api/orders/rejectOrder",
+                {
+                    "orderId": orderId,
+                },
+                config
+            );
+
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const [currentPage, setCurrentPage] = useState(0);
