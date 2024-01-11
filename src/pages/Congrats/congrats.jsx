@@ -65,7 +65,7 @@ const Congrats = () => {
                             <Text></Text>
                             <Text></Text>
                             <Text>We are Pleased to confirm your order no {OrderNo}.</Text>
-                            <Text>Thank you for shopping with CSD!</Text>
+                            <Text>Thank you for shopping with Food Delivery Service!</Text>
 
                             <Button fontSize="md" width={200} colorScheme="blue" mt={2} >
                                 Manage Your Order
