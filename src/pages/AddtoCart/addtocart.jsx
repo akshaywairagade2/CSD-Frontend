@@ -121,6 +121,7 @@ const AddToCart = () => {
     const removeItem = async (item) => {
         // alert("hello")
         try {
+            console.log(item)
             const config = {
                 headers: {
                     "Content-type": "application/json",
@@ -129,7 +130,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://localhost:5000/api/v1/cart/erase?itemID='${item}'&hotelID=${hotelid}`, {},
+                `http://localhost:5000/api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`, {},
                 config
             );
 
