@@ -82,7 +82,7 @@ const HomePageHotelOwner = () => {
                     <Box>
                         <SimpleGrid columns={[1, 2, 3]} gap={4} p={4}>
                             {currentHotelImages.map((image, index) => (
-                                <Image key={index} src={image} alt={`Hotel Image ${index + 1}`} />
+                                <Image key={index} src={image} alt={`Hotel Image ${index + 1}`} aspectRatio={3 / 2} objectFit={'contain'} />
                             ))}
                         </SimpleGrid>
                         {

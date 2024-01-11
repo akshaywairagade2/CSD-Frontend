@@ -68,14 +68,13 @@ const Catalog = () => {
                 },
             };
 
-            // const { data } = await axios.post(
-            //     "http://localhost:5000/api/allitems",
-            //     {
-            //         // "emailId": id, 
-            //     },
-            //     config
-            // );
+            const { data, status } = await axios.get(
+                "http://localhost:5000/api/items/getitems",
+                config
+            );
 
+            if (status == 201)
+                setCatalogItems(data.items);
 
         } catch (error) {
 
@@ -126,7 +125,7 @@ const Catalog = () => {
 
 
 
-    const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
+    const [catalogItems, setCatalogItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
 
@@ -189,12 +188,8 @@ const Catalog = () => {
                                                 p={4}
                                                 borderRadius="md"
                                                 boxShadow="md">
-                                                <Flex height="350px" overflowY="auto" >
-                                                    <Box
-
-                                                        width="350px"
-                                                    // maxH="350px"
-                                                    >
+                                                <Flex height="450px" overflowY="auto" maxW={"350px"}>
+                                                    <Box width="350px" >
                                                         <Box
                                                             onClick={() => {
                                                                 setSelectedItem(item);
@@ -206,7 +201,7 @@ const Catalog = () => {
                                                             <Heading as="h3" size="lg" mb={2}>
                                                                 {item.name}
                                                             </Heading>
-                                                            <Image src={food} alt={item?.name} mb={4} boxSize={'150px'} />
+                                                            <Image src={item?.imageLink ? item?.imageLink : food} alt={item?.name} mb={4} boxSize={'150px'} aspectRatio={3 / 2} objectFit={'contain'} width={"100%"} height={"100%"} />
                                                             <Text fontSize="xl" color="black">
                                                                 Price: {item?.price.toFixed(2)} Rs
                                                             </Text>

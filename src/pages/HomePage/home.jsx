@@ -9,7 +9,7 @@ const Home = () => {
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const user = userInfo ? userInfo.User : null
-    const role = 'hotelowner'
+    const role = user?.role;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Home = () => {
             <>
                 <Header />
                 {
-                    role == "hotelowner" && <HomePageHotelOwner />
+                    role == "hotel" && <HomePageHotelOwner />
                 }
                 {
                     role == "user" && <HomePageUser />

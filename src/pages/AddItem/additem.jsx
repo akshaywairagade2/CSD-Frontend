@@ -97,7 +97,7 @@ const AddItem = () => {
     };
 
     const SubmitItem = () => {
-        setTimeout(() => { handleAddItem() }, 500);
+        setTimeout(() => { handleAddItem() }, 1000);
     }
 
     const postDetails = (pics) => {
