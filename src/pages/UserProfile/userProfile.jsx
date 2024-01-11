@@ -168,7 +168,7 @@ const UserProfile = () => {
                                 <FormLabel>Description</FormLabel>
                                 <Textarea
                                     size="md"
-                                    placeholder="Enter Description of Hotel"
+                                    placeholder="Enter Description of User"
                                     value={userDescription}
                                     onChange={(e) => { setUserDescription(e.target.value) }}
                                 />
