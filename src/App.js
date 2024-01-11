@@ -18,6 +18,8 @@ import AcceptedOrders from './pages/HotelsOrders/acceptedorder';
 import RejectedOrders from './pages/HotelsOrders/rejectedorders';
 import UserOrders from './pages/UserOrders/userorders';
 import Congrats from './pages/Congrats/congrats';
+import HotelProfile from './pages/HotelProfile/hotelProfile';
+import UserProfile from './pages/UserProfile/userProfile';
 
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
         <Route path="/rejectedorders" element={<RejectedOrders />} />
         <Route path="/userorders" element={<UserOrders />} />
         <Route path="/congrats/:id" element={<Congrats />} />
+        <Route path="/hotelprofile/:id" element={<HotelProfile />} />
+        <Route path="/userprofile/:id" element={<UserProfile />} />
       </Routes>
     </BrowserRouter>
   );

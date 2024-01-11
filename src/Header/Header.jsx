@@ -194,17 +194,54 @@ const Header = () => {
                     {
                         (user && path != "verifymail") ?
                             <>
-                                {user && role == "user" && (
-                                    path != "/" &&
-                                    <IconButton
+
+                                {/* <IconButton
                                         aria-label="Add to Cart"
                                         icon={<AddIcon />}
                                         colorScheme="blue"
                                         size="sm"
                                         variant="outline"
                                         onClick={() => { navigate(`/addtocart`) }}
-                                    />
+                                    /> */}
+                                {
+                                    role == "hotel" &&
+                                    <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/hotelprofile/${user?._id}`) }}>
+                                        Profile
+                                    </Button>
+
+                                }
+                                {/* <IconButton icon={<Image
+                                        boxSize='40px'
+                                        src={logo}
+                                        alt='Logo'
+                                        borderRadius="50px"
+                                        onClick={() => { navigate(`/hotelprofile/${user?._id}`) }}
+                                    />} /> */}
+
+                                {
+                                    role == "user" &&
+                                    <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/userprofile/${user?._id}`) }}>
+                                        Profile
+                                    </Button>
+
+                                }
+                                {/* <IconButton icon={<Image
+                                        boxSize='40px'
+                                        src={logo}
+                                        alt='Logo'
+                                        borderRadius="50px"
+                                        onClick={() => { navigate(`/userprofile/${user?._id}`) }}
+                                    />} /> */}
+
+
+
+                                {user && role == "user" && (
+                                    path != "/" &&
+                                    <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/addtocart`) }}>
+                                        Cart
+                                    </Button>
                                 )}
+
                                 <Button colorScheme='blue' size='sm' variant='outline' onClick={logoutHandler}>
                                     Logout
                                 </Button>
@@ -219,7 +256,6 @@ const Header = () => {
                                     <Button colorScheme='blue' size='sm' variant='outline' onClick={() => navigate('/login')}>
                                         Login
                                     </Button>
-
                             )
                     }
                 </HStack>

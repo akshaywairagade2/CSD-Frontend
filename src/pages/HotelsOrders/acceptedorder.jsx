@@ -142,7 +142,7 @@ const AcceptedOrders = () => {
                     </Box>
 
                 }
-            </Flex >
+            </Flex>
             <Footer />
         </>
     );
