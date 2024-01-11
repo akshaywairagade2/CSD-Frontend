@@ -121,7 +121,7 @@ const AddToCart = () => {
     const removeItem = async (item) => {
         // alert("hello")
         try {
-            console.log(item)
+            // console.log(item)
             const config = {
                 headers: {
                     "Content-type": "application/json",
@@ -144,46 +144,112 @@ const AddToCart = () => {
     };
 
     const Payment = async () => {
+        const answer = window.confirm('Are you sure?');
+        if (answer) {
 
-        try {
-            const config = {
-                headers: {
-                    "Content-type": "application/json",
-                },
-            };
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
 
-            const { data, status } = await axios.post(
-                "http://localhost:5000/api/orders/addOrder",
-                {
-                    "userId": user._id,
-                    "hotelId": hotelid,
-                    "cartItems": cartItems,
-                },
-                config
-            );
+                const { data, status } = await axios.post(
+                    "http://localhost:5000/api/orders/addOrder",
+                    {
+                        "userId": user._id,
+                        "hotelId": hotelid,
+                        "cartItems": cartItems,
+                    },
+                    config
+                );
 
-            if (status == 201) {
+                if (status == 201) {
+                    toast({
+                        title: "Order Placed Successful",
+                        status: "success",
+                        duration: 5000,
+                        isClosable: true,
+                        position: "bottom",
+                    });
+                    DirectDeleteCart();
+                    navigate(`/congrats/${data?.order._id}`)
+                }
+
+            } catch (error) {
                 toast({
-                    title: "Order Placed Successful",
-                    status: "success",
+                    title: "unable to Placed Order ",
+                    description: error.response.data.message,
+                    status: "error",
                     duration: 5000,
                     isClosable: true,
                     position: "bottom",
                 });
             }
-
-        } catch (error) {
-            toast({
-                title: "unable to Placed Order ",
-                description: error.response.data.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
         }
     };
 
+
+    const DeleteCart = async () => {
+
+        const answer = window.confirm('Are you sure?');
+        if (answer) {
+
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": `Bearer ${userInfo?.Token['token']}`
+                    },
+                };
+
+                const { data, status } = await axios.delete(
+                    `http://localhost:5000/api/v1/cart/${hotelid}`,
+                    config
+                );
+
+                if (status == 202) {
+                    toast({
+                        title: "Cart Deleted Successful",
+                        status: "success",
+                        duration: 5000,
+                        isClosable: true,
+                        position: "bottom",
+                    });
+                    GetAllItems();
+                }
+
+            } catch (error) {
+                toast({
+                    title: "unable to Placed Order ",
+                    description: error.response.data.message,
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+            }
+        }
+    };
+
+    const DirectDeleteCart = async () => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${userInfo?.Token['token']}`
+                },
+            };
+
+            const { data, status } = await axios.delete(
+                `http://localhost:5000/api/v1/cart/${hotelid}`,
+                config
+            );
+
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
 
 
@@ -195,11 +261,7 @@ const AddToCart = () => {
     return (
         <>
             <Header />
-            <Flex
-                minH={'80vh'}
-                p={20}
-            >
-
+            <Flex minH={'80vh'} p={20}>
                 <Box width={"100%"} padding={30} align={'center'}
                     justify={'center'}>
                     {
@@ -277,11 +339,16 @@ const AddToCart = () => {
                                             <Text fontSize="lg" fontWeight="semibold">Total:</Text>
                                             <Text fontSize="lg">{amount}Rs</Text>
                                         </HStack>
-                                        <Center >
-                                            <Button colorScheme="green" size="lg" fontSize="md" mt="4" width={500} onClick={Payment}>
+                                        <Box>
+                                            <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={Payment}>
                                                 Payment
                                             </Button>
-                                        </Center>
+                                        </Box>
+                                        <Box>
+                                            <Button size="lg" fontSize="md" width={320} onClick={DeleteCart}>
+                                                Delete Cart
+                                            </Button>
+                                        </Box>
                                     </Stack>
                                 </Flex>
                             </Box>

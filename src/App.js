@@ -17,6 +17,7 @@ import NewOrders from './pages/HotelsOrders/neworders';
 import AcceptedOrders from './pages/HotelsOrders/acceptedorder';
 import RejectedOrders from './pages/HotelsOrders/rejectedorders';
 import UserOrders from './pages/UserOrders/userorders';
+import Congrats from './pages/Congrats/congrats';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/acceptedorders" element={<AcceptedOrders />} />
         <Route path="/rejectedorders" element={<RejectedOrders />} />
         <Route path="/userorders" element={<UserOrders />} />
+        <Route path="/congrats/:id" element={<Congrats />} />
       </Routes>
     </BrowserRouter>
   );

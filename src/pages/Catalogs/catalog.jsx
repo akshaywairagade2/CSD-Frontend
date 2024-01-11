@@ -33,7 +33,7 @@ const Catalog = () => {
 
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const params = useParams()
+    const params = useParams();
     var hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -88,7 +88,6 @@ const Catalog = () => {
 
 
     const AddtoCart = async (item) => {
-        console.log(hotelid, "hotelidhotelid")
 
         try {
             const config = {
