@@ -82,8 +82,6 @@ const UserProfile = () => {
     const handleUpdate = async () => {
 
         if (userName == "" || userDescription == "") {
-
-
             toast({
                 title: "Please Fill all fields",
                 status: "warning",
