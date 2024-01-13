@@ -289,7 +289,7 @@ const AddToCart = () => {
                                             width="120px"
                                             height="120px"
                                             fit="cover"
-                                            src={food}
+                                            src={item.imageLink}
                                             alt={item.name}
                                             draggable="false"
                                             loading="lazy"
