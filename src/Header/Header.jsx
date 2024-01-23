@@ -19,17 +19,18 @@ import {
     InputGroup,
     InputLeftElement,
     Image,
-    Badge
+    Badge,
+    Select
 } from '@chakra-ui/react'
 
-import { FaShoppingCart } from 'react-icons/fa';
-
+import { FaShoppingCart, FaUser, FaSignOutAlt, FaSignInAlt, FaHome, FaBell } from 'react-icons/fa';
 import ProfileModal from "./Profile/profilemodal"
-import { ChevronDownIcon, SearchIcon, AddIcon } from "@chakra-ui/icons";
 import logo from "../logo.png"
-import { addtocart } from "../addtocart.svg"
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
+import Clock from '../pages/Timer/timer';
+
+
 
 const Header = () => {
 
@@ -45,6 +46,9 @@ const Header = () => {
     const isAdmin = user?.isAdmin;
     const role = user?.role;
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
+    const hotelname = JSON.parse(localStorage.getItem('hotelname'));
+
+
 
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");
@@ -55,6 +59,12 @@ const Header = () => {
     useEffect(() => {
         if (path == "verifymail") localStorage.removeItem("userInfo");
     }, [])
+
+    useEffect(() => {
+        // if (path == "verifymail") localStorage.removeItem("userInfo");
+    }, [hotelid])
+
+
 
     const numberOfItemsInCart = 3;
 
@@ -108,7 +118,7 @@ const Header = () => {
 
                         {
                             (user && path == "/addtocart" && hotelid != null) &&
-                            <Box as="a" href={`/catalog/${hotelid}`}
+                            <Box as="a" href={`/catalog/${hotelid}/${hotelname}`}
                                 // color={path == "/addtocart" ? "green" : null}
                                 _hover={{
                                     color: "white",
@@ -178,8 +188,9 @@ const Header = () => {
                                 Add Item
                             </Box>
                         }
+
                         {
-                            (role != "hotel" && user) &&
+                            (role == "user" && user) &&
                             <Box as="a" href={'/userorders'}
                                 color={path == "/userorders" ? "green" : null}
                                 _hover={{
@@ -192,14 +203,16 @@ const Header = () => {
                                 Orders
                             </Box>
                         }
+
                     </Stack>
                 </HStack>
 
-                <HStack alignItems={'end'}>
+
+                <HStack alignItems={'end'} >
+                    <Clock />
                     {
                         (user && path != "verifymail") ?
                             <>
-
                                 {/* <IconButton
                                         aria-label="Add to Cart"
                                         icon={<AddIcon />}
@@ -211,7 +224,7 @@ const Header = () => {
                                 {
                                     role == "hotel" &&
                                     <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/hotelprofile/${user?._id}`) }}>
-                                        Profile
+                                        <FaUser />
                                     </Button>
 
                                 }
@@ -223,13 +236,6 @@ const Header = () => {
                                         onClick={() => { navigate(`/hotelprofile/${user?._id}`) }}
                                     />} /> */}
 
-                                {
-                                    role == "user" &&
-                                    <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/userprofile/${user?._id}`) }}>
-                                        Profile
-                                    </Button>
-
-                                }
                                 {/* <IconButton icon={<Image
                                         boxSize='40px'
                                         src={logo}
@@ -241,7 +247,7 @@ const Header = () => {
 
 
                                 {user && role == "user" && (
-                                    path != "/" &&
+                                    (path != "/" && hotelid) &&
                                     <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/addtocart`) }}>
                                         <FaShoppingCart />
                                         {numberOfItemsInCart > 0 && (
@@ -259,9 +265,36 @@ const Header = () => {
                                     </Button>
                                 )}
 
+                                {
+                                    role == "user" &&
+                                    <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/notification`) }}>
+                                        <FaBell />
+                                        {numberOfItemsInCart > 0 && (
+                                            <Badge
+                                                colorScheme="red"
+                                                borderRadius="50%"
+                                                ml="2"
+                                                position="absolute"
+                                                top="-5px"
+                                                right="-5px"
+                                            >
+                                                {numberOfItemsInCart}
+                                            </Badge>
+                                        )}
+                                    </Button>
+
+                                }
+
+                                {
+                                    role == "user" &&
+                                    <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/userprofile/${user?._id}`) }}>
+                                        <FaUser />
+                                    </Button>
+
+                                }
 
                                 <Button colorScheme='blue' size='sm' variant='outline' onClick={logoutHandler}>
-                                    Logout
+                                    <FaSignOutAlt />
                                 </Button>
                             </>
 
@@ -272,14 +305,15 @@ const Header = () => {
                                     :
 
                                     <Button colorScheme='blue' size='sm' variant='outline' onClick={() => navigate('/login')}>
-                                        Login
+                                        <FaSignInAlt />
                                     </Button>
                             )
                     }
+
                 </HStack>
 
-            </Flex >
-        </Box >
+            </Flex>
+        </Box>
 
     )
 }

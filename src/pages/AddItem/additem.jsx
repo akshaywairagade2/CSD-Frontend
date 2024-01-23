@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import {
     Flex, Box, Heading, Input, Textarea, NumberInput, NumberInputField, Button, VStack, FormControl, FormLabel, InputGroup, InputRightElement, useColorModeValue, Stack, Text, Link
 } from '@chakra-ui/react'
-import Header from "../../Header/Header";
+import Header from "../../Header/header";
 import Footer from "../../Footer/footer";
-
+import FoodBackgroundImage from '../../foodbackgroundimage.jpg';
 const AddItem = () => {
 
     const fileInput = useRef(null);
@@ -20,6 +20,7 @@ const AddItem = () => {
         description: '',
         price: 0,
         photo: null,
+        rating: 0
     });
 
 
@@ -30,7 +31,18 @@ const AddItem = () => {
 
     const handleAddItem = async () => {
 
-        if (item.name === '' || item.description === '' || item.price === 0 || item.photo === null) {
+        if (item.rating > 5 || item.rating < 1) {
+            toast({
+                title: "Rating Should be between 1 and 5 (both included)",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+            return;
+        }
+
+        if (item.name === '' || item.description === '' || item.price === 0 || item.photo === null || item.rating == 0) {
             toast({
                 title: "Please Fill all fields",
                 status: "warning",
@@ -58,7 +70,7 @@ const AddItem = () => {
                     "quantity": 1,
                     "availabilityStatus": true,
                     "description": item.description,
-                    "rating": 4,
+                    "rating": item.rating,
                     "reviews": ["reviews"]
                 },
                 config
@@ -71,6 +83,7 @@ const AddItem = () => {
                     description: '',
                     price: 0,
                     photo: null,
+                    rating: 0
                 })
                 toast({
                     title: "Item Added Successful",
@@ -151,27 +164,40 @@ const AddItem = () => {
         <>
             <Header />
             <Flex
-                minH={'80vh'}
-                align={'center'}
-                justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}
-                padding={9}
+                p={14}
+                style={{
+                    backgroundImage: `url(${FoodBackgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                }}
+                minHeight='100vh'
+                color='white'
+                align='center'
+                justify='center'
+            // minH={'80vh'}
+            // align={'center'}
+            // justify={'center'}
+            // // bg={useColorModeValue('gray.50', 'gray.800')}
+            // padding={9}
+            // bg="green.400"
             >
                 <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6} width="100%">
                     <Stack align={'center'}>
-                        <Heading fontSize={'5xl'}>Add New Item </Heading>
+                        <Text fontSize={"50px"} color="white">Add New Item </Text>
                     </Stack>
                     <Box
                         rounded={'lg'}
-                        bg={useColorModeValue('white', 'gray.700')}
+                        // bg={useColorModeValue('white', 'gray.700')}
                         border="1px solid"
                         boxShadow="5px 10px 18px #888888"
-                        p={8}>
+                        p={8}
+                        bg="gray.600">
                         <Stack spacing={4}>
 
                             <FormControl id="name" isRequired>
                                 <FormLabel>Name of Item</FormLabel>
                                 <Input
+                                    color="white"
                                     type="text"
                                     placeholder="Name of Item"
                                     value={item.name}
@@ -182,6 +208,7 @@ const AddItem = () => {
                             <FormControl id="description" isRequired>
                                 <FormLabel>Description</FormLabel>
                                 <Textarea
+                                    color="white"
                                     placeholder="Description"
                                     mb={4}
                                     value={item.description}
@@ -192,17 +219,28 @@ const AddItem = () => {
                             <FormControl id="price" isRequired>
                                 <FormLabel>Price</FormLabel>
                                 <Input
-
+                                    color="white"
                                     type="number"
                                     placeholder="Price"
                                     value={item.price}
                                     onChange={(e) => setItem({ ...item, price: e.target.value })}
                                 />
                             </FormControl>
+                            <FormControl id="rating" isRequired>
+                                <FormLabel>Rating</FormLabel>
+                                <Input
+                                    color="white"
+                                    type="number"
+                                    placeholder="Rating"
+                                    value={item.rating}
+                                    onChange={(e) => setItem({ ...item, rating: e.target.value })}
+                                />
+                            </FormControl>
 
                             <FormControl id="pic" isRequired>
                                 <FormLabel>Upload your Picture</FormLabel>
                                 <Input
+                                    color="white"
                                     ref={fileInput}
                                     type="file"
                                     p={1.5}

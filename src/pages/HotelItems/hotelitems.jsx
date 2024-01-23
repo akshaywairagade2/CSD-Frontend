@@ -23,11 +23,12 @@ import {
     Stack,
     FormControl,
     FormLabel,
+    Badge,
 } from '@chakra-ui/react';
-
+import { StarIcon } from '@chakra-ui/icons';
 import { SearchIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/react";
-import Header from '../../Header/Header';
+import Header from '../../Header/header';
 import Footer from '../../Footer/footer';
 import food from '../../food.png';
 import axios from "axios"
@@ -127,6 +128,28 @@ const HotelItems = () => {
         const answer = window.confirm('Do you want to Update?');
         if (answer) {
 
+            if (selectedItem.rating > 5 || selectedItem.rating < 1) {
+                toast({
+                    title: "Rating Should be between 1 and 5 (both included)",
+                    status: "warning",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+                return;
+            }
+
+            if (selectedItem.name === '' || selectedItem.description === '' || selectedItem.price === 0 || selectedItem.photo === null || selectedItem.rating == 0) {
+                toast({
+                    title: "Please Fill all fields",
+                    status: "warning",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+                return;
+            }
+
             try {
                 const config = {
                     headers: {
@@ -145,6 +168,7 @@ const HotelItems = () => {
                         "quantity": 1,
                         "availabilityStatus": true,
                         "description": selectedItem.description,
+                        "rating": selectedItem.rating
                     },
                     config
                 );
@@ -233,13 +257,14 @@ const HotelItems = () => {
                 minH={'80vh'}
                 align={'left'}
                 justify={'center'}
+                bg="gray"
             >
                 <Box p={20}>
 
 
-                    <Heading as="h2" size="xl" mb={5} align={'center'} color={"green.300"} >
+                    <Text fontSize={"50px"} mb={5} align={'center'} color={"white"} >
                         Items
-                    </Heading>
+                    </Text>
 
 
                     <InputGroup   >
@@ -247,7 +272,8 @@ const HotelItems = () => {
                             <SearchIcon color='gray.300' />
                         </InputLeftElement>
                         <Input
-                            width="1200px"
+                            color="white"
+                            width="1190px"
                             placeholder="Search items..."
                             mb={4}
                             value={searchQuery}
@@ -255,7 +281,119 @@ const HotelItems = () => {
                             borderColor={"black"}
                         />
                     </InputGroup>
+
                     {
+                        catalogItems.length ?
+                            <Box>
+
+                                <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4}>
+                                    {currentItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery))).map((item) => (
+                                        <GridItem key={item._id} bg="white" maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ bg: 'green.400', }}>
+                                            <Box>
+                                                <Box>
+                                                    {/* <Image src={item?.imageLink ? item?.imageLink : food} alt={item?.name} mb={4} boxSize={'80%'} aspectRatio={3 / 2} objectFit={'cover'} p={2} ml="25%" height={"100%"} /> */}
+                                                    <Image src={item?.imageLink ? item?.imageLink : food} alt={item?.name} mb={4} boxSize={'80%'} ml={"10%"} p={2} aspectRatio={3 / 2} objectFit={'cover'} height={"100%"} />
+
+                                                    <Box p='4'>
+                                                        <Box display='flex' alignItems='baseline'>
+                                                            <Badge borderRadius='10px' px='2' bg='green.600'>
+                                                                <Text color="white" p={"2px"}>{item?.rating}★</Text>
+                                                            </Badge>
+                                                            <Box
+                                                                width="70%"
+                                                                color='black'
+                                                                fontWeight='semibold'
+                                                                letterSpacing='wide'
+                                                                fontSize='xs'
+                                                                textTransform='uppercase'
+                                                                ml='2'
+                                                            >
+                                                                {item?.name}
+                                                            </Box>
+
+                                                            {/* <Box> */}
+                                                            <Box color='black' fontWeight='semibold' width="40%" fontSize='sm'>
+                                                                ₹{item?.price} for one
+                                                            </Box>
+                                                            {/* </Box> */}
+                                                        </Box>
+
+
+
+                                                        <Box
+                                                            mt='1'
+                                                            fontWeight='semibold'
+                                                            as='h4'
+                                                            lineHeight='tight'
+                                                            noOfLines={2}
+                                                        >
+                                                            {item?.description}
+                                                        </Box>
+
+
+                                                        <Box display='flex' mt='2' alignItems='center'>
+                                                            {/* {Array(5)
+                                                                .fill('')
+                                                                .map((_, i) => (
+                                                                    <StarIcon
+                                                                        key={i}
+                                                                        color={i < item?.rating ? 'teal.500' : 'gray.300'}
+                                                                    />
+                                                                ))} */}
+                                                            {
+                                                                item?.reviews.length > 0 &&
+                                                                <Box as='span' ml='2' color='gray.600' fontSize='sm'>
+                                                                    {item?.reviews.length} reviews
+                                                                </Box>
+                                                            }
+                                                        </Box>
+
+                                                        <Flex justify={"space-between"}>
+                                                            <Box>
+                                                                <Button
+                                                                    mt={5}
+                                                                    colorScheme="red"
+                                                                    onClick={() => removeItem(item?._id)}
+                                                                >
+                                                                    Delete
+                                                                </Button>
+                                                            </Box>
+                                                            <Box>
+                                                                <Button
+                                                                    mt={5}
+                                                                    mr={2}
+                                                                    colorScheme="green"
+                                                                    onClick={() => {
+                                                                        setSelectedItem(item);
+                                                                        onOpen();
+                                                                    }}
+                                                                >
+                                                                    Update
+                                                                </Button>
+                                                            </Box>
+                                                        </Flex>
+                                                    </Box>
+                                                </Box>
+                                            </Box>
+                                            {/* </Box> */}
+                                        </GridItem>
+                                    ))}
+                                </Grid>
+
+                                {
+                                    (catalogItems.length > 6) &&
+                                    <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
+                                }
+                            </Box>
+                            :
+                            <Box align={'center'} color={"red"}  >
+                                -- No Items --
+                            </Box>
+                    }
+
+                    {/* ============================================================================================================================================================================== */}
+
+                    {/* {
                         catalogItems.length > 0 ?
 
                             <Box>
@@ -271,39 +409,60 @@ const HotelItems = () => {
                                                 p={4}
                                                 borderRadius="md"
                                                 boxShadow="md">
-                                                <Flex height="450px" overflowY="auto" maxW={"350px"}>
+                                                <Flex height="410px" overflowY="auto" maxW={"350px"}>
                                                     <Box width="350px" >
                                                         <Box direction="column" alignItems="center" textAlign="center" >
 
                                                             <Heading as="h3" size="lg" mb={2}>
                                                                 {item.name}
                                                             </Heading>
-                                                            <Image src={item?.imageLink ? item?.imageLink : food} alt={item?.name} mb={4} boxSize={'150px'} aspectRatio={3 / 2} objectFit={'contain'} width={"100%"} height={"100%"} />
+                                                            <Box
+                                                                w="200px"
+                                                                h="200px"
+                                                                borderRadius="full"
+                                                                overflow="hidden"
+                                                                // bg="green"
+                                                                color="white"
+                                                                display="flex"
+                                                                alignItems="center"
+                                                                justifyContent="center"
+                                                                ml={"20%"}
+                                                                position="relative"
+                                                            >
+                                                                <Image src={item?.imageLink ? item?.imageLink : food} alt={item?.name} mb={4} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
+                                                            </Box>
                                                             <Text fontSize="xl" color="black">
                                                                 Price: {item?.price.toFixed(2)} Rs
+                                                            </Text>
+                                                            <Text fontSize="xl" color="black">
+                                                                Rating: {item?.rating}
                                                             </Text>
                                                             <Text fontSize="xl" color="black" mb={4} >
                                                                 Description: {item?.description}
                                                             </Text>
                                                             <Flex justify={"space-between"}>
-
-                                                                <Button
-                                                                    mt={6}
-                                                                    colorScheme="red"
-                                                                    onClick={() => removeItem(item?._id)}
-                                                                >
-                                                                    Delete
-                                                                </Button>
-                                                                <Button
-                                                                    mt={6}
-                                                                    colorScheme="green"
-                                                                    onClick={() => {
-                                                                        setSelectedItem(item);
-                                                                        onOpen();
-                                                                    }}
-                                                                >
-                                                                    Update
-                                                                </Button>
+                                                                <Box>
+                                                                    <Button
+                                                                        mt={5}
+                                                                        colorScheme="red"
+                                                                        onClick={() => removeItem(item?._id)}
+                                                                    >
+                                                                        Delete
+                                                                    </Button>
+                                                                </Box>
+                                                                <Box>
+                                                                    <Button
+                                                                        mt={5}
+                                                                        mr={2}
+                                                                        colorScheme="green"
+                                                                        onClick={() => {
+                                                                            setSelectedItem(item);
+                                                                            onOpen();
+                                                                        }}
+                                                                    >
+                                                                        Update
+                                                                    </Button>
+                                                                </Box>
                                                             </Flex>
                                                         </Box>
                                                     </Box>
@@ -320,21 +479,25 @@ const HotelItems = () => {
                             <Box align={'center'} color={"red"}  >
                                 -- No Items --
                             </Box>
-                    }
+                    } */}
+
+                    {/* ============================================================================================================================================================================== */}
+
                 </Box>
             </Flex>
 
             <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
                 <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader align={"center"} fontSize={40} fontWeight="bold" >{selectedItem?.name}</ModalHeader>
+                <ModalContent bg='gray'>
+                    <ModalHeader align={"center"} fontSize={40} fontWeight="bold" color="white">{selectedItem?.name}</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>
-                        <Stack spacing={4}>
+                    <ModalBody >
+                        <Stack spacing={4} >
 
                             <FormControl id="name" isRequired>
                                 <FormLabel>Name of Item</FormLabel>
                                 <Input
+                                    color="white"
                                     type="text"
                                     placeholder="Name of Item"
                                     value={selectedItem?.name}
@@ -345,6 +508,7 @@ const HotelItems = () => {
                             <FormControl id="description" isRequired>
                                 <FormLabel>Description</FormLabel>
                                 <Textarea
+                                    color="white"
                                     placeholder="Description"
                                     mb={4}
                                     value={selectedItem?.description}
@@ -355,6 +519,7 @@ const HotelItems = () => {
                             <FormControl id="price" isRequired>
                                 <FormLabel>Price</FormLabel>
                                 <Input
+                                    color="white"
                                     type="number"
                                     placeholder="Price"
                                     value={selectedItem?.price}
@@ -362,9 +527,21 @@ const HotelItems = () => {
                                 />
                             </FormControl>
 
+                            <FormControl id="rating" isRequired>
+                                <FormLabel>Rating</FormLabel>
+                                <Input
+                                    color="white"
+                                    type="number"
+                                    placeholder="Rating"
+                                    value={selectedItem?.rating}
+                                    onChange={(e) => setSelectedItem({ ...selectedItem, rating: e.target.value })}
+                                />
+                            </FormControl>
+
                             <FormControl id="pic" isRequired>
                                 <FormLabel>Upload your Picture</FormLabel>
                                 <Input
+                                    color="white"
                                     type="file"
                                     p={1.5}
                                     accept="image/*"

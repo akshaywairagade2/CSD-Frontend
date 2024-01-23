@@ -1,9 +1,10 @@
 import react, { useState, useEffect } from "react"
-import Header from "../../Header/Header";
+import Header from "../../Header/header";
 import Footer from "../../Footer/footer";
 import HomePageHotelOwner from "./homepageHotelowner";
 import HomePageUser from "./homepageUser";
 import { useNavigate } from 'react-router-dom';
+import HomeDetails from "./homedetails";
 
 const Home = () => {
 
@@ -12,21 +13,24 @@ const Home = () => {
     const role = user?.role;
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!userInfo) {
-            navigate("/login")
-        }
-    })
+    // useEffect(() => {
+    //     if (!userInfo) {
+    //         navigate("/login")
+    //     }
+    // })
 
     return (
         <>
             <>
                 <Header />
                 {
-                    role == "hotel" && <HomePageHotelOwner />
+                    (user == null) && <HomeDetails />
                 }
                 {
-                    role == "user" && <HomePageUser />
+                    (user && role == "hotel") && <HomePageHotelOwner />
+                }
+                {
+                    (user && role == "user") && <HomePageUser />
                 }
                 <Footer />
             </>

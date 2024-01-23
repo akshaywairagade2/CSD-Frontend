@@ -8,26 +8,14 @@ import {
     Box,
     FormControl,
     FormLabel,
-    Checkbox,
     Stack,
     Button,
-    Heading,
     Text,
-    Link,
     useColorModeValue,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    IconButton,
 } from '@chakra-ui/react'
 import Footer from "../Footer/footer";
-import Header from "../Header/Header";
-
+import Header from "../Header/header";
+import FoodBackgroundImage from '../foodbackgroundimage.jpg';
 
 const ResetPassword = () => {
 
@@ -56,6 +44,19 @@ const ResetPassword = () => {
 
 
     const handleSubmit = async () => {
+
+        if (password.length < 6) {
+            toast({
+                title: "password should be minimum 6 characters",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+
+            return;
+        }
+
         if (!password || !confirmpassword) {
             toast({
                 title: "Please Enter a password",
@@ -126,13 +127,24 @@ const ResetPassword = () => {
         <>
             <Header />
             <Flex
-                minH={'80vh'}
-                align={'center'}
-                justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
+                style={{
+                    backgroundImage: `url(${FoodBackgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                }}
+                minHeight='100vh'
+                color='white'
+                align='center'
+                justify='center'
+            // minH={'80vh'}
+            // align={'center'}
+            // justify={'center'}
+            // // bg={useColorModeValue('gray.50', 'gray.800')}
+            // bg="gray"
+            >
                 <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                     <Stack align={'center'}>
-                        <Heading fontSize={'4xl'}>Reset Password</Heading>
+                        <Text fontSize={'50px'} color="white" >Reset Password</Text>
                     </Stack>
                     <Box
                         rounded={'lg'}
@@ -146,9 +158,10 @@ const ResetPassword = () => {
 
 
                             <FormControl id="password" isRequired>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel color="black">Password</FormLabel>
                                 <InputGroup size="md">
                                     <Input
+                                        color="black"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         type={showpassword ? "text" : "password"}
@@ -162,9 +175,10 @@ const ResetPassword = () => {
                                 </InputGroup>
                             </FormControl>
                             <FormControl id="password" isRequired>
-                                <FormLabel>Confirm Password</FormLabel>
+                                <FormLabel color="black">Confirm Password</FormLabel>
                                 <InputGroup size="md">
                                     <Input
+                                        color="black"
                                         value={confirmpassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         type={showconfirmpassword ? "text" : "password"}

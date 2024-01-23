@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from "react"
-import Header from "../../Header/Header";
+import Header from "../../Header/header";
 import Footer from "../../Footer/footer";
 import { useNavigate } from 'react-router-dom';
 import {
@@ -13,11 +13,15 @@ import {
     Heading,
     Textarea,
     Button,
-    Text,
+    Image,
+    Tooltip,
+    Text
 } from '@chakra-ui/react'
 import { useToast } from "@chakra-ui/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import profile from "../../profile.png";
+import FoodBackgroundImage from '../../foodbackgroundimage.jpg';
 
 const HotelProfile = () => {
 
@@ -43,7 +47,6 @@ const HotelProfile = () => {
         const updatedFiles = selectedFiles.filter((_, index) => index !== indexToDelete);
         setSelectedFiles(updatedFiles);
     };
-
 
 
     const postDetails = (pics) => {
@@ -120,6 +123,8 @@ const HotelProfile = () => {
             //     config
             // );
 
+            setEdit(false);
+
         } catch (error) {
             toast({
                 title: "Unable to Update Profile",
@@ -132,60 +137,225 @@ const HotelProfile = () => {
         }
     };
 
+
+    const [flag, setFlag] = useState(false);
+    const [edit, setEdit] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(profile);
+    const [selectedNewImage, setSelectedNewImage] = useState(null);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+
+        if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
+            setSelectedNewImage(URL.createObjectURL(file));
+        } else {
+            toast({
+                title: "Invalid Image Format",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+        }
+    };
+
+    const ToggleButton = (e) => {
+        e.preventDefault();
+        setFlag(true)
+    }
+
+
+
+    // const handleUpdateImage = (e) => {
+    //     e.preventDefault();
+    //     alert("Uploaded Successfully");
+    //     setSelectedImage(selectedNewImage);
+    //     setFlag(false);
+    // }
+    const handleUpdateImage = (e) => {
+        e.preventDefault();
+        if (selectedNewImage) {
+            toast({
+                title: "Image Uploaded Successfully",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+            setSelectedImage(selectedNewImage);
+            setFlag(false);
+        } else {
+            toast({
+                title: "Please select an image",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+        }
+    };
+
+    const handleDeleteImage = (e) => {
+        e.preventDefault();
+        setFlag(false);
+    }
+
+    const handleEdit = (e) => {
+        e.preventDefault();
+        setEdit(true);
+    }
+
     return (
         <>
             <Header />
             <Flex
-                minH={'80vh'}
-                align={'left'}
-                justify={'center'}
-                padding={10}
-                width={"100%"}
-
+                style={{
+                    backgroundImage: `url(${FoodBackgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                }}
+                minHeight='100vh'
+                color='white'
+                align='center'
+                justify='center'
+            // minH={'80vh'}
+            // align={'left'}
+            // justify={'center'}
+            // padding={10}
+            // width={"100%"}
+            // bg="green.400"
             >
                 <Stack spacing={8} mx={'auto'} width={'50%'} py={12} px={6} >
                     <Stack align={'center'}>
-                        <Heading fontSize={'60px'}>Hotel Details</Heading>
+                        <Text fontSize={'60px'} color="white">Profile</Text>
                     </Stack>
                     <Box
                         rounded={'lg'}
-                        bg={useColorModeValue('white', 'gray.700')}
+                        // bg={useColorModeValue('white', 'gray.700')}
                         border="1px solid"
                         boxShadow="5px 10px 18px #888888"
                         p={8}
+                        // bg="gray"
+                        bg="rgba(0, 0, 0, 0.8)"
                     >
+
+                        <Box
+                            w="200px"
+                            h="200px"
+                            borderRadius="full"
+                            overflow="hidden"
+                            bg="green"
+                            color="white"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            ml={"35%"}
+                            position="relative"
+                            boxShadow="5px 1px 25px black"
+                            _hover={{
+                                cursor: "pointer",
+                                transform: useColorModeValue('scale(1.1)', 'scale(1.1)')
+                            }}
+
+                        >
+                            <Image
+                                src={selectedImage}
+                                alt="User Image"
+                                objectFit="cover"
+                                boxSize="100%"
+                            />
+                            {!flag && (
+                                <Tooltip label="update Image" placement="bottom">
+                                    <FontAwesomeIcon
+                                        icon={faTrash}
+                                        color="black"
+                                        style={{
+                                            position: 'absolute',
+                                            bottom: "0%",
+                                            cursor: 'pointer',
+
+                                        }}
+                                        onClick={ToggleButton}
+                                    />
+                                </Tooltip>
+                            )}
+                        </Box>
+                        {flag && (
+                            <Flex width={"100%"} justify={"center"}>
+                                <Box>
+                                    {(selectedNewImage && flag) &&
+                                        <Button mt={2} mr={"10%"} onClick={handleUpdateImage} colorScheme="blue" width={"100%"} isDisabled={!selectedNewImage}>
+                                            Upload
+                                        </Button>
+                                    }
+                                    {(!selectedNewImage && flag) && (
+                                        <Tooltip label="Select an Image" placement="bottom">
+                                            <Button mt={2} mr={"10%"} onClick={handleUpdateImage} colorScheme="blue" width={"100%"} isDisabled={!selectedNewImage}>
+                                                Upload
+                                            </Button>
+                                        </Tooltip>
+                                    )}
+                                </Box>
+                                <Box>
+                                    <Button mt={2} ml={"10%"} onClick={handleDeleteImage} colorScheme="red" width={"100%"}>
+                                        Delete
+                                    </Button>
+                                </Box>
+                            </Flex>
+                        )}
+
                         <Stack spacing={4} align={"center"}>
-                            <FormControl id="name" isRequired>
+                            {
+                                flag &&
+                                <FormControl id="image" isRequired>
+                                    <FormLabel>Upload Profile Image</FormLabel>
+                                    <Input
+                                        color="white"
+                                        p={1.5}
+                                        type="file"
+                                        accept=".jpg, .jpeg, .png"
+                                        onChange={handleImageChange}
+                                    />
+                                </FormControl>
+                            }
+
+                            <FormControl id="name" isRequired={edit}>
                                 <FormLabel>Name of Hotel</FormLabel>
                                 <Input
+                                    color="white"
                                     type="text"
                                     placeholder="Enter Name of Hotel"
                                     value={hotelName}
                                     onChange={(e) => { setHotelName(e.target.value) }}
+                                    readOnly={!edit}
                                 />
                             </FormControl>
 
-                            <FormControl id="rating" isRequired>
+                            <FormControl id="rating" isRequired={edit}>
                                 <FormLabel>Rating of Hotel</FormLabel>
                                 <Input
+                                    color="white"
                                     type="number"
                                     placeholder="Enter Rating of Hotel"
                                     value={hotelRating}
                                     onChange={(e) => { setHotelRating(e.target.value) }}
+                                    readOnly={!edit}
                                 />
                             </FormControl>
 
-                            <FormControl id="description" isRequired>
+                            <FormControl id="description" isRequired={edit}>
                                 <FormLabel>Description</FormLabel>
                                 <Textarea
+                                    color="white"
                                     size="md"
                                     placeholder="Enter Description of Hotel"
                                     value={hotelDescription}
                                     onChange={(e) => { setHotelDescription(e.target.value) }}
+                                    readOnly={!edit}
                                 />
                             </FormControl>
 
-                            <FormControl id="uploadimage" isRequired>
+                            <FormControl id="uploadimage" isRequired={edit}>
                                 <FormLabel>Upload Images</FormLabel>
                                 <Input
                                     p={1.5}
@@ -193,29 +363,43 @@ const HotelProfile = () => {
                                     multiple
                                     accept=".jpg, .jpeg, .png, .pdf"
                                     onChange={handleFileChange}
+                                    isDisabled={!edit}
+                                    color="white"
                                 />
                                 {selectedFiles.length > 0 && (
                                     <Box mt={2}>
-                                        <Text fontWeight={"bold"}>Uploaded Files:</Text>
+                                        <Text fontWeight={"bold"} >Uploaded Files:</Text>
                                         <ul>
                                             {Array.from(selectedFiles).map((file, index) => (
                                                 <Flex p={2}>
                                                     <li key={index}> {file.slice(0, 20)} ....</li>
-                                                    <Button ml={2} height={"30px"} onClick={() => { handleDelete(index) }}> <FontAwesomeIcon icon={faTrash} /></Button>
+                                                    {
+                                                        edit &&
+                                                        <Button ml={2} height={"30px"} onClick={() => { handleDelete(index) }}> <FontAwesomeIcon icon={faTrash} /></Button>
+                                                    }
+
                                                 </Flex>
                                             ))}
                                         </ul>
                                     </Box>
                                 )}
                             </FormControl>
-                            <Button mt={2} onClick={handleUpdate} colorScheme="blue" width={"50%"} >
-                                Update
-                            </Button>
+                            {
+                                !edit &&
+                                <Button mt={2} onClick={handleEdit} width={"50%"} >
+                                    Edit Profile
+                                </Button>
+                            }
+                            {
+                                edit &&
+                                <Button mt={2} onClick={handleUpdate} colorScheme="blue" width={"50%"} >
+                                    Save
+                                </Button>
+                            }
                         </Stack>
                     </Box>
                 </Stack>
             </Flex>
-
             <Footer />
         </>
     )

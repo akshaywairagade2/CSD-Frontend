@@ -16,13 +16,13 @@ import {
     useColorModeValue,
     Image
 } from '@chakra-ui/react'
-
+import FoodBackgroundImage from '../foodbackgroundimage.jpg';
 import React from 'react'
 import googleImage from '../assets/googleImage.jpg';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { signup, signupGoogle } from "../redux/actions/auth";
-import Header from "../Header/Header";
+import Header from "../Header/header";
 import Footer from "../Footer/footer";
 
 
@@ -114,6 +114,34 @@ const SignUp = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
+        const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,8}$/
+
+        if (!pattern.test(email)) {
+            toast({
+                title: "Invalid Email",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+
+            return;
+        }
+
+        if (password.length < 6) {
+            toast({
+                title: "password should be minimum 6 characters",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+
+            return;
+        }
+
+
+
         if (!username || !email || !password) {
             toast({
                 title: "Please Fill all the fields",
@@ -177,14 +205,25 @@ const SignUp = () => {
         <>
             <Header />
             <Flex
-                minH={'80vh'}
-                align={'center'}
-                justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}
-                padding={10}>
+                style={{
+                    backgroundImage: `url(${FoodBackgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                }}
+                minHeight='100vh'
+                color='white'
+                align='center'
+                justify='center'
+                // minH={'80vh'}
+                // align={'center'}
+                // justify={'center'}
+                // // bg={useColorModeValue('gray.50', 'gray.800')}
+                // bg="gray"
+                padding={3}
+            >
                 <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6} width="100%">
                     <Stack align={'center'}>
-                        <Heading fontSize={'5xl'}>Create an Account </Heading>
+                        <Text fontSize={'5xl'} color="white">Create an Account </Text>
                     </Stack>
                     <Box
                         rounded={'lg'}
@@ -195,30 +234,33 @@ const SignUp = () => {
                         <Stack spacing={4}>
 
                             <FormControl id="firstName" isRequired>
-                                <FormLabel>UserName</FormLabel>
+                                <FormLabel color="black">UserName</FormLabel>
                                 <Input
                                     type="text"
                                     value={username}
                                     placeholder="Enter UserName"
-                                    onChange={(e) => { setUserName(e.target.value) }} />
+                                    onChange={(e) => { setUserName(e.target.value) }}
+                                    color="black" />
                             </FormControl>
                             <FormControl id="email" isRequired>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel color="black">Email</FormLabel>
                                 <Input
                                     type="email"
                                     value={email}
                                     placeholder="Enter Email"
-                                    onChange={(e) => { setEmail(e.target.value) }} />
+                                    onChange={(e) => { setEmail(e.target.value) }}
+                                    color="black" />
                             </FormControl>
 
                             <FormControl id="password" isRequired>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel color="black">Password</FormLabel>
                                 <InputGroup size="md">
                                     <Input
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         type={show ? "text" : "password"}
                                         placeholder="Enter Password"
+                                        color="black"
                                     />
                                     <InputRightElement width="4.5rem">
                                         <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -257,10 +299,10 @@ const SignUp = () => {
                                     />
                                     Sign up with google
                                 </Button>
-                                <span style={{ textAlign: "center" }}>or</span>
+                                <span style={{ textAlign: "center", color: "black" }} >or</span>
                                 <Stack pt={2}>
 
-                                    <Text align={'center'}>
+                                    <Text align={'center'} color="black">
                                         Already have an account?
                                         <Link href="/login" color={'blue.400'}> Login</Link>
                                     </Text>

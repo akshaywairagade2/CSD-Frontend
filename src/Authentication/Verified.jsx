@@ -12,7 +12,7 @@ import {
     Text
 } from '@chakra-ui/react'
 import Congrats from "../Congrats.png"
-import Header from "../Header/Header";
+import Header from "../Header/header";
 import Footer from "../Footer/footer";
 
 const Verified = () => {
@@ -71,7 +71,9 @@ const Verified = () => {
                 minH={'80vh'}
                 align={'center'}
                 justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
+                bg="gray"
+            // bg={useColorModeValue('gray.50', 'gray.800')}
+            >
                 <div>
                     <div style={{ margin: "3px" }}>
                         <Text align={'center'} fontSize="20px">Email Verified Successfully </Text>

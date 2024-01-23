@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AboutUS from './AboutUs/aboutus';
 import Home from './pages/HomePage/home';
 import Login from './Authentication/Login';
 import SignUp from './Authentication/Signup';
@@ -20,6 +21,10 @@ import UserOrders from './pages/UserOrders/userorders';
 import Congrats from './pages/Congrats/congrats';
 import HotelProfile from './pages/HotelProfile/hotelProfile';
 import UserProfile from './pages/UserProfile/userProfile';
+import Notifications from './pages/Notifications/notification';
+import Blogs from './Blogs/blogs';
+import ContactUs from './ContactUs/contactus';
+// import DeliveryLocationMap from './pages/DeliveryMap/deliveryMap';
 
 
 function App() {
@@ -27,6 +32,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} exact />
+        <Route path="/about-us" element={<AboutUS />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
@@ -34,7 +42,7 @@ function App() {
         <Route path="/verifymail" element={<VerifiedMail />} />
         <Route path="/sender" element={<Sender />} />
         <Route path="/buyer" element={<Buyer />} />
-        <Route path="/catalog/:id" element={<Catalog />} />
+        <Route path="/catalog/:id/:name" element={<Catalog />} />
         <Route path="/additem" element={<AddItem />} />
         <Route path="/addtocart" element={<AddToCart />} />
         <Route path="/payment/:id" element={<Payment />} />
@@ -46,6 +54,8 @@ function App() {
         <Route path="/congrats/:id" element={<Congrats />} />
         <Route path="/hotelprofile/:id" element={<HotelProfile />} />
         <Route path="/userprofile/:id" element={<UserProfile />} />
+        <Route path="/notification" element={<Notifications />} />
+        {/* <Route path="/deliverymap" element={<DeliveryLocationMap />} /> */}
       </Routes>
     </BrowserRouter>
   );

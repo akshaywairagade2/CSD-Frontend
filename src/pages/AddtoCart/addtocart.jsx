@@ -12,10 +12,11 @@ import {
     Center
 } from '@chakra-ui/react';
 import Footer from "../../Footer/footer";
-import Header from "../../Header/Header";
+import Header from "../../Header/header";
 import food from "../../food.png"
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
+import FoodBackgroundImage from '../../foodbackgroundimage.jpg';
 
 const AddToCart = () => {
 
@@ -26,6 +27,8 @@ const AddToCart = () => {
     const [amount, setAmount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
     const toast = useToast();
+    var hotelName = JSON.parse(localStorage.getItem('hotelname'));
+
 
     useEffect(() => {
         if (!user) navigate('/login');
@@ -46,8 +49,6 @@ const AddToCart = () => {
                 `http://localhost:5000/api/v1/cart/${hotelid}`,
                 config
             );
-
-            console.log(data, "datadata")
 
             var amount1 = 0;
             for (let i = 0; i < data.items.length; i++) {
@@ -159,6 +160,8 @@ const AddToCart = () => {
                     {
                         "userId": user._id,
                         "hotelId": hotelid,
+                        "hotelName": hotelName,
+                        "userName": user.userName,
                         "cartItems": cartItems,
                     },
                     config
@@ -257,18 +260,32 @@ const AddToCart = () => {
         GetAllItems()
     }, []);
 
+    console.log(hotelid)
+
 
     return (
         <>
             <Header />
-            <Flex minH={'80vh'} p={20}>
-                <Box width={"100%"} padding={30} align={'center'}
-                    justify={'center'}>
+            <Flex
+                style={{
+                    backgroundImage: `url(${FoodBackgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                }}
+                minHeight='100vh'
+                color='white'
+                align='center'
+                justify='center'
+                // minH={'80vh'}
+                p={20}
+            // bg="gray"
+            >
+                <Box width={"100%"} padding={30} align={'center'} justify={'center'}>
                     {
                         cartItems.length > 0 &&
-                        <Heading as="h2" size="xl" align={'center'} color={"green.300"} mb={3}>
+                        <Text fontSize={"50px"} align={'center'} color={"white"} mb={3}>
                             Catalogs Added
-                        </Heading>
+                        </Text>
                     }
                     {cartItems.length > 0 ? (
                         <Flex>
@@ -298,7 +315,7 @@ const AddToCart = () => {
                                             <Button onClick={() => decreaseQuantity(item)} size="sm" variant="outline">
                                                 -
                                             </Button>
-                                            <Text mx={2}>{item.quantity}</Text>
+                                            <Text mx={2} color="black">{item.quantity}</Text>
                                             <Button onClick={() => increaseQuantity(item)} size="sm" variant="outline">
                                                 +
                                             </Button>
@@ -324,20 +341,20 @@ const AddToCart = () => {
                                     <Stack spacing="4" align="left">
                                         <Text fontSize="xl" color="black" fontWeight="semibold">Order Summary</Text>
                                         <HStack justify="space-between">
-                                            <Text fontSize="lg" fontWeight="semibold">Subtotal:</Text>
-                                            <Text fontSize="lg">$300</Text>
+                                            <Text fontSize="lg" fontWeight="semibold" color="black">Subtotal:</Text>
+                                            <Text fontSize="lg" color="black">$300</Text>
                                         </HStack>
                                         <HStack justify="space-between">
-                                            <Text fontSize="lg" fontWeight="semibold">Shipping + Tax:</Text>
-                                            <Text fontSize="lg" align="right">Calculate shipping</Text>
+                                            <Text fontSize="lg" fontWeight="semibold" color="black">Shipping + Tax:</Text>
+                                            <Text fontSize="lg" align="right" color="black">Calculate shipping</Text>
                                         </HStack>
                                         <HStack justify="space-between">
-                                            <Text fontSize="lg" fontWeight="semibold">Coupon Code:</Text>
-                                            <Text fontSize="lg">Add coupon code</Text>
+                                            <Text fontSize="lg" fontWeight="semibold" color="black">Coupon Code:</Text>
+                                            <Text fontSize="lg" color="black">Add coupon code</Text>
                                         </HStack>
                                         <HStack justify="space-between">
-                                            <Text fontSize="lg" fontWeight="semibold">Total:</Text>
-                                            <Text fontSize="lg">{amount}Rs</Text>
+                                            <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
+                                            <Text fontSize="lg" color="black">{amount}Rs</Text>
                                         </HStack>
                                         <Box>
                                             <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={Payment}>
@@ -354,7 +371,11 @@ const AddToCart = () => {
                             </Box>
                         </Flex>
                     ) : (
-                        <Text fontSize="xl" color="red" align={"center"}>-- Nothing is Added to the Cart --</Text>
+
+                        hotelid ?
+                            <Text fontSize={"50px"} color="white" align={"center"}>-- Nothing is Added to the Cart --</Text> :
+                            <Text fontSize={"50px"} color="white" align={"center"}>-- Please Select Hotel --</Text>
+
                     )}
                 </Box>
             </Flex>
