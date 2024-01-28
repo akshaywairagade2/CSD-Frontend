@@ -268,7 +268,7 @@ const NewOrders = () => {
 
                     </Box>
                 ) : (
-                    <Box p={20} width="70%" color="white" align="center" marginTop={1}>
+                    <Box p={20} width="70%" color="white" align="center" marginTop={1} fontSize="30px">
                         -- No Orders --
                     </Box>
                 )}

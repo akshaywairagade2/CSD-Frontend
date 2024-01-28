@@ -198,9 +198,9 @@ const RejectedOrders = () => {
                             <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
                         }
                     </Box> :
-                    <Box p={20} width="70%" color="white" align="center" marginTop={1}>
+                    <Box p={20} width="70%" color="white" align="center" marginTop={1} fontSize="30px">
 
-                        -- No Order Rejected --
+                        -- No Orders --
                     </Box>
 
                 }
