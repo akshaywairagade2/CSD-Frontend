@@ -4,7 +4,7 @@ import axios from "axios";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import verifyemail from "../verifyemail.png"
-import FoodBackgroundImage from '../foodbackgroundimage.jpg';
+import FoodBackgroundImage from '../img2.jpg';
 import { useParams } from 'react-router-dom';
 
 const VerifiedMail = () => {
@@ -14,27 +14,22 @@ const VerifiedMail = () => {
 
     return (
         <>
-            <Header Flag={0} />
+            <Header />
             <Flex
                 style={{
                     backgroundImage: `url(${FoodBackgroundImage})`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center'
+                    backgroundPosition: 'center',
                 }}
                 minHeight='100vh'
                 color='white'
                 align='center'
                 justify='center'
                 width="100%"
-            // minH={'80vh'}
-            // align={'center'}
-            // justify={'center'}
-            // // bg={useColorModeValue('gray.50', 'gray.800')}
-            // bg="gray"
             >
                 <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6} >
                     <Stack align={'center'}>
-                        <Text fontSize={"40px"} textAlign={"center"} color="white">Mail has send to {email} Please verify your email</Text>
+                        <Text fontSize={"40px"} textAlign={"center"} color="black">Please verify your email</Text>
                     </Stack>
                     <Image
                         src={verifyemail}

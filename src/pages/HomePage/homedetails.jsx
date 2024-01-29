@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react'
 
 import manImage from "../../manimage.jpg"
+import FoodBackgroundImage from '../../img4.jpg';
 
 const Homedetails = () => {
 
