@@ -24,6 +24,8 @@ import {
     FormControl,
     FormLabel,
     Badge,
+    Select,
+    Checkbox
 } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import { SearchIcon } from "@chakra-ui/icons";
@@ -49,7 +51,10 @@ const HotelItems = () => {
 
 
     const keys = ["name", "description"];
+    const [originalcatalogItems, setOriginalCatalogItems] = useState([]);
     const [catalogItems, setCatalogItems] = useState([]);
+
+    console.log(selectedItem)
 
     useEffect(() => {
         if (!user) navigate('/login')
@@ -71,8 +76,10 @@ const HotelItems = () => {
                 config
             );
 
-            if (status == 201)
-                setCatalogItems(data.items);
+            if (status == 201) {
+                setOriginalCatalogItems(data.items);
+                setCatalogItems(data.items)
+            }
 
         } catch (error) {
 
@@ -172,7 +179,8 @@ const HotelItems = () => {
                         "quantity": 1,
                         "availabilityStatus": true,
                         "description": selectedItem.description,
-                        "rating": selectedItem.rating
+                        "rating": selectedItem.rating,
+                        "category": selectedItem.category
                     },
                     config
                 );
@@ -241,6 +249,43 @@ const HotelItems = () => {
         fetchallitems();
     }, [])
 
+    const [filterVeg, setFilterVeg] = useState(false);
+    const [filterNonVeg, setFilterNonVeg] = useState(false);
+    const [filterBoth, setFilterBoth] = useState(false);
+    const [filterPriceRange, setFilterPriceRange] = useState('');
+
+    useEffect(() => {
+        const filteredItems = originalcatalogItems.filter(item => {
+            const isMatchingSearch = keys.some(key =>
+                item[key].toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            const isVegMatch = !filterVeg || item.category == "Veg";
+            const isNonVegMatch = !filterNonVeg || item.category == "Non-Veg";
+            const isPriceInRange = !filterPriceRange || item.price <= filterPriceRange;
+
+            return isMatchingSearch && isVegMatch && isNonVegMatch && isPriceInRange;
+        });
+
+        const arr = filteredItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery.toLowerCase())));
+
+        if (arr.length || searchQuery)
+            setCatalogItems(arr)
+        else
+            setCatalogItems(filteredItems)
+
+        // setCatalogItems(filteredItems);
+    }, [searchQuery, filterVeg, filterNonVeg, filterPriceRange, originalcatalogItems]);
+
+    // useEffect(() => {
+
+    //     const arr = filteredItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery.toLowerCase())));
+
+    //     if (arr.length || searchQuery)
+    //         setCatalogItems(arr)
+    //     else
+    //         setCatalogItems(originalcatalogItems)
+    // }, [searchQuery])
+
 
     const [currentPage, setCurrentPage] = useState(0);
     const ItemsPerPage = 6;
@@ -253,6 +298,7 @@ const HotelItems = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
+
 
     return (
         <>
@@ -269,7 +315,52 @@ const HotelItems = () => {
                 bg="gray"
             >
                 <Box p={20}>
-
+                    <Box display="flex" alignItems="center">
+                        <Checkbox
+                            isChecked={filterVeg}
+                            onChange={() => setFilterVeg(!filterVeg)}
+                            colorScheme="green"
+                            size="lg"
+                            mr={4}
+                            borderColor="black"
+                        >
+                            Veg
+                        </Checkbox>
+                        <Checkbox
+                            isChecked={filterNonVeg}
+                            onChange={() => setFilterNonVeg(!filterNonVeg)}
+                            colorScheme="red"
+                            size="lg"
+                            mr={4}
+                            borderColor="black"
+                        >
+                            Non-Veg
+                        </Checkbox>
+                        {/* <Checkbox
+                            isChecked={filterBoth}
+                            onChange={() => setFilterBoth(!filterBoth)}
+                            colorScheme="blue"
+                            size="lg"
+                            mr={4}
+                            borderColor="black"
+                        >
+                            Both
+                        </Checkbox> */}
+                        <Select
+                            placeholder="Price Range"
+                            value={filterPriceRange}
+                            onChange={(e) => setFilterPriceRange(e.target.value)}
+                            colorScheme="blue"
+                            // size="lg"
+                            width="14%"
+                            borderColor="black"
+                        >
+                            <option value="">&nbsp;</option>
+                            <option value="10">Under 10</option>
+                            <option value="20">Under 20</option>
+                            <option value="30">Under 30</option>
+                        </Select>
+                    </Box>
 
                     <Text fontSize={"50px"} mb={5} align={'center'} color={"black"} >
                         Items
@@ -296,7 +387,8 @@ const HotelItems = () => {
                             <Box>
 
                                 <Grid templateColumns={['1fr', '1fr', 'repeat(3, 1fr)']} gap={4}>
-                                    {currentItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery))).map((item) => (
+                                    {/* {currentItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery.toLowerCase()))).map((item) => ( */}
+                                    {currentItems.map((item) => (
                                         <GridItem key={item._id} bg="white" maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ bg: 'green.400', }}>
                                             <Box>
                                                 <Box>
@@ -309,7 +401,7 @@ const HotelItems = () => {
                                                                 <Text color="white" p={"2px"}>{item?.rating}★</Text>
                                                             </Badge>
                                                             <Box
-                                                                width="70%"
+                                                                width="40%"
                                                                 color='black'
                                                                 fontWeight='semibold'
                                                                 letterSpacing='wide'
@@ -319,6 +411,53 @@ const HotelItems = () => {
                                                             >
                                                                 {item?.name}
                                                             </Box>
+
+                                                            {
+                                                                item?.category == "Non-Veg" &&
+                                                                <Box
+                                                                    width="40%"
+                                                                    color='black'
+                                                                    fontWeight='semibold'
+                                                                    fontSize='xs'
+                                                                    textTransform='uppercase'
+                                                                // letterSpacing='wide'
+                                                                // ml='1'..
+                                                                >
+                                                                    🔴{item?.category}
+                                                                </Box>
+                                                            }
+
+                                                            {
+                                                                item?.category == "Veg" &&
+                                                                <Box
+                                                                    width="40%"
+                                                                    color='black'
+                                                                    fontWeight='semibold'
+                                                                    fontSize='xs'
+                                                                    textTransform='uppercase'
+                                                                // letterSpacing='wide'
+                                                                // ml='1'..
+                                                                >
+                                                                    🟢{item?.category}
+                                                                </Box>
+                                                            }
+
+                                                            {/* {
+                                                                item?.category == "Both" &&
+                                                                <Box
+                                                                    width="40%"
+                                                                    color='black'
+                                                                    fontWeight='semibold'
+                                                                    fontSize='xs'
+                                                                    textTransform='uppercase'
+                                                                // letterSpacing='wide'
+                                                                // ml='1'..
+                                                                >
+                                                                    🔵{item?.category}
+                                                                </Box>
+                                                            } */}
+
+
 
                                                             {/* <Box> */}
                                                             <Box color='black' fontWeight='semibold' width="40%" fontSize='sm'>
@@ -395,7 +534,7 @@ const HotelItems = () => {
                                 }
                             </Box>
                             :
-                            <Box align={'center'} color={"red"}  >
+                            <Box align={'center'} color={"white"}  >
                                 -- No Items --
                             </Box>
                     }
@@ -493,7 +632,7 @@ const HotelItems = () => {
                     {/* ============================================================================================================================================================================== */}
 
                 </Box>
-            </Flex>
+            </Flex >
 
             <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
                 <ModalOverlay />
@@ -545,6 +684,28 @@ const HotelItems = () => {
                                     value={selectedItem?.rating}
                                     onChange={(e) => setSelectedItem({ ...selectedItem, rating: e.target.value })}
                                 />
+                            </FormControl>
+
+                            <FormControl id="category" isRequired>
+                                <FormLabel>Category</FormLabel>
+                                <Select
+                                    // bg="red"
+                                    placeholder="Veg/Non-Veg/Both"
+                                    color="black"
+                                    // bg="white"
+                                    value={selectedItem?.category}
+                                    onChange={(e) => setSelectedItem({ ...selectedItem, category: e.target.value })}
+                                    styles={{
+                                        menu: {
+                                            background: 'gray.100', // Change the background color of the box containing options
+                                        },
+                                    }}
+                                >
+                                    <option value="" >&nbsp;</option>
+                                    <option value="Veg">Veg</option>
+                                    <option value="Non-Veg" >Non-Veg</option>
+                                    <option value="Both">Both</option>
+                                </Select>
                             </FormControl>
 
                             <FormControl id="pic" isRequired>
