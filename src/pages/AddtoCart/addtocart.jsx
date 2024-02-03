@@ -56,7 +56,7 @@ const AddToCart = () => {
             };
 
             const { data } = await axios.post(
-                `http://localhost:5000/api/v1/cart/${hotelid}`,
+                `http://localhost:5000/api/v1/cart/hotel/${hotelid}`,
                 {
                     userID: user._id
                 },
@@ -136,7 +136,7 @@ const AddToCart = () => {
     const removeItem = async (item) => {
         // alert("hello")
         try {
-            // console.log(item)
+            console.log(item, hotelid)
             const config = {
                 headers: {
                     "Content-type": "application/json",
@@ -144,11 +144,11 @@ const AddToCart = () => {
                 },
             };
 
-            const { data, status } = await axios.post(
-                `http://localhost:5000/api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`, {},
+            const { data, status } = await axios.delete(
+                `http://localhost:5000/api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`,
                 config
             );
-
+            console.log(data, "sttata")
             if (status == 200) {
                 GetAllItems();
             }
@@ -222,7 +222,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.delete(
-                    `http://localhost:5000/api/v1/cart/${hotelid}`,
+                    `http://localhost:5000/api/v1/cart/hotel/${hotelid}`,
                     config
                 );
 
@@ -277,7 +277,7 @@ const AddToCart = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [inputValue, setInputValue] = useState("");
-    const [group, setGroup] = useState([]);
+    const [groups, setGroup] = useState([]);
     const [loading, setLoading] = useState(false);
     const [generatedNumber, setGeneratedNumber] = useState(null);
     const [flag, setFlag] = useState(0);
@@ -294,15 +294,15 @@ const AddToCart = () => {
 
     const generateNumber = () => {
         if (inputValue != "") {
-            const gr = group;
-            gr.splice(0, 0, inputValue)
-            setGroup(gr);
+            const gr = groups;
             setLoading(true);
             setInputValue('')
 
             setTimeout(() => {
                 const randomNumber = Math.floor(100000 + Math.random() * 900000);
                 setGeneratedNumber(randomNumber);
+                gr.splice(0, 0, [inputValue, randomNumber])
+                setGroup(gr);
                 setLoading(false);
             }, 1000);
 
@@ -465,10 +465,12 @@ const AddToCart = () => {
                                         <Button m={2} onClick={() => { setFlag(2); onOpen(); setGeneratedNumber('') }}>Create group</Button>
                                     </Box>
                                     <Box color="black" pt={2}>
-                                        {group.length > 0 ? (
-                                            group.map((name, ind) => (
-                                                <Box key={ind} color="black" border="1px solid black" bg="white" p={2} mt={2} borderRadius="md">
-                                                    {name}
+                                        {groups.length > 0 ? (
+                                            groups.map((group, ind) => (
+                                                <Box key={ind} color="black" border="1px solid black" bg="white" p={2} mt={2} borderRadius="md" _hover={{ cursor: "pointer" }}
+                                                    onClick={() => { navigate(`/group/${group[1]}/${hotelid}/${group[0]}`) }}
+                                                >
+                                                    {group[0]}
                                                 </Box>
                                             ))
                                         ) : (
@@ -516,7 +518,7 @@ const AddToCart = () => {
                                             pl={5}
                                             pr={5}
                                         >
-                                            Join
+                                            Add
                                         </Button>
                                     </Box>
                                     {loading ? (
