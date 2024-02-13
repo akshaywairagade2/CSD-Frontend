@@ -39,7 +39,7 @@ const AddToCart = () => {
     const [cartid, setCartId] = useState()
     const toast = useToast();
     var hotelName = JSON.parse(localStorage.getItem('hotelname'));
-
+    const [fetchloading, setFetchLoading] = useState(true);
 
     useEffect(() => {
         if (!user) navigate('/login');
@@ -47,6 +47,7 @@ const AddToCart = () => {
 
 
     const GetAllItems = async () => {
+        setFetchLoading(true)
 
         try {
             const config = {
@@ -71,12 +72,20 @@ const AddToCart = () => {
 
 
 
-            setAmount(amount1)
-            setCartItems(data.items);
-            setCartId(data.cartid)
+            // setAmount(amount1)
+            // setCartItems(data.items);
+            // setCartId(data.cartid)
+            // setFetchLoading(false)
+
+            if (status == 200) {
+                // setAllOrders(data.hotelOrders)
+                setTimeout(() => { setCartId(data.cartid); setCartItems(data.items); setAmount(amount1); }, 800);
+                setTimeout(() => { setFetchLoading(false) }, 1000);
+            }
 
         } catch (error) {
             console.log(error)
+            setTimeout(() => { setFetchLoading(false) }, 400);
         }
     };
 
@@ -468,6 +477,7 @@ const AddToCart = () => {
         setGroupName(event.target.value);
     };
 
+
     return (
         <>
             <Header />
@@ -483,145 +493,156 @@ const AddToCart = () => {
                 justify='center'
                 p={20}
             >
-                <Box width={"100%"} padding={30} align={'center'} justify={'center'}>
+
+                {fetchloading ? (
+                    <Spinner
+                        thickness="4px"
+                        speed="0.65s"
+                        emptyColor="gray.200"
+                        color="blue.500"
+                        size="xl"
+                    // ml="25%"
+                    />) : <>
                     {
-                        cartItems.length > 0 &&
-                        <Text fontSize={"50px"} align={'center'} color={"black"} mb={3}>
-                            Catalogs Added
-                        </Text>
-                    }
-
-
-                    <Flex>
-                        <Box w="30%" pr={4}>
-                            <Flex
-                                direction="column"
-                                justify="space-between"
-                                ml={4}
-                                p={4}
-                                bg="white"
-                                boxShadow="md"
-                                borderRadius="md"
-                                maxH="420px"
-                                overflowY="auto"
-                            >
-                                <Heading color="black">Groups</Heading>
-                                <Box>
-                                    <Button onClick={() => { setFlag(1); onOpen(); setCode(''); setDisplay(0) }}>Join Group</Button>
-                                    <Button m={2} onClick={() => { setFlag(2); onOpen(); setGeneratedNumber('') }}>Create group</Button>
-                                </Box>
-                                <Box color="black" pt={2}>
-                                    {groups.length > 0 ? (
-                                        groups.map((group, ind) => (
-                                            <Box key={ind} color="black" border="1px solid black" bg="white" p={2} mt={2} borderRadius="md" _hover={{ cursor: "pointer" }}
-                                                onClick={() => { navigate(`/group/${group[1]}/${hotelid}/${group[0]}`) }}
-                                            >
-                                                {group[0]}
-                                            </Box>
-                                        ))
-                                    ) : (
-                                        <Box>No Groups</Box>
-                                    )}
-                                </Box>
-                            </Flex>
-                        </Box>
-                        {/* {cartItems.length > 0 && */}
-                        <Box display={"flex"} w="70%">
-                            <Box w="80%">
-                                {cartItems.map((item) => (
-                                    <Flex
-                                        key={item.id}
-                                        justify="space-between"
-                                        mb={4}
-                                        p={4}
-                                        bg="white"
-                                        boxShadow="md"
-                                        borderRadius="md"
-                                    >
-                                        <Text fontSize="xl" color="black">{item.name}</Text>
-                                        <Image
-                                            rounded="lg"
-                                            width="120px"
-                                            height="120px"
-                                            fit="cover"
-                                            src={item.imageLink}
-                                            alt={item.name}
-                                            draggable="false"
-                                            loading="lazy"
-                                        />
-                                        <Flex alignItems="center">
-                                            <Button onClick={() => decreaseQuantity(item)} size="sm" variant="outline">
-                                                -
-                                            </Button>
-                                            <Text mx={2} color="black">{item.quantity}</Text>
-                                            <Button onClick={() => increaseQuantity(item)} size="sm" variant="outline">
-                                                +
-                                            </Button>
-                                            <Button onClick={() => removeItem(item)} colorScheme="red" size="sm" m={1}>
-                                                Remove
-                                            </Button>
-                                        </Flex>
-                                    </Flex>
-                                ))}
-                            </Box>
-
+                        <Box width={"100%"} padding={30} align={'center'} justify={'center'}>
                             {
-                                cartItems.length === 0 &&
-                                <Box textAlign="center" pt={6} w="100%" mr={"15%"} >
-                                    <Text fontSize={"50px"} color="black" align={"center"}>-- Cart is empty --</Text>
-                                </Box>
+                                cartItems.length > 0 &&
+                                <Text fontSize={"50px"} align={'center'} color={"black"} mb={3}>
+                                    Catalogs Added
+                                </Text>
                             }
-                            {cartItems.length > 0 &&
-                                <Box w="50%" pl={4}>
+
+
+                            <Flex>
+                                <Box w="30%" pr={4}>
                                     <Flex
                                         direction="column"
                                         justify="space-between"
-                                        mb={4}
+                                        ml={4}
                                         p={4}
                                         bg="white"
                                         boxShadow="md"
                                         borderRadius="md"
-                                        height="420px"
-
+                                        maxH="420px"
+                                        overflowY="auto"
                                     >
-                                        <Stack spacing="4" align="left">
-                                            <Text fontSize="xl" color="black" fontWeight="semibold">Order Summary</Text>
-                                            <HStack justify="space-between">
-                                                <Text fontSize="lg" fontWeight="semibold" color="black">Subtotal:</Text>
-                                                <Text fontSize="lg" color="black">$300</Text>
-                                            </HStack>
-                                            <HStack justify="space-between">
-                                                <Text fontSize="lg" fontWeight="semibold" color="black">Shipping + Tax:</Text>
-                                                <Text fontSize="lg" align="right" color="black">Calculate shipping</Text>
-                                            </HStack>
-                                            <HStack justify="space-between">
-                                                <Text fontSize="lg" fontWeight="semibold" color="black">Coupon Code:</Text>
-                                                <Text fontSize="lg" color="black">Add coupon code</Text>
-                                            </HStack>
-                                            <HStack justify="space-between">
-                                                <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
-                                                <Text fontSize="lg" color="black">{amount}Rs</Text>
-                                            </HStack>
-                                            <Box>
-                                                <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={Payment}>
-                                                    Payment
-                                                </Button>
-                                            </Box>
-                                            <Box>
-                                                <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={AddtoGroup}>
-                                                    Add to Group
-                                                </Button>
-                                            </Box>
-                                            <Box>
-                                                <Button size="lg" fontSize="md" width={320} onClick={DeleteCart}>
-                                                    Delete Cart
-                                                </Button>
-                                            </Box>
-                                        </Stack>
+                                        <Heading color="black">Groups</Heading>
+                                        <Box>
+                                            <Button onClick={() => { setFlag(1); onOpen(); setCode(''); setDisplay(0) }}>Join Group</Button>
+                                            <Button m={2} onClick={() => { setFlag(2); onOpen(); setGeneratedNumber('') }}>Create group</Button>
+                                        </Box>
+                                        <Box color="black" pt={2}>
+                                            {groups.length > 0 ? (
+                                                groups.map((group, ind) => (
+                                                    <Box key={ind} color="black" border="1px solid black" bg="white" p={2} mt={2} borderRadius="md" _hover={{ cursor: "pointer" }}
+                                                        onClick={() => { navigate(`/group/${group[1]}/${hotelid}/${group[0]}`) }}
+                                                    >
+                                                        {group[0]}
+                                                    </Box>
+                                                ))
+                                            ) : (
+                                                <Box>No Groups</Box>
+                                            )}
+                                        </Box>
                                     </Flex>
-                                </Box>}
+                                </Box>
+                                {/* {cartItems.length > 0 && */}
+                                <Box display={"flex"} w="70%">
+                                    <Box w="80%">
+                                        {cartItems.map((item) => (
+                                            <Flex
+                                                key={item.id}
+                                                justify="space-between"
+                                                mb={4}
+                                                p={4}
+                                                bg="white"
+                                                boxShadow="md"
+                                                borderRadius="md"
+                                            >
+                                                <Text fontSize="xl" color="black">{item.name}</Text>
+                                                <Image
+                                                    rounded="lg"
+                                                    width="120px"
+                                                    height="120px"
+                                                    fit="cover"
+                                                    src={item.imageLink}
+                                                    alt={item.name}
+                                                    draggable="false"
+                                                    loading="lazy"
+                                                />
+                                                <Flex alignItems="center">
+                                                    <Button onClick={() => decreaseQuantity(item)} size="sm" variant="outline">
+                                                        -
+                                                    </Button>
+                                                    <Text mx={2} color="black">{item.quantity}</Text>
+                                                    <Button onClick={() => increaseQuantity(item)} size="sm" variant="outline">
+                                                        +
+                                                    </Button>
+                                                    <Button onClick={() => removeItem(item)} colorScheme="red" size="sm" m={1}>
+                                                        Remove
+                                                    </Button>
+                                                </Flex>
+                                            </Flex>
+                                        ))}
+                                    </Box>
 
-                            {/* <Box w="40%">
+                                    {
+                                        cartItems.length === 0 &&
+                                        <Box textAlign="center" pt={6} w="100%" mr={"15%"} >
+                                            <Text fontSize={"50px"} color="black" align={"center"}>-- Cart is empty --</Text>
+                                        </Box>
+                                    }
+                                    {cartItems.length > 0 &&
+                                        <Box w="50%" pl={4}>
+                                            <Flex
+                                                direction="column"
+                                                justify="space-between"
+                                                mb={4}
+                                                p={4}
+                                                bg="white"
+                                                boxShadow="md"
+                                                borderRadius="md"
+                                                height="420px"
+
+                                            >
+                                                <Stack spacing="4" align="left">
+                                                    <Text fontSize="xl" color="black" fontWeight="semibold">Order Summary</Text>
+                                                    <HStack justify="space-between">
+                                                        <Text fontSize="lg" fontWeight="semibold" color="black">Subtotal:</Text>
+                                                        <Text fontSize="lg" color="black">₹{amount}</Text>
+                                                    </HStack>
+                                                    <HStack justify="space-between">
+                                                        <Text fontSize="lg" fontWeight="semibold" color="black">Shipping + Tax:</Text>
+                                                        <Text fontSize="lg" align="right" color="black">Calculate shipping</Text>
+                                                    </HStack>
+                                                    <HStack justify="space-between">
+                                                        <Text fontSize="lg" fontWeight="semibold" color="black">Coupon Code:</Text>
+                                                        <Text fontSize="lg" color="black">Add coupon code</Text>
+                                                    </HStack>
+                                                    <HStack justify="space-between">
+                                                        <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
+                                                        <Text fontSize="lg" color="black">₹{amount}</Text>
+                                                    </HStack>
+                                                    <Box>
+                                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={Payment}>
+                                                            Payment
+                                                        </Button>
+                                                    </Box>
+                                                    <Box>
+                                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={AddtoGroup}>
+                                                            Add to Group
+                                                        </Button>
+                                                    </Box>
+                                                    <Box>
+                                                        <Button size="lg" fontSize="md" width={320} onClick={DeleteCart}>
+                                                            Delete Cart
+                                                        </Button>
+                                                    </Box>
+                                                </Stack>
+                                            </Flex>
+                                        </Box>}
+
+                                    {/* <Box w="40%">
                                 <Flex
                                     direction="column"
                                     justify="space-between"
@@ -653,8 +674,8 @@ const AddToCart = () => {
                                     </Box>
                                 </Flex>
                             </Box> */}
-                        </Box>
-                        {/* ) 
+                                </Box>
+                                {/* ) 
                         : (
 
                             hotelid ?
@@ -664,8 +685,11 @@ const AddToCart = () => {
                         )} */}
 
 
-                    </Flex>
-                </Box>
+                            </Flex>
+                        </Box>
+                    }
+                </>
+                }
 
 
                 <Modal isOpen={isOpen} onClose={onClose}>
