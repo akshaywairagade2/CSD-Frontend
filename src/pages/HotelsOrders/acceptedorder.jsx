@@ -209,7 +209,6 @@ const AcceptedOrders = () => {
 
     }, [allgrouporders])
 
-    console.log(allgrouporders, "grouporders")
 
 
     const UpdateGroupStatus = async (groupId) => {

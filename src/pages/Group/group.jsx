@@ -133,136 +133,134 @@ const Group = () => {
                 p={20}
             >
                 <Box width={"100%"} padding={30} align={'center'} justify={'center'}>
-                    {
-                        cartItems.length > 0 &&
-                        <Text fontSize={"50px"} align={'center'} color={"black"} mb={3}>
-                            {GroupName}
-                        </Text>
-                    }
+
+                    <Text fontSize={"50px"} align={'center'} color={"black"} mb={3}>
+                        {GroupName}
+                    </Text>
 
 
-                    {cartItems.length > 0 ? (
-                        <Flex>
-                            <Box w="80%">
-                                {[1, 2, 3].length > 0 ? (
-                                    <Box p={8} width="80%" bg="white" borderRadius="md" boxShadow="md">
-                                        {/* <Text fontSize={"50px"} align={'center'} mb={6} color={"black"}>
+
+                    <Flex>
+                        <Box w="80%">
+                            {[1, 2, 3].length > 0 ? (
+                                <Box p={8} width="80%" bg="white" borderRadius="md" boxShadow="md">
+                                    {/* <Text fontSize={"50px"} align={'center'} mb={6} color={"black"}>
                                             Orders
                                         </Text> */}
-                                        <Table variant="striped">
-                                            <Thead >
-                                                <Tr >
-                                                    <Th>Name</Th>
-                                                    <Th>Items</Th>
-                                                    <Th>Total</Th>
-                                                    <Th>View</Th>
-                                                    <Th>Edit</Th>
-                                                    <Th>Delete</Th>
+                                    <Table variant="striped">
+                                        <Thead >
+                                            <Tr >
+                                                <Th>Name</Th>
+                                                <Th>Items</Th>
+                                                <Th>Total</Th>
+                                                <Th>View</Th>
+                                                <Th>Edit</Th>
+                                                <Th>Delete</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody >
+                                            {[1, 2, 3].map((order, ind) => (
+                                                <Tr key={ind}>
+                                                    <Td color="black">Sushant</Td>
+                                                    <Td color="black">Maggie</Td>
+                                                    <Td color="black">25</Td>
+                                                    <Td color="black">
+                                                        <IconButton
+                                                            color="blue.400"
+                                                            size="lg"
+                                                            fontSize="md"
+                                                            icon={<ViewIcon />}
+                                                            onClick={() => { onOpen(); setIsEditable(false) }}
+                                                            aria-label="View"
+                                                        />
+                                                    </Td>
+                                                    <Td color="black">
+                                                        <IconButton
+                                                            color="green"
+                                                            size="lg"
+                                                            fontSize="md"
+                                                            icon={<EditIcon />}
+                                                            onClick={() => { onOpen(); setIsEditable(true) }}
+                                                            aria-label="Edit"
+                                                            isDisabled={ind != 1}
+
+                                                        />
+                                                    </Td>
+                                                    <Td color="black">
+                                                        <IconButton
+                                                            color="red.400"
+                                                            size="lg"
+                                                            fontSize="md"
+                                                            icon={<DeleteIcon />}
+                                                            aria-label="Delete"
+                                                            isDisabled={ind != 1}
+                                                        />
+                                                    </Td>
                                                 </Tr>
-                                            </Thead>
-                                            <Tbody >
-                                                {[1, 2, 3].map((order, ind) => (
-                                                    <Tr key={ind}>
-                                                        <Td color="black">Sushant</Td>
-                                                        <Td color="black">Maggie</Td>
-                                                        <Td color="black">25</Td>
-                                                        <Td color="black">
-                                                            <IconButton
-                                                                color="blue.400"
-                                                                size="lg"
-                                                                fontSize="md"
-                                                                icon={<ViewIcon />}
-                                                                onClick={() => { onOpen(); setIsEditable(false) }}
-                                                                aria-label="View"
-                                                            />
-                                                        </Td>
-                                                        <Td color="black">
-                                                            <IconButton
-                                                                color="green"
-                                                                size="lg"
-                                                                fontSize="md"
-                                                                icon={<EditIcon />}
-                                                                onClick={() => { onOpen(); setIsEditable(true) }}
-                                                                aria-label="Edit"
-                                                                isDisabled={ind != 1}
+                                            ))}
+                                        </Tbody>
+                                    </Table>
 
-                                                            />
-                                                        </Td>
-                                                        <Td color="black">
-                                                            <IconButton
-                                                                color="red.400"
-                                                                size="lg"
-                                                                fontSize="md"
-                                                                icon={<DeleteIcon />}
-                                                                aria-label="Delete"
-                                                                isDisabled={ind != 1}
-                                                            />
-                                                        </Td>
-                                                    </Tr>
-                                                ))}
-                                            </Tbody>
-                                        </Table>
+                                </Box>
+                            ) : (
+                                <Text p={8} fontSize="2xl" color="white" align="center">
+                                    -- There are no orders from you. --
+                                </Text>
+                            )}
 
+                        </Box>
+                        <Box w="30%" pl={5}>
+                            <Flex
+                                direction="column"
+                                justify="space-between"
+                                mb={4}
+                                p={4}
+                                bg="white"
+                                boxShadow="md"
+                                borderRadius="md"
+                                height="350px"
+
+                            >
+                                <Stack spacing="4" align="left">
+                                    <Text fontSize="xl" color="black" fontWeight="semibold">Order Summary</Text>
+                                    <HStack justify="space-between">
+                                        <Text fontSize="lg" fontWeight="semibold" color="black">Subtotal:</Text>
+                                        <Text fontSize="lg" color="black">$300</Text>
+                                    </HStack>
+                                    <HStack justify="space-between">
+                                        <Text fontSize="lg" fontWeight="semibold" color="black">Shipping + Tax:</Text>
+                                        <Text fontSize="lg" align="right" color="black">Calculate shipping</Text>
+                                    </HStack>
+                                    <HStack justify="space-between">
+                                        <Text fontSize="lg" fontWeight="semibold" color="black">Coupon Code:</Text>
+                                        <Text fontSize="lg" color="black">Add coupon code</Text>
+                                    </HStack>
+                                    <HStack justify="space-between">
+                                        <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
+                                        <Text fontSize="lg" color="black">{amount}Rs</Text>
+                                    </HStack>
+                                    <Box>
+                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={Payment}>
+                                            Payment
+                                        </Button>
                                     </Box>
-                                ) : (
-                                    <Text p={8} fontSize="2xl" color="white" align="center">
-                                        -- There are no orders from you. --
-                                    </Text>
-                                )}
+                                    <Box>
+                                        <Button size="lg" fontSize="md" width={320} onClick={Delete}>
+                                            Delete Cart
+                                        </Button>
+                                    </Box>
+                                </Stack>
+                            </Flex>
+                        </Box>
 
-                            </Box>
-                            <Box w="30%" pl={5}>
-                                <Flex
-                                    direction="column"
-                                    justify="space-between"
-                                    mb={4}
-                                    p={4}
-                                    bg="white"
-                                    boxShadow="md"
-                                    borderRadius="md"
-                                    height="350px"
+                    </Flex>
+                    {/* ) : (
 
-                                >
-                                    <Stack spacing="4" align="left">
-                                        <Text fontSize="xl" color="black" fontWeight="semibold">Order Summary</Text>
-                                        <HStack justify="space-between">
-                                            <Text fontSize="lg" fontWeight="semibold" color="black">Subtotal:</Text>
-                                            <Text fontSize="lg" color="black">$300</Text>
-                                        </HStack>
-                                        <HStack justify="space-between">
-                                            <Text fontSize="lg" fontWeight="semibold" color="black">Shipping + Tax:</Text>
-                                            <Text fontSize="lg" align="right" color="black">Calculate shipping</Text>
-                                        </HStack>
-                                        <HStack justify="space-between">
-                                            <Text fontSize="lg" fontWeight="semibold" color="black">Coupon Code:</Text>
-                                            <Text fontSize="lg" color="black">Add coupon code</Text>
-                                        </HStack>
-                                        <HStack justify="space-between">
-                                            <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
-                                            <Text fontSize="lg" color="black">{amount}Rs</Text>
-                                        </HStack>
-                                        <Box>
-                                            <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={Payment}>
-                                                Payment
-                                            </Button>
-                                        </Box>
-                                        <Box>
-                                            <Button size="lg" fontSize="md" width={320} onClick={Delete}>
-                                                Delete Cart
-                                            </Button>
-                                        </Box>
-                                    </Stack>
-                                </Flex>
-                            </Box>
+                    hotelid ?
+                    <Text fontSize={"50px"} color="white" align={"center"}>-- Nothing is Added to the Cart --</Text> :
+                    <Text fontSize={"50px"} color="white" align={"center"}>-- Please Select Hotel --</Text>
 
-                        </Flex>
-                    ) : (
-
-                        hotelid ?
-                            <Text fontSize={"50px"} color="white" align={"center"}>-- Nothing is Added to the Cart --</Text> :
-                            <Text fontSize={"50px"} color="white" align={"center"}>-- Please Select Hotel --</Text>
-
-                    )}
+                    )} */}
                 </Box>
 
 
