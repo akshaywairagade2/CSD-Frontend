@@ -325,6 +325,7 @@ const AddToCart = () => {
                     "http://localhost:5000/api/groupOrders/createGroup",
                     {
                         "hotelId": hotelid,
+                        "hotelName": hotelName,
                         "userName": user.userName,
                         "userId": user._id,
                         "groupId": randomNumber,
@@ -335,8 +336,9 @@ const AddToCart = () => {
 
                 setTimeout(() => {
                     setGeneratedNumber(randomNumber);
-                    gr.splice(0, 0, [groupname, randomNumber])
-                    setGroup(gr);
+                    handleFetchAllGroups()
+                    // gr.splice(0, 0, [groupname, randomNumber])
+                    // setGroup(gr);
                     toast({
                         title: "Group created Successful",
                         status: "success",
@@ -394,7 +396,8 @@ const AddToCart = () => {
                         isClosable: true,
                         position: "bottom",
                     });
-                    setDisplay(1)
+                    handleFetchAllGroups()
+                    setDisplay(1);
                     setLoading(false);
                 }, 1000);
             }
@@ -435,6 +438,7 @@ const AddToCart = () => {
                         "userId": user._id,
                         "groupId": code,
                         "cartId": cartid,
+                        "Amount": amount
 
                     },
                     config
@@ -477,6 +481,50 @@ const AddToCart = () => {
     const handleInputChange = (event) => {
         setGroupName(event.target.value);
     };
+
+
+    const [allGroups, setAllGroups] = useState([]);
+
+
+    const handleFetchAllGroups = async () => {
+
+        try {
+
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+
+            const { data, status } = await axios.post(
+                "http://localhost:5000/api/groupOrders/getusergrouporders",
+                {
+                    "userId": user._id,
+                },
+                config
+            );
+
+
+            if (status == 201) {
+                const listofgroup = data.userGroups;
+                const afterfiltering = []
+                listofgroup.map((items, index) => {
+                    if (items.orderStatus === "ORDER_PENDING")
+                        afterfiltering.splice(0, 0, items)
+                })
+
+                setAllGroups(afterfiltering)
+
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        handleFetchAllGroups();
+    }, [])
 
 
     return (
@@ -524,7 +572,7 @@ const AddToCart = () => {
                                         bg="white"
                                         boxShadow="md"
                                         borderRadius="md"
-                                        maxH="420px"
+                                        maxH="400px"
                                         overflowY="auto"
                                     >
                                         <Heading color="black">Groups</Heading>
@@ -533,12 +581,14 @@ const AddToCart = () => {
                                             <Button m={2} onClick={() => { setFlag(2); onOpen(); setGeneratedNumber('') }}>Create group</Button>
                                         </Box>
                                         <Box color="black" pt={2}>
-                                            {groups.length > 0 ? (
-                                                groups.map((group, ind) => (
+                                            {allGroups.length > 0 ? (
+                                                allGroups.map((group, ind) => (
                                                     <Box key={ind} color="black" border="1px solid black" bg="white" p={2} mt={2} borderRadius="md" _hover={{ cursor: "pointer" }}
-                                                        onClick={() => { navigate(`/group/${group[1]}/${hotelid}/${group[0]}`) }}
+                                                        onClick={() => {
+                                                            navigate(`/group/${group.groupId}/${hotelid}/${group.groupName}`)
+                                                        }}
                                                     >
-                                                        {group[0]}
+                                                        {group.groupName} - {group.groupId}
                                                     </Box>
                                                 ))
                                             ) : (
@@ -604,7 +654,6 @@ const AddToCart = () => {
                                                 boxShadow="md"
                                                 borderRadius="md"
                                                 height="420px"
-
                                             >
                                                 <Stack spacing="4" align="left">
                                                     <Text fontSize="xl" color="black" fontWeight="semibold">Order Summary</Text>
