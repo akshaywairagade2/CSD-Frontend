@@ -25,7 +25,7 @@ const Homedetails = () => {
                 minH={'80vh'}
                 align={'left'}
                 justify={'center'}
-{/*                 bg="gray" */}
+            // bg="gray"
             >
                 <Box p={20}>
                     <Box bg="green.500" p={4} color="white">
@@ -49,14 +49,14 @@ const Homedetails = () => {
                                         <Box display='flex' alignItems='baseline'>
 
                                             <Box
-                                                color='white'
+                                                color='black'
                                                 fontWeight='semibold'
                                                 letterSpacing='wide'
                                                 fontSize='2xl'
                                                 textTransform='uppercase'
                                             // ml='1'
                                             >
-                                                {appName}
+                                                Sushant Yerawar
                                             </Box>
                                         </Box>
 
@@ -81,14 +81,14 @@ const Homedetails = () => {
                                         <Box display='flex' alignItems='baseline'>
 
                                             <Box
-                                                color='white'
+                                                color='black'
                                                 fontWeight='semibold'
                                                 letterSpacing='wide'
                                                 fontSize='2xl'
                                                 textTransform='uppercase'
                                             // ml='1'
                                             >
-                                                {appName}
+                                                Akshay Wairagade
                                             </Box>
                                         </Box>
 
@@ -113,14 +113,14 @@ const Homedetails = () => {
                                         <Box display='flex' alignItems='baseline'>
 
                                             <Box
-                                                color='white'
+                                                color='black'
                                                 fontWeight='semibold'
                                                 letterSpacing='wide'
                                                 fontSize='2xl'
                                                 textTransform='uppercase'
                                             // ml='1'
                                             >
-                                                {appName}
+                                                Manish Salunkhe
                                             </Box>
                                         </Box>
 
@@ -145,14 +145,14 @@ const Homedetails = () => {
                                         <Box display='flex' alignItems='baseline'>
 
                                             <Box
-                                                color='white'
+                                                color='black'
                                                 fontWeight='semibold'
                                                 letterSpacing='wide'
                                                 fontSize='2xl'
                                                 textTransform='uppercase'
                                             // ml='1'
                                             >
-                                                {appName}
+                                                Tishang Prajapati
                                             </Box>
                                         </Box>
 
