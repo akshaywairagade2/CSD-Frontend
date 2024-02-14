@@ -71,7 +71,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://localhost:5000/api/groupOrders/fetchgroup`,
+                `http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/fetchgroup`,
                 {
                     groupId: GroupId
                 },
@@ -130,7 +130,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://localhost:5000/api/groupOrders/groups/addItem`,
+                `http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/addItem`,
                 {
                     "groupId": GroupId,
                     "item": item,
@@ -160,7 +160,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://localhost:5000/api/groupOrders/groups/removeItem`,
+                `http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/removeItem`,
                 {
                     "groupId": GroupId,
                     "item": item,
@@ -192,7 +192,7 @@ const Group = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://localhost:5000/api/groupOrders/placeGroupOrder",
+                    "http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/placeGroupOrder",
                     {
                         "groupId": GroupId
                     },
@@ -237,7 +237,7 @@ const Group = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `http://localhost:5000/api/groupOrders/groups/deleteCart`, {
+                    `http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/deleteCart`, {
                     "groupId": GroupId,
                     "userId": user._id,
                     "userName": user.userName
@@ -273,7 +273,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://localhost:5000/api/groupOrders/groups/deleteItem`, {
+                `http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/deleteItem`, {
                 "groupId": GroupId,
                 "userId": user._id,
                 "userName": user.userName,

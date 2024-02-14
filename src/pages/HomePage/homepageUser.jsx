@@ -79,7 +79,7 @@ const HomePageUser = () => {
             };
 
             const { data, status } = await axios.get(
-                "http://localhost:5000/api/auth/hotels",
+                "http://https://iitbh-campus-delivery.onrender.com/api/auth/hotels",
                 config
             );
 
