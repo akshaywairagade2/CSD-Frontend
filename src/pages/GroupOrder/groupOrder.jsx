@@ -85,7 +85,7 @@ const GroupOrder = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/fetchgroup`,
+                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/fetchgroup`,
                 {
                     groupId: GroupId
                 },

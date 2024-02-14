@@ -116,7 +116,7 @@ const HotelProfile = () => {
             };
 
             // const { data, status } = await axios.post(
-            //     "http://https://iitbh-campus-delivery.onrender.com/api/items/additem",
+            //     "https://iitbh-campus-delivery.onrender.com/api/items/additem",
             //     {
 
             //     },

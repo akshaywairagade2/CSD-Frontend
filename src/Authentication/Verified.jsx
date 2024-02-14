@@ -28,7 +28,7 @@ const Verified = () => {
             };
 
             const { data } = await axios.post(
-                "http://https://iitbh-campus-delivery.onrender.com/api/auth/verify/",
+                "https://iitbh-campus-delivery.onrender.com/api/auth/verify/",
                 {
                     "id": params.id,
                 },

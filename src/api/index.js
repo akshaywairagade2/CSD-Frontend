@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API = axios.create({ baseURL: "http://https://iitbh-campus-delivery.onrender.com" })
+const API = axios.create({ baseURL: "https://iitbh-campus-delivery.onrender.com" })
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem("user_info")) {

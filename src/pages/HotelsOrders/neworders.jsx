@@ -88,7 +88,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/orders/acceptOrder",
+                    "https://iitbh-campus-delivery.onrender.com/api/orders/acceptOrder",
                     {
                         "orderId": orderId,
                     },
@@ -116,7 +116,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/orders/rejectOrder",
+                    "https://iitbh-campus-delivery.onrender.com/api/orders/rejectOrder",
                     {
                         "orderId": orderId,
                     },
@@ -158,7 +158,7 @@ const NewOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://https://iitbh-campus-delivery.onrender.com/api/orders/getOrderByHotel`,
+                `https://iitbh-campus-delivery.onrender.com/api/orders/getOrderByHotel`,
                 {
                     hotelId: user._id
                 },
@@ -235,7 +235,7 @@ const NewOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/gethotelgrouporders`,
+                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/gethotelgrouporders`,
                 {
                     hotelId: user._id
                 },
@@ -286,7 +286,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/acceptGroupOrder",
+                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/acceptGroupOrder",
                     {
                         "groupId": groupId,
                     },
@@ -314,7 +314,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/rejectGroupOrder",
+                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/rejectGroupOrder",
                     {
                         "groupId": groupId,
                     },

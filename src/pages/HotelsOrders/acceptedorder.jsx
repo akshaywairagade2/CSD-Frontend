@@ -55,7 +55,7 @@ const AcceptedOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/orders/deliveredOrder",
+                    "https://iitbh-campus-delivery.onrender.com/api/orders/deliveredOrder",
                     {
                         "orderId": orderId,
                     },
@@ -96,7 +96,7 @@ const AcceptedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://https://iitbh-campus-delivery.onrender.com/api/orders/getOrderByHotel`,
+                `https://iitbh-campus-delivery.onrender.com/api/orders/getOrderByHotel`,
                 {
                     hotelId: user._id
                 },
@@ -172,7 +172,7 @@ const AcceptedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/gethotelgrouporders`,
+                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/gethotelgrouporders`,
                 {
                     hotelId: user._id
                 },
@@ -222,7 +222,7 @@ const AcceptedOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/deliverGroupOrder",
+                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/deliverGroupOrder",
                     {
                         "groupId": groupId,
                     },

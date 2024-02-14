@@ -58,7 +58,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
+                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
                 {
                     userID: user._id
                 },
@@ -101,7 +101,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://https://iitbh-campus-delivery.onrender.com/api/v1/cart/add`,
+                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/add`,
                 {
                     "hotelID": hotelid,
                     "item": item
@@ -128,7 +128,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `http://https://iitbh-campus-delivery.onrender.com/api/v1/cart/remove`,
+                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/remove`,
                 {
                     "hotelID": hotelid,
                     "item": item
@@ -157,7 +157,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.delete(
-                `http://https://iitbh-campus-delivery.onrender.com/api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`,
+                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`,
                 config
             );
             console.log(data, "sttata")
@@ -182,7 +182,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/orders/addOrder",
+                    "https://iitbh-campus-delivery.onrender.com/api/orders/addOrder",
                     {
                         "userId": user._id,
                         "hotelId": hotelid,
@@ -234,7 +234,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.delete(
-                    `http://https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
+                    `https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
                     config
                 );
 
@@ -272,7 +272,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.delete(
-                `http://https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
+                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
                 config
             );
 
@@ -322,7 +322,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/createGroup",
+                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/createGroup",
                     {
                         "hotelId": hotelid,
                         "hotelName": hotelName,
@@ -379,7 +379,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/joinGroup",
+                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/joinGroup",
                     {
                         "userName": user.userName,
                         "userId": user._id,
@@ -432,7 +432,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/addCartToGroup",
+                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/addCartToGroup",
                     {
                         "userName": user.userName,
                         "userId": user._id,
@@ -497,7 +497,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                "http://https://iitbh-campus-delivery.onrender.com/api/groupOrders/getusergrouporders",
+                "https://iitbh-campus-delivery.onrender.com/api/groupOrders/getusergrouporders",
                 {
                     "userId": user._id,
                 },

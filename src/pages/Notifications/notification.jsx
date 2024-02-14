@@ -62,7 +62,7 @@ const Notifications = () => {
 
 
                 // const { data, status } = await axios.post(
-                //     "http://https://iitbh-campus-delivery.onrender.com/api/items/deleteitem",
+                //     "https://iitbh-campus-delivery.onrender.com/api/items/deleteitem",
                 //     {
                 //         "itemId": itemId
                 //     },

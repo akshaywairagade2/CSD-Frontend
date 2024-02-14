@@ -88,7 +88,7 @@ const ResetPassword = () => {
                 };
 
                 const { data } = await axios.post(
-                    `http://https://iitbh-campus-delivery.onrender.com/api/auth//reset-password/${params.id}/${params.token}`,
+                    `https://iitbh-campus-delivery.onrender.com/api/auth//reset-password/${params.id}/${params.token}`,
                     {
                         "password": password,
                     },
