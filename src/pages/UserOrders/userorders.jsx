@@ -248,11 +248,12 @@ const UserOrders = () => {
                                     <Tr >
                                         {/* <Th>ID</Th> */}
                                         {!personalOrder && <Th>Group Name</Th>}
+                                        {!personalOrder && <Th>Group Number</Th>}
                                         <Th>Hotel Name</Th>
                                         {/* {personalOrder && <Th>Items</Th>} */}
                                         {personalOrder && <Th>Items</Th>}
                                         {!personalOrder && <Th>View Items</Th>}
-                                        <Th>Amount</Th>
+                                        {personalOrder && <Th>Items</Th>}
                                         <Th>Status</Th>
                                         {/* {personalOrder && <Th>Action</Th>} */}
                                     </Tr>
@@ -288,6 +289,7 @@ const UserOrders = () => {
                                                 {/* <Td color="black">{order?._id.slice(0, 10)}...</Td> */}
                                                 {/* <Td color="black">{user.userName}</Td> */}
                                                 <Td color="black">{order.groupName}</Td>
+                                                <Td color="black">{order.groupId}</Td>
                                                 <Td color="black">{order.hotelName}</Td>
                                                 <Td color="black">
                                                     <IconButton
@@ -299,19 +301,19 @@ const UserOrders = () => {
                                                         aria-label="View"
                                                     />
                                                 </Td>
-                                                <Td color="black">{order.amount}</Td>
+                                                {/* <Td color="black">{order.amount}</Td> */}
                                                 {/* <Td color={order.status == "Accepted" ? 'green' : (order.status == "Rejected") ? 'red' : "black"}>{order.status}</Td> */}
                                                 {order.orderStatus == "ORDER_PLACED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="white" bg="green.500">Pending</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"63%"} p={3} color="white" bg="green.500">Pending</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_REJECTED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="white" bg="green.500">Rejected</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"63%"} p={3} color="white" bg="green.500">Rejected</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_DELIVERED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="white" bg="green.500">Delivered</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"63%"} p={3} color="white" bg="green.500">Delivered</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_ACCEPTED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="white" bg="green.500">Processed</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"63%"} p={3} color="white" bg="green.500">Processed</Box></Td>
                                                 }
 
                                                 {/* {
