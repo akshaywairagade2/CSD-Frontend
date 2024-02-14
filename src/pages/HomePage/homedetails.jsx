@@ -7,18 +7,24 @@ import {
     Badge,
     Grid,
     GridItem,
-
+    Link,
+    Button
 } from '@chakra-ui/react'
-
+import { useNavigate } from 'react-router-dom';
 import manImage from "../../manimage.jpg"
 import FoodBackgroundImage from '../../img4.jpg';
+import akshay from '../../akshay.jpg';
+import manish from '../../manish.jpg';
+import tishang from '../../tishang.jpeg';
+import sushant from '../../sushant.png';
+
 
 const Homedetails = () => {
 
     const appName = 'Sam Verma';
     const appDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
     const appRating = 4.5;
-
+    const navigate = useNavigate();
     return (
         <>
             <Flex
@@ -44,20 +50,20 @@ const Homedetails = () => {
                             <GridItem>
 
                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ cursor: "pointer" }}>
-                                    <Image src={manImage} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
+                                    <Image src={sushant} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
                                     <Box p='6'>
                                         <Box display='flex' alignItems='baseline'>
 
-                                            <Box
+                                            <Button
                                                 color='black'
                                                 fontWeight='semibold'
                                                 letterSpacing='wide'
                                                 fontSize='2xl'
                                                 textTransform='uppercase'
-                                            // ml='1'
+
                                             >
-                                                Sushant Yerawar
-                                            </Box>
+                                                <Link href="https://www.linkedin.com/in/sushant-yerawar-b0191a204/" style={{ textDecoration: 'none' }}> Sushant Yerawar</Link>
+                                            </Button>
                                         </Box>
 
                                         <Box
@@ -76,20 +82,22 @@ const Homedetails = () => {
                             <GridItem>
 
                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ cursor: "pointer" }}>
-                                    <Image src={manImage} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
+                                    <Image src={akshay} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
                                     <Box p='6'>
                                         <Box display='flex' alignItems='baseline'>
 
-                                            <Box
+                                            <Button
                                                 color='black'
                                                 fontWeight='semibold'
                                                 letterSpacing='wide'
                                                 fontSize='2xl'
                                                 textTransform='uppercase'
-                                            // ml='1'
+
                                             >
-                                                Akshay Wairagade
-                                            </Box>
+                                                <Link href="https://www.linkedin.com/in/akshay-wairagade-b93081204/" style={{ textDecoration: 'none' }}>Akshay Wairagade</Link>
+                                            </Button>
+
+
                                         </Box>
 
                                         <Box
@@ -108,20 +116,21 @@ const Homedetails = () => {
                             <GridItem>
 
                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ cursor: "pointer" }}>
-                                    <Image src={manImage} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
+                                    <Image src={manish} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
                                     <Box p='6'>
                                         <Box display='flex' alignItems='baseline'>
-
-                                            <Box
+                                            <Button
                                                 color='black'
                                                 fontWeight='semibold'
                                                 letterSpacing='wide'
                                                 fontSize='2xl'
                                                 textTransform='uppercase'
-                                            // ml='1'
+
                                             >
-                                                Manish Salunkhe
-                                            </Box>
+                                                <Link href="https://www.linkedin.com/in/manish-salunkhe/" style={{ textDecoration: 'none' }}>Manish Salunkhe</Link>
+                                            </Button>
+
+
                                         </Box>
 
                                         <Box
@@ -140,20 +149,20 @@ const Homedetails = () => {
                             <GridItem>
 
                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ cursor: "pointer" }}>
-                                    <Image src={manImage} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
+                                    <Image src={tishang} boxSize={'100%'} aspectRatio={3 / 2} objectFit={'cover'} width={"100%"} height={"100%"} />
                                     <Box p='6'>
                                         <Box display='flex' alignItems='baseline'>
-
-                                            <Box
+                                            <Button
                                                 color='black'
                                                 fontWeight='semibold'
                                                 letterSpacing='wide'
                                                 fontSize='2xl'
                                                 textTransform='uppercase'
-                                            // ml='1'
+
                                             >
-                                                Tishang Prajapati
-                                            </Box>
+                                                <Link href="https://www.linkedin.com/in/tishang-prajapati-720917206/" style={{ textDecoration: 'none' }}>Tishang Prajapati</Link>
+                                            </Button>
+
                                         </Box>
 
                                         <Box
@@ -172,7 +181,7 @@ const Homedetails = () => {
                         </Grid>
                     </Box>
                 </Box>
-            </Flex>
+            </Flex >
         </>
     )
 }
