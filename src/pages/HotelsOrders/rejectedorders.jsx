@@ -23,7 +23,7 @@ import {
     Spinner
 } from '@chakra-ui/react';
 
-import Header from '../../Header/Header';
+import Header from '../../Header/header';
 import Footer from '../../Footer/footer';
 import Pagination from '../Pagination/pagination';
 import FoodBackgroundImage from '../../img4.jpg';
@@ -306,7 +306,7 @@ const RejectedOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"45%"} p={3} color="black" bg="red.300">{order.orderAcceptOrDecline}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"50%"} p={3} color="black" bg="red.300">{order.orderAcceptOrDecline}</Box></Td>
                                             </Tr>
                                         ))}
                                     </Tbody>
@@ -321,7 +321,7 @@ const RejectedOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.items); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.items[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"45%"} p={3} color="black" bg="red.300">{"Rejected"}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"50%"} p={3} color="black" bg="red.300">{"Rejected"}</Box></Td>
                                                 {/* <Td color="black">
                                             <IconButton
                                                 color="blue.400"

@@ -46,7 +46,7 @@ function App() {
         <Route path="/verifymail/:id" element={<VerifiedMail />} />
         <Route path="/sender" element={<Sender />} />
         <Route path="/buyer" element={<Buyer />} />
-        <Route path="/catalog/:id/:name" element={<Catalog />} />
+        <Route path="/catalog/:id/:name/:emailid" element={<Catalog />} />
         <Route path="/additem" element={<AddItem />} />
         <Route path="/addtocart" element={<AddToCart />} />
         <Route path="/payment/:id" element={<Payment />} />

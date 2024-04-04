@@ -22,7 +22,7 @@ import {
     Badge,
     Spinner
 } from '@chakra-ui/react';
-import Header from '../../Header/Header';
+import Header from '../../Header/header';
 import Footer from '../../Footer/footer';
 import Pagination from '../Pagination/pagination';
 import axios from "axios"
@@ -42,6 +42,9 @@ const NewOrders = () => {
     const [loading, setLoading] = useState(true);
     const user = userInfo ? userInfo.User : null
     const path = window.location.pathname;
+    const [email, setEmail] = useState(null);
+
+
     // const orders = [
     //     { id: 1, name: 'John Doe', items: ['Item 1', 'Item 2'], status: 'Pending' },
     //     { id: 2, name: 'Jane Doe', items: ['Item 3', 'Item 4'], status: 'Pending' },
@@ -76,8 +79,9 @@ const NewOrders = () => {
     // ];
 
 
-    const handleAccept = async (orderId) => {
+    const handleAccept = async (orderId, email) => {
         const answer = window.confirm('Are you sure?');
+
         if (answer) {
 
             try {
@@ -91,6 +95,7 @@ const NewOrders = () => {
                     "https://iitbh-campus-delivery.onrender.com/api/orders/acceptOrder",
                     {
                         "orderId": orderId,
+                        "email": email
                     },
                     config
                 );
@@ -105,7 +110,7 @@ const NewOrders = () => {
         }
     };
 
-    const handleReject = async (orderId) => {
+    const handleReject = async (orderId, email) => {
         const answer = window.confirm('Are you sure?');
         if (answer) {
             try {
@@ -119,6 +124,7 @@ const NewOrders = () => {
                     "https://iitbh-campus-delivery.onrender.com/api/orders/rejectOrder",
                     {
                         "orderId": orderId,
+                        "email": email
                     },
                     config
                 );
@@ -180,6 +186,8 @@ const NewOrders = () => {
         }
     };
 
+    // console.log(allorders, "allordersallordersallorders")
+
     useEffect(() => {
         GetHotelOrders()
     }, [])
@@ -222,7 +230,7 @@ const NewOrders = () => {
         setPersonalOrder(!personalOrder);
     };
 
-
+    // console.log(grouporders, "groupordersgroupordersgrouporders")
 
     const getGroupOrderByHotel = async () => {
         setLoading(true);
@@ -242,6 +250,7 @@ const NewOrders = () => {
                 config
             );
 
+            console.log(data, "groupordres")
 
             if (status == 201) {
                 setAllGroupOrders(data.hotelOrders);
@@ -264,7 +273,7 @@ const NewOrders = () => {
 
         var newgrouporders = [];
         allgrouporders.forEach((order) => {
-            if (order.orderStatus == "ORDER_PENDING") {
+            if (order.orderStatus == "ORDER_PLACED") {
                 newgrouporders.push(order)
             }
         })
@@ -274,8 +283,9 @@ const NewOrders = () => {
     }, [allgrouporders])
 
 
-    const handleGroupAccept = async (groupId) => {
+    const handleGroupAccept = async (groupId, email) => {
         const answer = window.confirm('Are you sure?');
+        console.log(email, "emaillll")
         if (answer) {
 
             try {
@@ -289,6 +299,7 @@ const NewOrders = () => {
                     "https://iitbh-campus-delivery.onrender.com/api/groupOrders/acceptGroupOrder",
                     {
                         "groupId": groupId,
+                        "email": email
                     },
                     config
                 );
@@ -303,7 +314,7 @@ const NewOrders = () => {
         }
     };
 
-    const handleGroupReject = async (groupId) => {
+    const handleGroupReject = async (groupId, email) => {
         const answer = window.confirm('Are you sure?');
         if (answer) {
             try {
@@ -317,6 +328,7 @@ const NewOrders = () => {
                     "https://iitbh-campus-delivery.onrender.com/api/groupOrders/rejectGroupOrder",
                     {
                         "groupId": groupId,
+                        "email": email
                     },
                     config
                 );
@@ -331,8 +343,7 @@ const NewOrders = () => {
         }
     };
 
-
-
+    // console.log(currentGroupOrders, "currentGroupOrders")
 
 
     return (
@@ -420,12 +431,12 @@ const NewOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"55%"} p={3} color="black" bg="green.300">{order.orderStatus}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"65%"} p={3} color="black" bg="green.300">{order.orderStatus}</Box></Td>
                                                 <Td>
 
                                                     <Button
                                                         colorScheme="green"
-                                                        onClick={() => handleAccept(order._id)}
+                                                        onClick={() => handleAccept(order._id, order.email)}
                                                     >
                                                         {/* Accept */}
                                                         <FaCheck />
@@ -436,7 +447,7 @@ const NewOrders = () => {
                                                     <Button
                                                         ml={2}
                                                         bg="red.200"
-                                                        onClick={() => handleReject(order._id)}
+                                                        onClick={() => handleReject(order._id, order.email)}
                                                     >
                                                         {/* Reject */}
                                                         <FaTimes />
@@ -454,12 +465,12 @@ const NewOrders = () => {
                                                 <Td color="black">{order.groupName}</Td>
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.items); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.items[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"55%"} p={3} color="black" bg="green.300">Pending</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"67%"} p={3} color="black" bg="green.300">Pending</Box></Td>
                                                 <Td>
 
                                                     <Button
                                                         colorScheme="green"
-                                                        onClick={() => handleGroupAccept(order.groupId)}
+                                                        onClick={() => handleGroupAccept(order.groupId, order.email)}
                                                     >
                                                         {/* Accept */}
                                                         <FaCheck />
@@ -470,7 +481,7 @@ const NewOrders = () => {
                                                     <Button
                                                         ml={2}
                                                         bg="red.200"
-                                                        onClick={() => handleGroupReject(order.groupId)}
+                                                        onClick={() => handleGroupReject(order.groupId, order.email)}
                                                     >
                                                         {/* Reject */}
                                                         <FaTimes />

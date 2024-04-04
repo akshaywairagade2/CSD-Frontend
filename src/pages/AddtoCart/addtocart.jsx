@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../../Footer/footer";
-import Header from "../../Header/Header";
+import Header from "../../Header/header";
 import food from "../../food.png"
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
@@ -33,13 +33,16 @@ const AddToCart = () => {
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
+    const hotelName = JSON.parse(localStorage.getItem('hotelname'));
+    const hotelemailid = JSON.parse(localStorage.getItem('hotelemailid'));
     const user = userInfo ? userInfo.User : null;
     const [amount, setAmount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
     const [cartid, setCartId] = useState()
     const toast = useToast();
-    var hotelName = JSON.parse(localStorage.getItem('hotelname'));
     const [fetchloading, setFetchLoading] = useState(true);
+    const emailId = user?.emailId
+    // console.log(emailId, "emailid")
 
     useEffect(() => {
         if (!user) navigate('/login');
@@ -172,6 +175,7 @@ const AddToCart = () => {
 
     const Payment = async () => {
         const answer = window.confirm('Are you sure?');
+        console.log(hotelemailid, "hotelemailidhotelemailid")
         if (answer) {
 
             try {
@@ -190,6 +194,8 @@ const AddToCart = () => {
                         "userName": user.userName,
                         "cartItems": cartItems,
                         "amount": amount,
+                        "email": emailId,
+                        "hotelemailid": hotelemailid
                     },
                     config
                 );
@@ -306,6 +312,8 @@ const AddToCart = () => {
         onOpen();
     }
 
+    console.log(emailId, "emailIdemailIdemailId")
+
     const generateNumber = async () => {
         try {
             if (groupname != "") {
@@ -329,7 +337,8 @@ const AddToCart = () => {
                         "userName": user.userName,
                         "userId": user._id,
                         "groupId": randomNumber,
-                        "groupName": groupname
+                        "groupName": groupname,
+                        "email": emailId,
                     },
                     config
                 );

@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from "react"
-import Header from "../../Header/Header";
+import Header from "../../Header/header";
 import Footer from "../../Footer/footer";
 import { useNavigate } from 'react-router-dom';
 import {
@@ -17,6 +17,7 @@ import {
     Tooltip,
     Text
 } from '@chakra-ui/react'
+import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -29,20 +30,61 @@ const UserProfile = () => {
     const toast = useToast();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const user = userInfo ? userInfo.User : null
+    const userId = user?._id
     const role = user?.role;
     const navigate = useNavigate();
-
-    const [userName, setUserName] = useState('Aman');
-    const [userDescription, setUserDescription] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+    const [userName, setUserName] = useState(null);
+    const [userDescription, setUserDescription] = useState(null);
     const [userAge, setUserAge] = useState(20);
+    const [userAddress, setUserAddress] = useState(null);
+    const [userMobileNumber, setUserMobileNumber] = useState(null);
     const [selectedFiles, setSelectedFiles] = useState(["http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",]);
+
+
 
     useEffect(() => {
         if (!userInfo) {
             navigate("/login")
         }
-    })
+        else {
+            fetchUserInfo();
+        }
+    }, [])
+
+
+    const fetchUserInfo = async () => {
+        if (userId) {
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
+
+                const { data, status } = await axios.post(
+                    "https://iitbh-campus-delivery.onrender.com/api/auth/userinfo",
+                    {
+                        "id": userId
+                    },
+                    config
+                );
+
+                if (status === 201) {
+                    console.log(data.info.userName, status, "datadata")
+                    setUserName(data.info.userName);
+                    setUserMobileNumber(data.info.mobilenumber)
+                    setUserAddress(data.info.address);
+                    setUserDescription(data.info.description)
+                    // setUserAge(data.Info[0].age);
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+    }
+
 
 
     // const handleDelete = (indexToDelete) => {
@@ -87,11 +129,11 @@ const UserProfile = () => {
 
     const handleUpdate = async () => {
 
-        if (userName == "" || userDescription == "") {
+        if (userName == "") {
 
 
             toast({
-                title: "Please Fill all fields",
+                title: "Please enter userName",
                 status: "warning",
                 duration: 5000,
                 isClosable: true,
@@ -107,15 +149,30 @@ const UserProfile = () => {
                 },
             };
 
-            // const { data, status } = await axios.post(
-            //     "https://iitbh-campus-delivery.onrender.com/api/items/additem",
-            //     {
-
-            //     },
-            //     config
-            // );
+            const { data, status } = await axios.post(
+                "https://iitbh-campus-delivery.onrender.com/api/auth/edituserinfo",
+                {
+                    "id": userId,
+                    "userName": userName,
+                    "mobilenumber": userMobileNumber,
+                    "address": userAddress,
+                    "description": userDescription
+                },
+                config
+            );
 
             setEdit(false);
+
+            if (status == 201) {
+                toast({
+                    title: "Profile Updated Successfully",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+
+            }
 
         } catch (error) {
             toast({
@@ -327,7 +384,7 @@ const UserProfile = () => {
                                 />
                             </FormControl>
 
-                            <FormControl id="age" isRequired={edit} >
+                            {/* <FormControl id="age" isRequired={edit} >
                                 <FormLabel >Age of User</FormLabel>
                                 <Input
                                     color="white"
@@ -335,6 +392,30 @@ const UserProfile = () => {
                                     placeholder="Enter Age of User"
                                     value={userAge}
                                     onChange={(e) => { setUserAge(e.target.value) }}
+                                    readOnly={!edit}
+                                />
+                            </FormControl> */}
+
+                            <FormControl id="mobilenumber" isRequired={edit} >
+                                <FormLabel >Mobile Number of User</FormLabel>
+                                <Input
+                                    color="white"
+                                    type="number"
+                                    placeholder="Enter mobile Number of User"
+                                    value={userMobileNumber}
+                                    onChange={(e) => { setUserMobileNumber(e.target.value) }}
+                                    readOnly={!edit}
+                                />
+                            </FormControl>
+
+                            <FormControl id="address" isRequired={edit} >
+                                <FormLabel >Address of User</FormLabel>
+                                <Input
+                                    color="white"
+                                    type="text"
+                                    placeholder="Enter Address of User"
+                                    value={userAddress}
+                                    onChange={(e) => { setUserAddress(e.target.value) }}
                                     readOnly={!edit}
                                 />
                             </FormControl>
@@ -384,13 +465,13 @@ const UserProfile = () => {
                             {
                                 edit &&
                                 <Button mt={2} onClick={handleUpdate} colorScheme="blue" width={"50%"} >
-                                    Save
+                                    Update
                                 </Button>
                             }
                         </Stack>
                     </Box>
                 </Stack>
-            </Flex >
+            </Flex>
             <Footer />
         </>
     )

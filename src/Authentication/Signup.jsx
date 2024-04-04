@@ -24,7 +24,7 @@ import googleImage from '../assets/googleImage.jpg';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { signup, signupGoogle } from "../redux/actions/auth";
-import Header from "../Header/Header";
+import Header from "../Header/header";
 import Footer from "../Footer/footer";
 
 
@@ -38,6 +38,10 @@ const SignUp = () => {
     const [email, setEmail] = useState(null);
     const [username, setUserName] = useState(null);
     const [password, setPassword] = useState(null);
+    const [address, setAddress] = useState(null);
+    const [mobileNumber, setMobileNumber] = useState(null);
+
+    console.log(mobileNumber, address, "Personal Data")
 
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -175,9 +179,21 @@ const SignUp = () => {
             return;
         }
 
+        if (mobileNumber.length != 10) {
+            toast({
+                title: "Invalid Mobile Number",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+            setLoading(false);
+            return;
+        }
 
 
-        if (!username || !email || !password) {
+
+        if (!username || !email || !password || !address || !mobileNumber) {
             toast({
                 title: "Please Fill all the fields",
                 status: "warning",
@@ -201,12 +217,13 @@ const SignUp = () => {
                     "userName": username,
                     "emailId": email,
                     "password": password,
+                    "mobilenumber": mobileNumber,
+                    "address": address
                     // "role": "user"
                 },
                 config
             );
 
-            console.log(data, "datahuh")
 
             // toast({
             //     title: `Mail has send to ${email}. please Verify it`,
@@ -335,6 +352,24 @@ const SignUp = () => {
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
+                            </FormControl>
+                            <FormControl id="mobilenumber" isRequired>
+                                <FormLabel color="black">Mobile Number</FormLabel>
+                                <Input
+                                    type="number"
+                                    value={mobileNumber}
+                                    placeholder="Enter Mobile Number"
+                                    onChange={(e) => { setMobileNumber(e.target.value) }}
+                                    color="black" />
+                            </FormControl>
+                            <FormControl id="address" isRequired>
+                                <FormLabel color="black">Address</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={address}
+                                    placeholder="Enter Address"
+                                    onChange={(e) => { setAddress(e.target.value) }}
+                                    color="black" />
                             </FormControl>
                             <Stack spacing={2}>
                                 {loading ? (

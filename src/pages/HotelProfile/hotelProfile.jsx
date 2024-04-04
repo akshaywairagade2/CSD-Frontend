@@ -1,7 +1,8 @@
 import react, { useState, useEffect } from "react"
-import Header from "../../Header/Header";
+import Header from "../../Header/header";
 import Footer from "../../Footer/footer";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 import {
     Flex,
     Box,
@@ -28,20 +29,62 @@ const HotelProfile = () => {
     const toast = useToast();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const user = userInfo ? userInfo.User : null
+    const hotelId = user?._id
     const role = user?.role;
     const navigate = useNavigate();
 
     const [hotelName, setHotelName] = useState('Tech Cafe');
     const [hotelDescription, setHotelDescription] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
     const [hotelRating, setHotelRating] = useState(4.5);
+    const [hotelAddress, sethotelAddress] = useState("123 Main St");
+    const [hotelMobileNumber, sethotelMobileNumber] = useState(9467893045);
     const [selectedFiles, setSelectedFiles] = useState(["http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",]);
+
+
 
     useEffect(() => {
         if (!userInfo) {
             navigate("/login")
         }
-    })
+        else {
+            fetchHotelInfo();
+        }
+    }, [])
+
+
+    const fetchHotelInfo = async () => {
+        if (hotelId) {
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
+
+                const { data, status } = await axios.post(
+                    "https://iitbh-campus-delivery.onrender.com/api/auth/userinfo",
+                    {
+                        "id": hotelId
+                    },
+                    config
+                );
+
+                if (status === 201) {
+                    // console.log(data.info.userName, status, "datadata")
+                    setHotelName(data.info.userName);
+                    sethotelMobileNumber(data.info.mobilenumber)
+                    sethotelAddress(data.info.address);
+                    setHotelDescription(data.info.description)
+                    // setUserAge(data.Info[0].age);
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+    }
+
 
     const handleDelete = (indexToDelete) => {
         const updatedFiles = selectedFiles.filter((_, index) => index !== indexToDelete);
@@ -85,9 +128,21 @@ const HotelProfile = () => {
     const handleUpdate = async () => {
 
 
-        if (hotelRating != "" && (hotelRating > 5 || hotelRating < 1)) {
+        // if (hotelRating != "" && (hotelRating > 5 || hotelRating < 1)) {
+        //     toast({
+        //         title: "Rating Should be between 1 and 5 (both included)",
+        //         status: "warning",
+        //         duration: 5000,
+        //         isClosable: true,
+        //         position: "bottom",
+        //     });
+        //     return;
+        // }
+        if (hotelName == "") {
+
+
             toast({
-                title: "Rating Should be between 1 and 5 (both included)",
+                title: "Please enter hotel Name",
                 status: "warning",
                 duration: 5000,
                 isClosable: true,
@@ -95,11 +150,12 @@ const HotelProfile = () => {
             });
             return;
         }
-        if (hotelName == "" || hotelDescription == "" || hotelRating == "") {
+
+        if (hotelMobileNumber == "") {
 
 
             toast({
-                title: "Please Fill all fields",
+                title: "Please enter hotel mobile number",
                 status: "warning",
                 duration: 5000,
                 isClosable: true,
@@ -115,15 +171,29 @@ const HotelProfile = () => {
                 },
             };
 
-            // const { data, status } = await axios.post(
-            //     "https://iitbh-campus-delivery.onrender.com/api/items/additem",
-            //     {
-
-            //     },
-            //     config
-            // );
+            const { data, status } = await axios.post(
+                "https://iitbh-campus-delivery.onrender.com/api/auth/edituserinfo",
+                {
+                    "id": hotelId,
+                    "userName": hotelName,
+                    "mobilenumber": hotelMobileNumber,
+                    "address": hotelAddress,
+                    "description": hotelDescription
+                },
+                config
+            );
 
             setEdit(false);
+            if (status == 201) {
+                toast({
+                    title: "Profile Updated Successfully",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+
+            }
 
         } catch (error) {
             toast({
@@ -339,6 +409,30 @@ const HotelProfile = () => {
                                     placeholder="Enter Rating of Hotel"
                                     value={hotelRating}
                                     onChange={(e) => { setHotelRating(e.target.value) }}
+                                    readOnly={!edit}
+                                />
+                            </FormControl>
+
+                            <FormControl id="mobilenumber" isRequired={edit} >
+                                <FormLabel >Mobile Number</FormLabel>
+                                <Input
+                                    color="white"
+                                    type="number"
+                                    placeholder="Enter mobile Number of Hotel"
+                                    value={hotelMobileNumber}
+                                    onChange={(e) => { sethotelMobileNumber(e.target.value) }}
+                                    readOnly={!edit}
+                                />
+                            </FormControl>
+
+                            <FormControl id="address" isRequired={edit} >
+                                <FormLabel >Address</FormLabel>
+                                <Input
+                                    color="white"
+                                    type="text"
+                                    placeholder="Enter Address of Hotel"
+                                    value={hotelAddress}
+                                    onChange={(e) => { sethotelAddress(e.target.value) }}
                                     readOnly={!edit}
                                 />
                             </FormControl>

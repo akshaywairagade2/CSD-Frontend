@@ -23,7 +23,7 @@ import {
     Spinner
 } from '@chakra-ui/react';
 
-import Header from '../../Header/Header';
+import Header from '../../Header/header';
 import Footer from '../../Footer/footer';
 import Pagination from '../Pagination/pagination';
 import axios from "axios"
@@ -44,7 +44,7 @@ const AcceptedOrders = () => {
     const [loading, setLoading] = useState(true);
     const user = userInfo ? userInfo.User : null
 
-    const UpdateStatus = async (orderId) => {
+    const UpdateStatus = async (orderId, email) => {
         const answer = window.confirm('Are you sure?');
         if (answer) {
             try {
@@ -58,6 +58,7 @@ const AcceptedOrders = () => {
                     "https://iitbh-campus-delivery.onrender.com/api/orders/deliveredOrder",
                     {
                         "orderId": orderId,
+                        "email": email
                     },
                     config
                 );
@@ -211,7 +212,7 @@ const AcceptedOrders = () => {
 
 
 
-    const UpdateGroupStatus = async (groupId) => {
+    const UpdateGroupStatus = async (groupId, email) => {
         const answer = window.confirm('Are you sure?');
         if (answer) {
             try {
@@ -225,6 +226,7 @@ const AcceptedOrders = () => {
                     "https://iitbh-campus-delivery.onrender.com/api/groupOrders/deliverGroupOrder",
                     {
                         "groupId": groupId,
+                        "email": email
                     },
                     config
                 );
@@ -238,6 +240,8 @@ const AcceptedOrders = () => {
         }
     };
 
+
+    console.log(currentGroupOrders, "currentGroupOrders")
 
 
     return (
@@ -322,12 +326,12 @@ const AcceptedOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="black" bg="green.300">{order.orderStatus}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"65%"} p={3} color="black" bg="green.300">{order.orderStatus}</Box></Td>
                                                 <Td>
                                                     <Button
                                                         isDisabled={order.orderStatus == "Processed" ? false : true}
                                                         colorScheme="green"
-                                                        onClick={() => UpdateStatus(order._id)}
+                                                        onClick={() => UpdateStatus(order._id, order.email)}
                                                     >
                                                         Delivered Order
                                                     </Button>
@@ -347,12 +351,12 @@ const AcceptedOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.items); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.items[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="black" bg="green.300">{order.orderStatus == "ORDER_ACCEPTED" ? "Processed" : "Delivered"}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"69%"} p={3} color="black" bg="green.300">{order.orderStatus == "ORDER_ACCEPTED" ? "Processed" : "Delivered"}</Box></Td>
                                                 <Td>
                                                     <Button
                                                         isDisabled={order.orderStatus == "ORDER_ACCEPTED" ? false : true}
                                                         colorScheme="green"
-                                                        onClick={() => UpdateGroupStatus(order.groupId)}
+                                                        onClick={() => UpdateGroupStatus(order.groupId, order.email)}
                                                     >
                                                         Delivered Order
                                                     </Button>

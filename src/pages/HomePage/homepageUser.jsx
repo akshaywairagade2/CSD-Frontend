@@ -25,6 +25,7 @@ const HomePageUser = () => {
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
+    const [mobilenumber, setMobileNumber] = useState(9745683934)
     const keys = ["userName"]
     const description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. PageMaker including versions of Lorem Ipsum"
     // const initialHotels = [
@@ -51,6 +52,7 @@ const HomePageUser = () => {
         if (hotelid) {
             localStorage.removeItem("hotelid");
             localStorage.removeItem("hotelname");
+            localStorage.removeItem("hotelemailid");
         }
     }, [])
 
@@ -83,7 +85,7 @@ const HomePageUser = () => {
                 config
             );
 
-            console.log(data.hotels[0])
+            // console.log(data.hotels, "hotelsssssssssssss")
             if (status == 200) {
                 // setOriginalHotels(data.hotels)
                 // setHotels(data.hotels);
@@ -214,8 +216,8 @@ const HomePageUser = () => {
                                         {currentHotels.map((hotel) => (
                                             <GridItem key={hotel.id} height="50%" maxH={"50%"} >
                                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ bg: 'green.100', cursor: "pointer" }} >
-                                                    <Box p='6' onClick={() => { navigate(`/catalog/${hotel._id}/${hotel.userName}`) }} >
-                                                        <Text fontSize={"50px"} mb={2} align="center" textTransform='uppercase' color="black">
+                                                    <Box p='6' onClick={() => { navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}`) }} >
+                                                        <Text fontSize={"45px"} mb={2} align="center" textTransform='uppercase' color="black">
                                                             {hotel.userName}
                                                         </Text>
                                                         <Box display='flex' alignItems='baseline'>
@@ -230,6 +232,7 @@ const HomePageUser = () => {
                                                                 fontSize='xs'
                                                                 textTransform='uppercase'
                                                                 ml='2'
+                                                                width={"50%"}
                                                             >
                                                                 {hotel?.userName}
                                                             </Box>
@@ -266,6 +269,18 @@ const HomePageUser = () => {
                                                                     <Text color="white" p={"2px"}>3★</Text>
                                                                 </Badge>
                                                             </Box>
+                                                        </Box>
+
+                                                        <Box
+                                                            mt='1'
+                                                            fontWeight='semibold'
+                                                            as='h4'
+                                                            lineHeight='tight'
+                                                            noOfLines={5}
+                                                            color="teal.500"
+                                                        >
+                                                            Mobile Number: {mobilenumber}
+                                                            {/* {hotel?.mobilenumber} */}
                                                         </Box>
 
                                                         <Box

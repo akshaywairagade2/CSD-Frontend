@@ -28,7 +28,7 @@ import {
 } from '@chakra-ui/react';
 import { SearchIcon } from "@chakra-ui/icons";
 import axios from "axios";
-import Header from '../../Header/Header';
+import Header from '../../Header/header';
 import Footer from '../../Footer/footer';
 import food from '../../food.png';
 import { useParams } from 'react-router-dom';
@@ -44,6 +44,7 @@ const Catalog = () => {
     const params = useParams();
     var hotelid = JSON.parse(localStorage.getItem('hotelid'));
     var hotelName = JSON.parse(localStorage.getItem('hotelname'));
+    var hotelemailid = JSON.parse(localStorage.getItem('hotelemailid'));
     const [loading, setLoading] = useState(true);
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -67,6 +68,7 @@ const Catalog = () => {
         if (hotelid != params.id || hotelid == null) {
             localStorage.setItem("hotelid", JSON.stringify(params.id));
             localStorage.setItem("hotelname", JSON.stringify(params.name));
+            localStorage.setItem("hotelemailid", JSON.stringify(params.emailid));
             hotelid = params.id;
         }
     }, [])

@@ -47,6 +47,7 @@ const Header = () => {
     const role = user?.role;
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const hotelname = JSON.parse(localStorage.getItem('hotelname'));
+    const hotelemalid = JSON.parse(localStorage.getItem('hotelemailid'));
 
 
 
@@ -118,7 +119,7 @@ const Header = () => {
 
                         {
                             (user && path == "/addtocart" && hotelid != null) &&
-                            <Box as="a" href={`/catalog/${hotelid}/${hotelname}`}
+                            <Box as="a" href={`/catalog/${hotelid}/${hotelname}/${hotelemalid}`}
                                 // color={path == "/addtocart" ? "green" : null}
                                 _hover={{
                                     color: "white",

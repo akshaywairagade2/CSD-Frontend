@@ -31,7 +31,7 @@ import { EditIcon, DeleteIcon, ViewIcon } from '@chakra-ui/icons';
 import { IconButton } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Footer from "../../Footer/footer";
-import Header from "../../Header/Header";
+import Header from "../../Header/header";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import FoodBackgroundImage from '../../img4.jpg';
@@ -45,7 +45,9 @@ const Group = () => {
     const HotelId = params.hotelid
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
+    const hotelemailid = JSON.parse(localStorage.getItem('hotelemailid'));
     const user = userInfo ? userInfo.User : null;
+    const email = user?.emailId
     const [amount, setAmount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
     const toast = useToast();
@@ -53,8 +55,6 @@ const Group = () => {
     const [admin, setAdmin] = useState();
     const [totalamount, setTotalAmount] = useState()
 
-
-    console.log(user)
     useEffect(() => {
         if (!user) navigate('/login');
     }, [user]);
@@ -78,7 +78,7 @@ const Group = () => {
                 config
             );
 
-            console.log(data, status, "allldatttttttttttttttttttt")
+            // console.log(data, status, "allldatttttttttttttttttttt")
             if (status == 201) {
                 setAdmin(data.adminId);
                 setCartItems(data.cart);
@@ -105,6 +105,7 @@ const Group = () => {
     useEffect(() => {
         GetAllItems()
     }, []);
+
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [inputValue, setInputValue] = useState("");
@@ -179,7 +180,7 @@ const Group = () => {
         }
     };
 
-    const Payment = async () => {
+    const Payment = async (email) => {
 
         const answer = window.confirm('Are you sure?');
         if (answer) {
@@ -194,7 +195,9 @@ const Group = () => {
                 const { data, status } = await axios.post(
                     "https://iitbh-campus-delivery.onrender.com/api/groupOrders/placeGroupOrder",
                     {
-                        "groupId": GroupId
+                        "groupId": GroupId,
+                        "email": email,
+                        "hotelemailid": hotelemailid
                     },
                     config
                 );
@@ -296,8 +299,8 @@ const Group = () => {
         console.log(HotelId, GroupId)
     }
 
-    console.log(selectedItems, "selected")
-    console.log(cartItems)
+    // console.log(selectedItems, "selected")
+    // console.log(cartItems)
 
     return (
         <>
@@ -413,7 +416,7 @@ const Group = () => {
                                         <Text fontSize="lg" color="black">₹{totalamount}</Text>
                                     </HStack>
                                     <Box>
-                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={Payment} isDisabled={admin == user._id ? false : true}>
+                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={() => { Payment(email) }} isDisabled={admin == user._id ? false : true}>
                                             Payment
                                         </Button>
                                     </Box>

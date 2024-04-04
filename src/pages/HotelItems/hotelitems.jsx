@@ -31,7 +31,7 @@ import {
 import { StarIcon } from '@chakra-ui/icons';
 import { SearchIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/react";
-import Header from '../../Header/Header';
+import Header from '../../Header/header';
 import Footer from '../../Footer/footer';
 import food from '../../food.png';
 import axios from "axios"
@@ -138,6 +138,8 @@ const HotelItems = () => {
         }
     };
 
+    console.log(catalogItems, "catalogItemscatalogItemscatalogItems")
+
 
 
     const handleUpdateItem = async () => {
@@ -182,7 +184,7 @@ const HotelItems = () => {
                         "price": selectedItem.price,
                         "imageLink": selectedItem.pic,
                         "quantity": 1,
-                        "availabilityStatus": true,
+                        "availabilityStatus": selectedItem.availabilityStatus,
                         "description": selectedItem.description,
                         "rating": selectedItem.rating,
                         "category": selectedItem.category
@@ -681,6 +683,17 @@ const HotelItems = () => {
                                     onChange={(e) => setSelectedItem({ ...selectedItem, description: e.target.value })}
                                 />
                             </FormControl>
+                            <FormControl id="availabilityStatus" isRequired>
+                                <FormLabel>Availability Status</FormLabel>
+                                <Select placeholder='Select option'
+                                    value={selectedItem?.availabilityStatus}
+                                    onChange={(e) => setSelectedItem({ ...selectedItem, availabilityStatus: e.target.value })}
+                                >
+                                    <option value='true'>Yes</option>
+                                    <option value='false'>No</option>
+                                </Select>
+                            </FormControl>
+
 
                             <FormControl id="price" isRequired>
                                 <FormLabel>Price</FormLabel>

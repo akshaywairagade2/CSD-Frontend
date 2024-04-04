@@ -9,7 +9,7 @@ import {
     Stack,
     Button
 } from '@chakra-ui/react';
-import Header from '../Header/Header';
+import Header from '../Header/header';
 import Footer from '../Footer/footer';
 import FoodBackgroundImage from '../img4.jpg';
 import logo from "../logo.png"
