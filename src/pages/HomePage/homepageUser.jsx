@@ -271,17 +271,6 @@ const HomePageUser = () => {
                                                             </Box>
                                                         </Box>
 
-                                                        <Box
-                                                            mt='1'
-                                                            fontWeight='semibold'
-                                                            as='h4'
-                                                            lineHeight='tight'
-                                                            noOfLines={5}
-                                                            color="teal.500"
-                                                        >
-                                                            Mobile Number: {mobilenumber}
-                                                            {/* {hotel?.mobilenumber} */}
-                                                        </Box>
 
                                                         <Box
                                                             mt='1'
@@ -290,8 +279,20 @@ const HomePageUser = () => {
                                                             lineHeight='tight'
                                                             noOfLines={5}
                                                         >
-                                                            {description}
-                                                            {/* {hotel?.description} */}
+                                                            {/* {description} */}
+                                                            {hotel?.description}
+                                                        </Box>
+
+                                                        <Box
+                                                            mt='1'
+                                                            fontWeight='semibold'
+                                                            as='h4'
+                                                            lineHeight='tight'
+                                                            noOfLines={5}
+                                                            color="teal.500"
+                                                        >
+                                                            {/* Mobile Number: {mobilenumber} */}
+                                                            {hotel?.mobilenumber}
                                                         </Box>
 
 

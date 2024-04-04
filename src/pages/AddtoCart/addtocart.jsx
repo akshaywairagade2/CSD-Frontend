@@ -42,7 +42,7 @@ const AddToCart = () => {
     const toast = useToast();
     const [fetchloading, setFetchLoading] = useState(true);
     const emailId = user?.emailId
-    // console.log(emailId, "emailid")
+    // console.log(user, "emailid")
 
     useEffect(() => {
         if (!user) navigate('/login');
