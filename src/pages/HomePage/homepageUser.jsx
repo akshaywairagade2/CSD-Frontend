@@ -292,7 +292,7 @@ const HomePageUser = () => {
                                                             color="teal.500"
                                                         >
                                                             {/* Mobile Number: {mobilenumber} */}
-                                                            {hotel?.mobilenumber}
+                                                            Mobile No: {hotel?.mobilenumber}
                                                         </Box>
 
 
