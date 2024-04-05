@@ -53,6 +53,7 @@ const HomePageUser = () => {
             localStorage.removeItem("hotelid");
             localStorage.removeItem("hotelname");
             localStorage.removeItem("hotelemailid");
+            localStorage.removeItem("hotelmobilenumber");
         }
     }, [])
 
@@ -135,6 +136,8 @@ const HomePageUser = () => {
     //         setHotels(originalhotels)
     // }, [searchQuery])
 
+
+
     return (
         <>
             <Flex
@@ -216,7 +219,7 @@ const HomePageUser = () => {
                                         {currentHotels.map((hotel) => (
                                             <GridItem key={hotel.id} height="50%" maxH={"50%"} >
                                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ bg: 'green.100', cursor: "pointer" }} >
-                                                    <Box p='6' onClick={() => { navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}`) }} >
+                                                    <Box p='6' onClick={() => { navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}`) }} >
                                                         <Text fontSize={"45px"} mb={2} align="center" textTransform='uppercase' color="black">
                                                             {hotel.userName}
                                                         </Text>
@@ -279,8 +282,8 @@ const HomePageUser = () => {
                                                             lineHeight='tight'
                                                             noOfLines={5}
                                                         >
-                                                            {/* {description} */}
                                                             {hotel?.description}
+                                                            {/* {hotel?.description} */}
                                                         </Box>
 
                                                         <Box
@@ -291,8 +294,8 @@ const HomePageUser = () => {
                                                             noOfLines={5}
                                                             color="teal.500"
                                                         >
-                                                            {/* Mobile Number: {mobilenumber} */}
-                                                            Mobile No: {hotel?.mobilenumber}
+                                                            Mobile Number: {hotel?.mobilenumber}
+                                                            {/* {hotel?.mobilenumber} */}
                                                         </Box>
 
 

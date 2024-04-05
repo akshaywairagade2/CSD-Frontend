@@ -172,7 +172,7 @@ const NewOrders = () => {
             );
 
 
-
+            console.log(data.hotelOrders, "hotelOrdershotelOrders")
             if (status == 201) {
                 // setAllOrders(data.hotelOrders)
                 setTimeout(() => { setAllOrders(data.hotelOrders); }, 800);
@@ -377,7 +377,7 @@ const NewOrders = () => {
                     // ml="25%"
                     />) : <>
                     {
-                        <Box p={8} width="80%" bg="white" borderRadius="md" boxShadow="md">
+                        <Box p={8} width="90%" bg="white" borderRadius="md" boxShadow="md">
                             <Box display={"flex"} align="center" justify="center" ml={"30%"}>
                                 {
                                     personalOrder &&
@@ -406,6 +406,7 @@ const NewOrders = () => {
                                         {/* {personalOrder && <Th>Items</Th>} */}
                                         <Th>Items</Th>
                                         <Th>Amount</Th>
+                                        <Th>User Mobile No</Th>
                                         <Th>Status</Th>
                                         <Th>Accept</Th>
                                         <Th>Reject</Th>
@@ -431,6 +432,7 @@ const NewOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
+                                                <Td color="black">{order.userMobileNumber}</Td>
                                                 <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"65%"} p={3} color="black" bg="green.300">{order.orderStatus}</Box></Td>
                                                 <Td>
 
@@ -465,9 +467,9 @@ const NewOrders = () => {
                                                 <Td color="black">{order.groupName}</Td>
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.items); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.items[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
+                                                <Td color="black">{order.userMobileNumber}</Td>
                                                 <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"67%"} p={3} color="black" bg="green.300">Pending</Box></Td>
                                                 <Td>
-
                                                     <Button
                                                         colorScheme="green"
                                                         onClick={() => handleGroupAccept(order.groupId, order.email)}

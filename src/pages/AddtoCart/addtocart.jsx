@@ -35,14 +35,16 @@ const AddToCart = () => {
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const hotelName = JSON.parse(localStorage.getItem('hotelname'));
     const hotelemailid = JSON.parse(localStorage.getItem('hotelemailid'));
+    const hotelmobilenumber = JSON.parse(localStorage.getItem('hotelmobilenumber'));
     const user = userInfo ? userInfo.User : null;
+
     const [amount, setAmount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
     const [cartid, setCartId] = useState()
     const toast = useToast();
     const [fetchloading, setFetchLoading] = useState(true);
     const emailId = user?.emailId
-    // console.log(user, "emailid")
+    // console.log(emailId, "emailid")
 
     useEffect(() => {
         if (!user) navigate('/login');
@@ -173,6 +175,8 @@ const AddToCart = () => {
         }
     };
 
+    // console.log(user?.mobilenumber, "mobilenumbermobilenumbermobilenumber")
+
     const Payment = async () => {
         const answer = window.confirm('Are you sure?');
         console.log(hotelemailid, "hotelemailidhotelemailid")
@@ -195,7 +199,9 @@ const AddToCart = () => {
                         "cartItems": cartItems,
                         "amount": amount,
                         "email": emailId,
-                        "hotelemailid": hotelemailid
+                        "hotelemailid": hotelemailid,
+                        "userMobileNumber": user?.mobilenumber,
+                        "hotelMobileNumber": hotelmobilenumber
                     },
                     config
                 );
@@ -312,7 +318,7 @@ const AddToCart = () => {
         onOpen();
     }
 
-    console.log(emailId, "emailIdemailIdemailId")
+    // console.log(emailId, "emailIdemailIdemailId")
 
     const generateNumber = async () => {
         try {
@@ -339,6 +345,8 @@ const AddToCart = () => {
                         "groupId": randomNumber,
                         "groupName": groupname,
                         "email": emailId,
+                        "hotelMobileNumber": hotelmobilenumber,
+                        "userMobileNumber": user?.mobilenumber
                     },
                     config
                 );
@@ -447,8 +455,7 @@ const AddToCart = () => {
                         "userId": user._id,
                         "groupId": code,
                         "cartId": cartid,
-                        "Amount": amount
-
+                        "Amount": amount,
                     },
                     config
                 );

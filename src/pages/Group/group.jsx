@@ -197,7 +197,8 @@ const Group = () => {
                     {
                         "groupId": GroupId,
                         "email": email,
-                        "hotelemailid": hotelemailid
+                        "hotelemailid": hotelemailid,
+
                     },
                     config
                 );

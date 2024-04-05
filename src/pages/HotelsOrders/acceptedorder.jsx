@@ -278,7 +278,7 @@ const AcceptedOrders = () => {
                     {
                         <Box
                             p={8}
-                            width="80%"
+                            width="95%"
                             bg="white"
                             borderRadius="md"
                             boxShadow="md"
@@ -311,6 +311,7 @@ const AcceptedOrders = () => {
                                         {/* {personalOrder && <Th>Items</Th>} */}
                                         <Th>Items</Th>
                                         <Th>Amount</Th>
+                                        <Th>User Mobile No</Th>
                                         <Th>Status</Th>
                                         <Th>Status Update</Th>
                                         {/* {!personalOrder && <Th>View</Th>} */}
@@ -326,6 +327,7 @@ const AcceptedOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
+                                                <Td color="black">{order.userMobileNumber}</Td>
                                                 <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"65%"} p={3} color="black" bg="green.300">{order.orderStatus}</Box></Td>
                                                 <Td>
                                                     <Button
@@ -351,6 +353,7 @@ const AcceptedOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.items); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.items[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
+                                                <Td color="black">{order.userMobileNumber}</Td>
                                                 <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"69%"} p={3} color="black" bg="green.300">{order.orderStatus == "ORDER_ACCEPTED" ? "Processed" : "Delivered"}</Box></Td>
                                                 <Td>
                                                     <Button

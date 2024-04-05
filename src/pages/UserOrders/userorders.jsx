@@ -77,10 +77,7 @@ const UserOrders = () => {
                 },
                 config
             );
-
-
             if (status == 201) {
-                // setOrders(data.userOrders)
                 setTimeout(() => { setOrders(data.userOrders); }, 800);
                 setTimeout(() => { setLoading(false) }, 1000);
             }
@@ -118,7 +115,7 @@ const UserOrders = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-
+    console.log(orders, "ordersordersorders")
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
@@ -224,7 +221,7 @@ const UserOrders = () => {
                     // ml="25%"
                     />) : <>
                     {
-                        <Box p={8} width="75%" bg="white" borderRadius="md" boxShadow="md">
+                        <Box p={8} width="95%" bg="white" borderRadius="md" boxShadow="md">
                             <Box display={"flex"} align="center" justify="center" ml={"35%"}>
                                 {
                                     personalOrder &&
@@ -253,7 +250,10 @@ const UserOrders = () => {
                                         {/* {personalOrder && <Th>Items</Th>} */}
                                         {personalOrder && <Th>Items</Th>}
                                         {!personalOrder && <Th>View Items</Th>}
-                                        {personalOrder && <Th>Items</Th>}
+                                        {personalOrder && <Th>Amount</Th>}
+
+                                        <Th>Hotel Mobile No</Th>
+                                        <Th>User Mobile No</Th>
                                         <Th>Status</Th>
                                         {/* {personalOrder && <Th>Action</Th>} */}
                                     </Tr>
@@ -268,8 +268,10 @@ const UserOrders = () => {
                                                 <Td color="black">{order.hotelName}</Td>
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
+                                                <Td color="black">{order.hotelMobileNumber}</Td>
+                                                <Td color="black">{order.userMobileNumber}</Td>
                                                 {/* <Td color={order.status == "Accepted" ? 'green' : (order.status == "Rejected") ? 'red' : "black"}>{order.status}</Td> */}
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"50%"} p={3} color="white" bg="green.500">{order.orderStatus}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"55%"} p={3} color="white" bg="green.500">{order.orderStatus}</Box></Td>
                                                 {/* <Td>
                                                     <Flex justify={"space-between"}>
                                                         <Button ml={2} colorScheme="red" onClick={() => handleReject(order._id)} isDisabled={(order.orderStatus == "Rejected") || (order.orderStatus == "Accepted") || (order.orderStatus == "Processed") || (order.orderStatus == "Delivered") ? true : false}>
@@ -301,19 +303,21 @@ const UserOrders = () => {
                                                         aria-label="View"
                                                     />
                                                 </Td>
+                                                <Td color="black">{order.hotelMobileNumber}</Td>
+                                                <Td color="black">{order.userMobileNumber}</Td>
                                                 {/* <Td color="black">{order.amount}</Td> */}
                                                 {/* <Td color={order.status == "Accepted" ? 'green' : (order.status == "Rejected") ? 'red' : "black"}>{order.status}</Td> */}
                                                 {order.orderStatus == "ORDER_PLACED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"63%"} p={3} color="white" bg="green.500">Pending</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"75%"} p={3} color="white" bg="green.500">Pending</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_REJECTED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"63%"} p={3} color="white" bg="green.500">Rejected</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"75%"} p={3} color="white" bg="green.500">Rejected</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_DELIVERED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"63%"} p={3} color="white" bg="green.500">Delivered</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"75%"} p={3} color="white" bg="green.500">Delivered</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_ACCEPTED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"63%"} p={3} color="white" bg="green.500">Processed</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"75%"} p={3} color="white" bg="green.500">Processed</Box></Td>
                                                 }
 
                                                 {/* {

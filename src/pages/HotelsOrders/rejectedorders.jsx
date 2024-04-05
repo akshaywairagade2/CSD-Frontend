@@ -262,7 +262,7 @@ const RejectedOrders = () => {
                     // ml="25%"
                     />) : <>
                     {
-                        <Box p={8} width="70%" bg="white" borderRadius="md" boxShadow="md">
+                        <Box p={8} width="75%" bg="white" borderRadius="md" boxShadow="md">
                             <Box display={"flex"} align="center" justify="center" ml={"20%"}>
                                 {
                                     personalOrder &&
@@ -291,6 +291,7 @@ const RejectedOrders = () => {
                                         {/* {personalOrder && <Th>Items</Th>} */}
                                         <Th>Items</Th>
                                         <Th>Amount</Th>
+                                        <Th>User Mobile No</Th>
                                         <Th>Status</Th>
                                         {/* {!personalOrder && <Th>View</Th>} */}
                                     </Tr>
@@ -306,7 +307,8 @@ const RejectedOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"50%"} p={3} color="black" bg="red.300">{order.orderAcceptOrDecline}</Box></Td>
+                                                <Td color="black">{order.userMobileNumber}</Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="black" bg="red.300">{order.orderAcceptOrDecline}</Box></Td>
                                             </Tr>
                                         ))}
                                     </Tbody>
@@ -321,7 +323,8 @@ const RejectedOrders = () => {
                                                 {/* <Td color="black">{order.items.join(', ')}</Td> */}
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.items); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.items[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"50%"} p={3} color="black" bg="red.300">{"Rejected"}</Box></Td>
+                                                <Td color="black">{order.userMobileNumber}</Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="black" bg="red.300">{"Rejected"}</Box></Td>
                                                 {/* <Td color="black">
                                             <IconButton
                                                 color="blue.400"

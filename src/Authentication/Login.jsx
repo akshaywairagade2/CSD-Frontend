@@ -203,7 +203,7 @@ const Login = () => {
             );
 
 
-            console.log(data, "data")
+            console.log(data, "datadatadatadatadatadatadatadata")
 
 
             // if (data.msg == "Please Verify Mail") {
@@ -225,6 +225,7 @@ const Login = () => {
             //     localStorage.setItem("userInfo", JSON.stringify(data));
             //     setTimeout(() => { navigate("/") }, 500);
             // }
+
 
             if (status == 200) {
 

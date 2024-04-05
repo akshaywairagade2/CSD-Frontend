@@ -69,6 +69,7 @@ const Catalog = () => {
             localStorage.setItem("hotelid", JSON.stringify(params.id));
             localStorage.setItem("hotelname", JSON.stringify(params.name));
             localStorage.setItem("hotelemailid", JSON.stringify(params.emailid));
+            localStorage.setItem("hotelmobilenumber", JSON.stringify(params.mobilenumber));
             hotelid = params.id;
         }
     }, [])
