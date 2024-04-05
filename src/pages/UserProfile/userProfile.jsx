@@ -64,7 +64,7 @@ const UserProfile = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/auth/userinfo`,
+                    `https://iitbh-campus-delivery.onrender.com/api/auth/userinfo`,
                     {
                         "id": userId
                     },
