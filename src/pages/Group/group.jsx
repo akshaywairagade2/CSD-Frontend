@@ -35,6 +35,7 @@ import Header from "../../Header/header";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import FoodBackgroundImage from '../../img4.jpg';
+import env from "react-dotenv"
 
 const Group = () => {
 
@@ -71,7 +72,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/fetchgroup`,
+                `${env.API_URL}api/groupOrders/fetchgroup`,
                 {
                     groupId: GroupId
                 },
@@ -131,7 +132,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/addItem`,
+                `${env.API_URL}api/groupOrders/groups/addItem`,
                 {
                     "groupId": GroupId,
                     "item": item,
@@ -161,7 +162,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/removeItem`,
+                `${env.API_URL}api/groupOrders/groups/removeItem`,
                 {
                     "groupId": GroupId,
                     "item": item,
@@ -193,7 +194,7 @@ const Group = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/placeGroupOrder",
+                    `${env.API_URL}api/groupOrders/placeGroupOrder`,
                     {
                         "groupId": GroupId,
                         "email": email,
@@ -212,7 +213,7 @@ const Group = () => {
                         position: "bottom",
                     });
 
-                    navigate(`/congrats/${GroupId}`)
+                    navigate(`/ congrats / ${GroupId}`)
                 }
 
             } catch (error) {
@@ -241,7 +242,7 @@ const Group = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/deleteCart`, {
+                    `${env.API_URL}api/groupOrders/groups/deleteCart`, {
                     "groupId": GroupId,
                     "userId": user._id,
                     "userName": user.userName
@@ -277,7 +278,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/deleteItem`, {
+                `${env.API_URL}api/groupOrders/groups/deleteItem`, {
                 "groupId": GroupId,
                 "userId": user._id,
                 "userName": user.userName,

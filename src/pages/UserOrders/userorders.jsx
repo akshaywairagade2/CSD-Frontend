@@ -30,6 +30,7 @@ import Pagination from '../Pagination/pagination';
 import FoodBackgroundImage from '../../img4.jpg';
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
+import env from "react-dotenv"
 const UserOrders = () => {
 
 
@@ -71,7 +72,7 @@ const UserOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/orders/getOrderByUser`,
+                `${env.API_URL}api/orders/getOrderByUser`,
                 {
                     userId: user._id
                 },
@@ -134,7 +135,7 @@ const UserOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/groupOrders/getusergrouporders",
+                `${env.API_URL}api/groupOrders/getusergrouporders`,
                 {
                     "userId": user._id,
                 },

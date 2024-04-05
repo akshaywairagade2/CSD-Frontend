@@ -13,6 +13,7 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react'
+import env from "react-dotenv";
 import Footer from "../Footer/footer";
 import Header from "../Header/header";
 import FoodBackgroundImage from '../img2.jpg';
@@ -88,7 +89,7 @@ const ResetPassword = () => {
                 };
 
                 const { data } = await axios.post(
-                    `https://iitbh-campus-delivery.onrender.com/api/auth//reset-password/${params.id}/${params.token}`,
+                    `${env.API_URL}api/auth//reset-password/${params.id}/${params.token}`,
                     {
                         "password": password,
                     },

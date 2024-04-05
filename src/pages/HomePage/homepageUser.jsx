@@ -19,6 +19,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "../Pagination/pagination";
 import { StarIcon } from '@chakra-ui/icons';
 import FoodBackgroundImage from '../../img4.jpg';
+import env from "react-dotenv"
 const HomePageUser = () => {
 
 
@@ -82,7 +83,7 @@ const HomePageUser = () => {
             };
 
             const { data, status } = await axios.get(
-                "https://iitbh-campus-delivery.onrender.com/api/auth/hotels",
+                `${env.API_URL}api/auth/hotels`,
                 config
             );
 

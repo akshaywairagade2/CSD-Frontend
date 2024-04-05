@@ -36,6 +36,7 @@ import { useToast } from "@chakra-ui/react";
 import Pagination from '../Pagination/pagination';
 import { StarIcon } from '@chakra-ui/icons';
 import FoodBackgroundImage from '../../img4.jpg';
+import env from "react-dotenv"
 
 const Catalog = () => {
 
@@ -84,7 +85,7 @@ const Catalog = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/items/getitems", {
+                `${env.API_URL}api/items/getitems`, {
                 id: hotelid
             },
                 config
@@ -121,7 +122,7 @@ const Catalog = () => {
             };
 
             const { data } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/v1/cart/add",
+                `${env.API_URL}api/v1/cart/add`,
                 {
                     "hotelID": hotelid,
                     "item": item,

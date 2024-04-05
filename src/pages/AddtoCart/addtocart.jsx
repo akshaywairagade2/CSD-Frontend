@@ -27,6 +27,7 @@ import food from "../../food.png"
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import FoodBackgroundImage from '../../img4.jpg';
+import env from "react-dotenv"
 
 const AddToCart = () => {
 
@@ -63,7 +64,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
+                `${env.API_URL}api/v1/cart/hotel/${hotelid}`,
                 {
                     userID: user._id
                 },
@@ -106,7 +107,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/add`,
+                `${env.API_URL}api/v1/cart/add`,
                 {
                     "hotelID": hotelid,
                     "item": item
@@ -133,7 +134,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/remove`,
+                `${env.API_URL}api/v1/cart/remove`,
                 {
                     "hotelID": hotelid,
                     "item": item
@@ -162,7 +163,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.delete(
-                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`,
+                `${env.API_URL}api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`,
                 config
             );
             console.log(data, "sttata")
@@ -190,7 +191,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/orders/addOrder",
+                    `${env.API_URL}api/orders/addOrder`,
                     {
                         "userId": user._id,
                         "hotelId": hotelid,
@@ -246,7 +247,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.delete(
-                    `https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
+                    `${env.API_URL}api/v1/cart/hotel/${hotelid}`,
                     config
                 );
 
@@ -284,7 +285,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.delete(
-                `https://iitbh-campus-delivery.onrender.com/api/v1/cart/hotel/${hotelid}`,
+                `${env.API_URL}api/v1/cart/hotel/${hotelid}`,
                 config
             );
 
@@ -336,7 +337,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/createGroup",
+                    `${env.API_URL}api/groupOrders/createGroup`,
                     {
                         "hotelId": hotelid,
                         "hotelName": hotelName,
@@ -396,7 +397,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/joinGroup",
+                    `${env.API_URL}api/groupOrders/joinGroup`,
                     {
                         "userName": user.userName,
                         "userId": user._id,
@@ -449,7 +450,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/groups/addCartToGroup",
+                    `${env.API_URL}api/groupOrders/groups/addCartToGroup`,
                     {
                         "userName": user.userName,
                         "userId": user._id,
@@ -513,7 +514,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/groupOrders/getgroupbyuser",
+                `${env.API_URL}api/groupOrders/getgroupbyuser`,
                 {
                     "userId": user._id,
                     "hotelId": hotelid
@@ -602,7 +603,7 @@ const AddToCart = () => {
                                                 allGroups.map((group, ind) => (
                                                     <Box key={ind} color="black" border="1px solid black" bg="white" p={2} mt={2} borderRadius="md" _hover={{ cursor: "pointer" }}
                                                         onClick={() => {
-                                                            navigate(`/group/${group.groupId}/${hotelid}/${group.groupName}`)
+                                                            navigate(`/ group / ${group.groupId} / ${hotelid} / ${group.groupName}`)
                                                         }}
                                                     >
                                                         {group.groupName} - {group.groupId}
@@ -730,7 +731,7 @@ const AddToCart = () => {
                                         {groups.length > 0 ? (
                                             groups.map((group, ind) => (
                                                 <Box key={ind} color="black" border="1px solid black" bg="white" p={2} mt={2} borderRadius="md" _hover={{ cursor: "pointer" }}
-                                                    onClick={() => { navigate(`/group/${group[1]}/${hotelid}/${group[0]}`) }}
+                                                    onClick={() => { navigate(`/ group / ${ group[1]} / ${ hotelid } / ${ group[0]}`) }}
                                                 >
                                                     {group[0]}
                                                 </Box>

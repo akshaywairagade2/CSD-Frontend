@@ -31,6 +31,7 @@ import axios from "axios"
 import { IconButton } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon, ViewIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import env from "react-dotenv"
 
 const RejectedOrders = () => {
 
@@ -114,7 +115,7 @@ const RejectedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/orders/getOrderByHotel`,
+                `${env.API_URL}api/orders/getOrderByHotel`,
                 {
                     hotelId: user._id
                 },
@@ -190,7 +191,7 @@ const RejectedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/gethotelgrouporders`,
+                `${env.API_URL}api/groupOrders/gethotelgrouporders`,
                 {
                     hotelId: user._id
                 },

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import googleImage from '../assets/googleImage.jpg';
 import FoodBackgroundImage from '../foodbackgroundimage.jpg';
+import env from "react-dotenv";
 import img1 from '../img1.jpg'
 import img2 from '../img2.jpg'
 import {
@@ -83,7 +84,7 @@ const Login = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/auth/login",
+                `${env.API_URL}api/auth/login`,
                 {
                     "emailId": email,
                     "password": password,
@@ -194,7 +195,7 @@ const Login = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/auth/login",
+                `${env.API_URL}api/auth/login`,
                 {
                     "emailId": email,
                     "password": password,
@@ -289,7 +290,7 @@ const Login = () => {
             };
 
             const { data } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/auth/forgot-password",
+                `${env.API_URL}api/auth/forgot-password`,
                 {
                     "emailId": forgotemail,
                 },

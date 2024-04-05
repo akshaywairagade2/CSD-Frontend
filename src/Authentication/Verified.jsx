@@ -14,6 +14,7 @@ import {
 import Congrats from "../Congrats.png"
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
+import env from "react-dotenv"
 
 const Verified = () => {
     const params = useParams()
@@ -28,7 +29,7 @@ const Verified = () => {
             };
 
             const { data } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/auth/verify/",
+                `${env.API_URL}"api/auth/verify/`,
                 {
                     "id": params.id,
                 },

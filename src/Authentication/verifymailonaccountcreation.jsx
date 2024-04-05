@@ -18,6 +18,7 @@ import Congrats from "../Congrats.png"
 import FoodBackgroundImage from '../img2.jpg'
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
+import env from "react-dotenv"
 
 const VerifyEmailOnAccountCreation = () => {
 
@@ -35,7 +36,7 @@ const VerifyEmailOnAccountCreation = () => {
             };
 
             const { data } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/auth/verifynewemail/${params.id}/${params.token}`,
+                `${env.API_URL}api/auth/verifynewemail/${params.id}/${params.token}`,
                 {
                     "id": params.id,
                 },

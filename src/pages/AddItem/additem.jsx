@@ -8,6 +8,7 @@ import {
 import Header from "../../Header/header";
 import Footer from "../../Footer/footer";
 import FoodBackgroundImage from '../../img2.jpg';
+import env from "react-dotenv"
 const AddItem = () => {
 
     const fileInput = useRef(null);
@@ -62,7 +63,7 @@ const AddItem = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/items/additem",
+                `${env.API_URL}api/items/additem`,
                 {
                     "name": item.name,
                     "hotelId": user._id,

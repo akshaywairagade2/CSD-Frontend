@@ -18,6 +18,7 @@ import {
     Image,
     Spinner
 } from '@chakra-ui/react'
+import env from "react-dotenv"
 import FoodBackgroundImage from '../foodbackgroundimage.jpg';
 import React from 'react'
 import googleImage from '../assets/googleImage.jpg';
@@ -83,7 +84,7 @@ const SignUp = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/auth/signup",
+                `${env.API_URL}api/auth/signup`,
                 {
                     "userName": username,
                     "emailId": email,
@@ -212,7 +213,7 @@ const SignUp = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/auth/signup",
+                `${env.API_URL}api/auth/signup`,
                 {
                     "userName": username,
                     "emailId": email,

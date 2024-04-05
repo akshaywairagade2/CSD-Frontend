@@ -31,6 +31,7 @@ import FoodBackgroundImage from '../../img4.jpg';
 import { IconButton } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon, ViewIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import env from "react-dotenv"
 const NewOrders = () => {
 
     const navigate = useNavigate();
@@ -92,7 +93,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/orders/acceptOrder",
+                    `${env.API_URL}api/orders/acceptOrder`,
                     {
                         "orderId": orderId,
                         "email": email
@@ -121,7 +122,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/orders/rejectOrder",
+                    `${env.API_URL}api/orders/rejectOrder`,
                     {
                         "orderId": orderId,
                         "email": email
@@ -164,7 +165,7 @@ const NewOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/orders/getOrderByHotel`,
+                `${env.API_URL}api/orders/getOrderByHotel`,
                 {
                     hotelId: user._id
                 },
@@ -243,7 +244,7 @@ const NewOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/gethotelgrouporders`,
+                `${env.API_URL}api/groupOrders/gethotelgrouporders`,
                 {
                     hotelId: user._id
                 },
@@ -296,7 +297,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/acceptGroupOrder",
+                    `${env.API_URL}api/groupOrders/acceptGroupOrder`,
                     {
                         "groupId": groupId,
                         "email": email
@@ -325,7 +326,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/groupOrders/rejectGroupOrder",
+                    `${env.API_URL}api/groupOrders/rejectGroupOrder`,
                     {
                         "groupId": groupId,
                         "email": email

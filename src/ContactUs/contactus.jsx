@@ -15,6 +15,7 @@ import Footer from '../Footer/footer';
 import { useNavigate } from 'react-router-dom';
 import FoodBackgroundImage from '../img2.jpg';
 import axios from "axios"
+import env from "react-dotenv";
 
 const ContactUs = () => {
     const navigate = useNavigate();
@@ -127,7 +128,7 @@ const ContactUs = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/contact/contact-us",
+                `${env.API_URL}api/contact/contact-us`,
                 {
                     "name": name,
                     "email": email,

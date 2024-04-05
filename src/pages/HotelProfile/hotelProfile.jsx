@@ -23,6 +23,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import profile from "../../profile.png";
 import FoodBackgroundImage from '../../img4.jpg';
+import env from "react-dotenv"
 
 const HotelProfile = () => {
 
@@ -63,7 +64,7 @@ const HotelProfile = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/auth/userinfo",
+                    `${env.API_URL}api/auth/userinfo`,
                     {
                         "id": hotelId
                     },
@@ -172,7 +173,7 @@ const HotelProfile = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/auth/edituserinfo",
+                `${env.API_URL}api/auth/edituserinfo`,
                 {
                     "id": hotelId,
                     "userName": hotelName,

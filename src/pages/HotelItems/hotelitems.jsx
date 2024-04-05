@@ -38,6 +38,7 @@ import axios from "axios"
 import Pagination from "../Pagination/pagination"
 import { useNavigate } from 'react-router-dom';
 import FoodBackgroundImage from '../../img4.jpg';
+import env from "react-dotenv"
 
 const HotelItems = () => {
 
@@ -71,7 +72,7 @@ const HotelItems = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/items/getitems",
+                `${env.API_URL}api/items/getitems`,
                 {
                     id: user._id
                 },
@@ -138,7 +139,7 @@ const HotelItems = () => {
         }
     };
 
-    console.log(catalogItems, "catalogItemscatalogItemscatalogItems")
+    // console.log(catalogItems, "catalogItemscatalogItemscatalogItems")
 
 
 
@@ -176,7 +177,7 @@ const HotelItems = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/items/updateitem",
+                    `${env.API_URL}api/items/updateitem`,
                     {
                         "_id": selectedItem._id,
                         "name": selectedItem.name,
@@ -227,7 +228,7 @@ const HotelItems = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    "https://iitbh-campus-delivery.onrender.com/api/items/deleteitem",
+                    `${env.API_URL}api/items/deleteitem`,
                     {
                         "itemId": itemId
                     },

@@ -35,6 +35,7 @@ import Header from "../../Header/header";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import FoodBackgroundImage from '../../img4.jpg';
+import env from "react-dotenv"
 
 const GroupOrder = () => {
 
@@ -85,7 +86,7 @@ const GroupOrder = () => {
             };
 
             const { data, status } = await axios.post(
-                `https://iitbh-campus-delivery.onrender.com/api/groupOrders/fetchgroup`,
+                `${env.API_URL}api/groupOrders/fetchgroup`,
                 {
                     groupId: GroupId
                 },

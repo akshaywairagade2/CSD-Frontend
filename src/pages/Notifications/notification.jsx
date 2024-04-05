@@ -17,6 +17,7 @@ import Footer from '../../Footer/footer';
 import Pagination from '../Pagination/pagination';
 import { FaTimes } from 'react-icons/fa';
 import FoodBackgroundImage from '../../img4.jpg';
+import env from "react-dotenv"
 
 
 const Notifications = () => {
@@ -62,7 +63,7 @@ const Notifications = () => {
 
 
                 // const { data, status } = await axios.post(
-                //     "https://iitbh-campus-delivery.onrender.com/api/items/deleteitem",
+                //       `${env.API_URL}api/items/deleteitem`,
                 //     {
                 //         "itemId": itemId
                 //     },
