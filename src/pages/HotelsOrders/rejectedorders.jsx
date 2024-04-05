@@ -262,7 +262,7 @@ const RejectedOrders = () => {
                     // ml="25%"
                     />) : <>
                     {
-                        <Box p={8} width="75%" bg="white" borderRadius="md" boxShadow="md">
+                        <Box p={8} width="85%" bg="white" borderRadius="md" boxShadow="md">
                             <Box display={"flex"} align="center" justify="center" ml={"20%"}>
                                 {
                                     personalOrder &&
@@ -308,7 +308,7 @@ const RejectedOrders = () => {
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
                                                 <Td color="black">{order.userMobileNumber}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="black" bg="red.300">{order.orderAcceptOrDecline}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"70%"} p={3} color="black" bg="red.300">{order.orderAcceptOrDecline}</Box></Td>
                                             </Tr>
                                         ))}
                                     </Tbody>
@@ -324,7 +324,7 @@ const RejectedOrders = () => {
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.items); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.items[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
                                                 <Td color="black">{order.userMobileNumber}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="black" bg="red.300">{"Rejected"}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"70%"} p={3} color="black" bg="red.300">{"Rejected"}</Box></Td>
                                                 {/* <Td color="black">
                                             <IconButton
                                                 color="blue.400"

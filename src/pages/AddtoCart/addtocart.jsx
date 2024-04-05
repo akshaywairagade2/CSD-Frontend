@@ -513,9 +513,10 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                "https://iitbh-campus-delivery.onrender.com/api/groupOrders/getusergrouporders",
+                "https://iitbh-campus-delivery.onrender.com/api/groupOrders/getgroupbyuser",
                 {
                     "userId": user._id,
+                    "hotelId": hotelid
                 },
                 config
             );

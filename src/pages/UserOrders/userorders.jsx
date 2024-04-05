@@ -271,7 +271,7 @@ const UserOrders = () => {
                                                 <Td color="black">{order.hotelMobileNumber}</Td>
                                                 <Td color="black">{order.userMobileNumber}</Td>
                                                 {/* <Td color={order.status == "Accepted" ? 'green' : (order.status == "Rejected") ? 'red' : "black"}>{order.status}</Td> */}
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"55%"} p={3} color="white" bg="green.500">{order.orderStatus}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="white" bg="green.500">{order.orderStatus}</Box></Td>
                                                 {/* <Td>
                                                     <Flex justify={"space-between"}>
                                                         <Button ml={2} colorScheme="red" onClick={() => handleReject(order._id)} isDisabled={(order.orderStatus == "Rejected") || (order.orderStatus == "Accepted") || (order.orderStatus == "Processed") || (order.orderStatus == "Delivered") ? true : false}>
@@ -308,16 +308,16 @@ const UserOrders = () => {
                                                 {/* <Td color="black">{order.amount}</Td> */}
                                                 {/* <Td color={order.status == "Accepted" ? 'green' : (order.status == "Rejected") ? 'red' : "black"}>{order.status}</Td> */}
                                                 {order.orderStatus == "ORDER_PLACED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"75%"} p={3} color="white" bg="green.500">Pending</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"80%"} p={3} color="white" bg="green.500">Pending</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_REJECTED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"75%"} p={3} color="white" bg="green.500">Rejected</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"80%"} p={3} color="white" bg="green.500">Rejected</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_DELIVERED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"75%"} p={3} color="white" bg="green.500">Delivered</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"80%"} p={3} color="white" bg="green.500">Delivered</Box></Td>
                                                 }
                                                 {order.orderStatus == "ORDER_ACCEPTED" &&
-                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"75%"} p={3} color="white" bg="green.500">Processed</Box></Td>
+                                                    <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"80%"} p={3} color="white" bg="green.500">Processed</Box></Td>
                                                 }
 
                                                 {/* {

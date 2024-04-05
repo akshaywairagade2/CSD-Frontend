@@ -328,7 +328,7 @@ const AcceptedOrders = () => {
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.cartItems); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.cartItems[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
                                                 <Td color="black">{order.userMobileNumber}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"65%"} p={3} color="black" bg="green.300">{order.orderStatus}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"70%"} p={3} color="black" bg="green.300">{order.orderStatus}</Box></Td>
                                                 <Td>
                                                     <Button
                                                         isDisabled={order.orderStatus == "Processed" ? false : true}
@@ -354,7 +354,7 @@ const AcceptedOrders = () => {
                                                 <Td color="black" onClick={() => { setSelectedOrder(order?.items); onOpen(); }} _hover={{ cursor: "pointer" }}>{order.items[0].name}...</Td>
                                                 <Td color="black">{order.amount}</Td>
                                                 <Td color="black">{order.userMobileNumber}</Td>
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"69%"} p={3} color="black" bg="green.300">{order.orderStatus == "ORDER_ACCEPTED" ? "Processed" : "Delivered"}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"80%"} p={3} color="black" bg="green.300">{order.orderStatus == "ORDER_ACCEPTED" ? "Processed" : "Delivered"}</Box></Td>
                                                 <Td>
                                                     <Button
                                                         isDisabled={order.orderStatus == "ORDER_ACCEPTED" ? false : true}
