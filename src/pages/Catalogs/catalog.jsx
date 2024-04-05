@@ -184,7 +184,7 @@ const Catalog = () => {
 
 
     const [currentPage, setCurrentPage] = useState(0);
-    const ItemsPerPage = 6;
+    const ItemsPerPage = 30;
     const totalPages = Math.ceil(catalogItems.length / ItemsPerPage)
 
     const indexOfLastItem = (currentPage + 1) * ItemsPerPage;
@@ -444,7 +444,7 @@ const Catalog = () => {
                                     </Grid>
 
                                     {
-                                        (catalogItems.length > 6) &&
+                                        (catalogItems.length > 30) &&
                                         <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
                                     }
                                 </Box>

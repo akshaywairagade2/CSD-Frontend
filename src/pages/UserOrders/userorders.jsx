@@ -222,7 +222,7 @@ const UserOrders = () => {
                     // ml="25%"
                     />) : <>
                     {
-                        <Box p={8} width="95%" bg="white" borderRadius="md" boxShadow="md">
+                        <Box p={8} width="100%" bg="white" borderRadius="md" boxShadow="md">
                             <Box display={"flex"} align="center" justify="center" ml={"35%"}>
                                 {
                                     personalOrder &&
@@ -272,7 +272,7 @@ const UserOrders = () => {
                                                 <Td color="black">{order.hotelMobileNumber}</Td>
                                                 <Td color="black">{order.userMobileNumber}</Td>
                                                 {/* <Td color={order.status == "Accepted" ? 'green' : (order.status == "Rejected") ? 'red' : "black"}>{order.status}</Td> */}
-                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"60%"} p={3} color="white" bg="green.500">{order.orderStatus}</Box></Td>
+                                                <Td color="red"><Box border={"1px solid pale"} borderRadius={"10px"} w={"80%"} p={3} color="white" bg="green.500">{order.orderStatus}</Box></Td>
                                                 {/* <Td>
                                                     <Flex justify={"space-between"}>
                                                         <Button ml={2} colorScheme="red" onClick={() => handleReject(order._id)} isDisabled={(order.orderStatus == "Rejected") || (order.orderStatus == "Accepted") || (order.orderStatus == "Processed") || (order.orderStatus == "Delivered") ? true : false}>

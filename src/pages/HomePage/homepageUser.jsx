@@ -59,7 +59,7 @@ const HomePageUser = () => {
     }, [])
 
     const [currentPage, setCurrentPage] = useState(0);
-    const HotelsPerPage = 6;
+    const HotelsPerPage = 30;
     const totalPages = Math.ceil(hotels.length / HotelsPerPage)
 
     const indexOfLastHotel = (currentPage + 1) * HotelsPerPage;
@@ -321,7 +321,7 @@ const HomePageUser = () => {
                                         ))}
                                     </Grid>
                                     {
-                                        (hotels.length > 6) &&
+                                        (hotels.length > 30) &&
                                         <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
 
                                     }

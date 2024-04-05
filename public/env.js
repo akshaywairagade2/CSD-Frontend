@@ -1,3 +1,3 @@
 window.env = {
-  "API_URL": "https://iitbh-campus-delivery.onrender.com/"
+  "API_URL": "http://localhost:5000/"
 };

@@ -143,7 +143,7 @@ const NewOrders = () => {
 
 
     const [currentPage, setCurrentPage] = useState(0);
-    const ordersPerPage = 6;
+    const ordersPerPage = 30;
     const totalPages = Math.ceil(orders?.length / ordersPerPage)
 
     const indexOfLastOrder = (currentPage + 1) * ordersPerPage;
@@ -214,7 +214,7 @@ const NewOrders = () => {
     const [selectedGroupOrder, setSelectedGroupOrder] = useState([]);
 
     const [currentgroupPage, setCurrentGroupPage] = useState(0);
-    const groupordersPerPage = 6;
+    const groupordersPerPage = 30;
     const totalgroupPages = Math.ceil(grouporders.length / groupordersPerPage)
 
     const indexOfLastGroupOrder = (currentgroupPage + 1) * groupordersPerPage;
@@ -529,7 +529,7 @@ const NewOrders = () => {
                             </Table>
 
 
-                            {(orders.length > 6) && personalOrder &&
+                            {(orders.length > 30) && personalOrder &&
                                 <Pagination
                                     totalPages={totalPages}
                                     currentPage={currentPage}
@@ -537,7 +537,7 @@ const NewOrders = () => {
                                 />
                             }
 
-                            {(grouporders.length > 6) && !personalOrder &&
+                            {(grouporders.length > 30) && !personalOrder &&
                                 <Pagination
                                     totalPages={totalgroupPages}
                                     currentPage={currentgroupPage}

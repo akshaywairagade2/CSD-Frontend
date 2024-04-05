@@ -16,7 +16,8 @@ import {
     Button,
     Image,
     Tooltip,
-    Text
+    Text,
+    Select
 } from '@chakra-ui/react'
 import { useToast } from "@chakra-ui/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,11 +35,12 @@ const HotelProfile = () => {
     const role = user?.role;
     const navigate = useNavigate();
 
-    const [hotelName, setHotelName] = useState('Tech Cafe');
-    const [hotelDescription, setHotelDescription] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+    const [hotelName, setHotelName] = useState(null);
+    const [hotelDescription, setHotelDescription] = useState(null);
     const [hotelRating, setHotelRating] = useState(4.5);
-    const [hotelAddress, sethotelAddress] = useState("123 Main St");
-    const [hotelMobileNumber, sethotelMobileNumber] = useState(9467893045);
+    const [hotelAddress, sethotelAddress] = useState(null);
+    const [hotelMobileNumber, sethotelMobileNumber] = useState(null);
+    const [hotelStatus, sethotelStatus] = useState(null)
     const [selectedFiles, setSelectedFiles] = useState(["http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",]);
 
@@ -77,6 +79,7 @@ const HotelProfile = () => {
                     sethotelMobileNumber(data.info.mobilenumber)
                     sethotelAddress(data.info.address);
                     setHotelDescription(data.info.description)
+                    sethotelStatus(data.info.hotelStatus)
                     // setUserAge(data.Info[0].age);
                 }
             } catch (error) {
@@ -86,6 +89,7 @@ const HotelProfile = () => {
         }
     }
 
+    console.log(hotelStatus, "hotel")
 
     const handleDelete = (indexToDelete) => {
         const updatedFiles = selectedFiles.filter((_, index) => index !== indexToDelete);
@@ -179,7 +183,8 @@ const HotelProfile = () => {
                     "userName": hotelName,
                     "mobilenumber": hotelMobileNumber,
                     "address": hotelAddress,
-                    "description": hotelDescription
+                    "description": hotelDescription,
+                    "hotelStatus": hotelStatus
                 },
                 config
             );
@@ -450,7 +455,31 @@ const HotelProfile = () => {
                                 />
                             </FormControl>
 
-                            <FormControl id="uploadimage" isRequired={edit}>
+                            <FormControl id="hotelstatus" isRequired={edit}>
+                                <FormLabel>Hotel Status</FormLabel>
+                                <Select
+                                    // bg="red"
+                                    // placeholder="On/Off"
+                                    disabled={!edit}
+                                    color="white"
+                                    // bg="white"
+                                    readOnly={!edit}
+                                    value={hotelStatus}
+                                    onChange={(e) => sethotelStatus(e.target.value)}
+                                    styles={{
+                                        menu: {
+                                            background: 'gray.100', // Change the background color of the box containing options
+                                        },
+                                    }}
+                                >
+                                    {/* <option value="" >&nbsp;</option> */}
+                                    <option value="on" style={{ color: "black" }}>On</option>
+                                    <option value="off" style={{ color: "black" }}>Off</option>
+                                    {/* <option value="Both">Both</option> */}
+                                </Select>
+                            </FormControl>
+
+                            {/* <FormControl id="uploadimage" isRequired={edit}>
                                 <FormLabel>Upload Images</FormLabel>
                                 <Input
                                     p={1.5}
@@ -478,7 +507,7 @@ const HotelProfile = () => {
                                         </ul>
                                     </Box>
                                 )}
-                            </FormControl>
+                            </FormControl> */}
                             {
                                 !edit &&
                                 <Button mt={2} onClick={handleEdit} width={"50%"} >
