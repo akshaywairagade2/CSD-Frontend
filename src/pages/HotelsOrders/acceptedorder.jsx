@@ -56,7 +56,7 @@ const AcceptedOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/orders/deliveredOrder`,
+                    `${env.REACT_APP_API_URL}api/orders/deliveredOrder`,
                     {
                         "orderId": orderId,
                         "email": email
@@ -98,7 +98,7 @@ const AcceptedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/orders/getOrderByHotel`,
+                `${env.REACT_APP_API_URL}api/orders/getOrderByHotel`,
                 {
                     hotelId: user._id
                 },
@@ -174,7 +174,7 @@ const AcceptedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/gethotelgrouporders`,
+                `${env.REACT_APP_API_URL}api/groupOrders/gethotelgrouporders`,
                 {
                     hotelId: user._id
                 },
@@ -224,7 +224,7 @@ const AcceptedOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/groupOrders/deliverGroupOrder`,
+                    `${env.REACT_APP_API_URL}api/groupOrders/deliverGroupOrder`,
                     {
                         "groupId": groupId,
                         "email": email

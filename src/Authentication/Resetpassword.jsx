@@ -89,7 +89,7 @@ const ResetPassword = () => {
                 };
 
                 const { data } = await axios.post(
-                    `${env.API_URL}api/auth//reset-password/${params.id}/${params.token}`,
+                    `${env.REACT_APP_API_URL}api/auth//reset-password/${params.id}/${params.token}`,
                     {
                         "password": password,
                     },

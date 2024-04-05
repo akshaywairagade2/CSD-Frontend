@@ -72,7 +72,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/fetchgroup`,
+                `${env.REACT_APP_API_URL}api/groupOrders/fetchgroup`,
                 {
                     groupId: GroupId
                 },
@@ -132,7 +132,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/groups/addItem`,
+                `${env.REACT_APP_API_URL}api/groupOrders/groups/addItem`,
                 {
                     "groupId": GroupId,
                     "item": item,
@@ -162,7 +162,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/groups/removeItem`,
+                `${env.REACT_APP_API_URL}api/groupOrders/groups/removeItem`,
                 {
                     "groupId": GroupId,
                     "item": item,
@@ -194,7 +194,7 @@ const Group = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/groupOrders/placeGroupOrder`,
+                    `${env.REACT_APP_API_URL}api/groupOrders/placeGroupOrder`,
                     {
                         "groupId": GroupId,
                         "email": email,
@@ -242,7 +242,7 @@ const Group = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/groupOrders/groups/deleteCart`, {
+                    `${env.REACT_APP_API_URL}api/groupOrders/groups/deleteCart`, {
                     "groupId": GroupId,
                     "userId": user._id,
                     "userName": user.userName
@@ -278,7 +278,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/groups/deleteItem`, {
+                `${env.REACT_APP_API_URL}api/groupOrders/groups/deleteItem`, {
                 "groupId": GroupId,
                 "userId": user._id,
                 "userName": user.userName,

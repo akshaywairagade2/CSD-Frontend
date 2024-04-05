@@ -29,7 +29,7 @@ const Verified = () => {
             };
 
             const { data } = await axios.post(
-                `${env.API_URL}"api/auth/verify/`,
+                `${env.REACT_APP_API_URL}"api/auth/verify/`,
                 {
                     "id": params.id,
                 },

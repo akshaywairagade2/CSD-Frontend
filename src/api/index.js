@@ -3,7 +3,7 @@ import env from "react-dotenv";
 
 
 
-const API = axios.create({ baseURL: env.API_URL })
+const API = axios.create({ baseURL: "https://iitbh-campus-delivery.onrender.com/" })
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem("user_info")) {

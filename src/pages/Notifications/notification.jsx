@@ -63,7 +63,7 @@ const Notifications = () => {
 
 
                 // const { data, status } = await axios.post(
-                //       `${env.API_URL}api/items/deleteitem`,
+                //       `${env.REACT_APP_API_URL}api/items/deleteitem`,
                 //     {
                 //         "itemId": itemId
                 //     },

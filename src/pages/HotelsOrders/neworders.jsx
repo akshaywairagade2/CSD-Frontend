@@ -93,7 +93,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/orders/acceptOrder`,
+                    `${env.REACT_APP_API_URL}api/orders/acceptOrder`,
                     {
                         "orderId": orderId,
                         "email": email
@@ -122,7 +122,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/orders/rejectOrder`,
+                    `${env.REACT_APP_API_URL}api/orders/rejectOrder`,
                     {
                         "orderId": orderId,
                         "email": email
@@ -165,7 +165,7 @@ const NewOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/orders/getOrderByHotel`,
+                `${env.REACT_APP_API_URL}api/orders/getOrderByHotel`,
                 {
                     hotelId: user._id
                 },
@@ -244,7 +244,7 @@ const NewOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/gethotelgrouporders`,
+                `${env.REACT_APP_API_URL}api/groupOrders/gethotelgrouporders`,
                 {
                     hotelId: user._id
                 },
@@ -297,7 +297,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/groupOrders/acceptGroupOrder`,
+                    `${env.REACT_APP_API_URL}api/groupOrders/acceptGroupOrder`,
                     {
                         "groupId": groupId,
                         "email": email
@@ -326,7 +326,7 @@ const NewOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/groupOrders/rejectGroupOrder`,
+                    `${env.REACT_APP_API_URL}api/groupOrders/rejectGroupOrder`,
                     {
                         "groupId": groupId,
                         "email": email

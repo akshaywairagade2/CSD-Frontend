@@ -36,7 +36,7 @@ const VerifyEmailOnAccountCreation = () => {
             };
 
             const { data } = await axios.post(
-                `${env.API_URL}api/auth/verifynewemail/${params.id}/${params.token}`,
+                `${env.REACT_APP_API_URL}api/auth/verifynewemail/${params.id}/${params.token}`,
                 {
                     "id": params.id,
                 },

@@ -85,7 +85,7 @@ const Catalog = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/items/getitems`, {
+                `${env.REACT_APP_API_URL}api/items/getitems`, {
                 id: hotelid
             },
                 config
@@ -122,7 +122,7 @@ const Catalog = () => {
             };
 
             const { data } = await axios.post(
-                `${env.API_URL}api/v1/cart/add`,
+                `${env.REACT_APP_API_URL}api/v1/cart/add`,
                 {
                     "hotelID": hotelid,
                     "item": item,

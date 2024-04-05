@@ -64,7 +64,7 @@ const UserProfile = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/auth/userinfo`,
+                    `${env.REACT_APP_API_URL}api/auth/userinfo`,
                     {
                         "id": userId
                     },
@@ -151,7 +151,7 @@ const UserProfile = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/auth/edituserinfo`,
+                `${env.REACT_APP_API_URL}api/auth/edituserinfo`,
                 {
                     "id": userId,
                     "userName": userName,

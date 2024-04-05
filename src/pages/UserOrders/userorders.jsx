@@ -72,7 +72,7 @@ const UserOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/orders/getOrderByUser`,
+                `${env.REACT_APP_API_URL}api/orders/getOrderByUser`,
                 {
                     userId: user._id
                 },
@@ -135,7 +135,7 @@ const UserOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/getusergrouporders`,
+                `${env.REACT_APP_API_URL}api/groupOrders/getusergrouporders`,
                 {
                     "userId": user._id,
                 },

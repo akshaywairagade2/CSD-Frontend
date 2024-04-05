@@ -66,7 +66,7 @@ const HotelProfile = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/auth/userinfo`,
+                    `${env.REACT_APP_API_URL}api/auth/userinfo`,
                     {
                         "id": hotelId
                     },
@@ -177,7 +177,7 @@ const HotelProfile = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/auth/edituserinfo`,
+                `${env.REACT_APP_API_URL}api/auth/edituserinfo`,
                 {
                     "id": hotelId,
                     "userName": hotelName,

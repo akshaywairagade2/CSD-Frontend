@@ -128,7 +128,7 @@ const ContactUs = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/contact/contact-us`,
+                `${env.REACT_APP_API_URL}api/contact/contact-us`,
                 {
                     "name": name,
                     "email": email,

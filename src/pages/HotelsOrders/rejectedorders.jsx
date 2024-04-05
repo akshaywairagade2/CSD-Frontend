@@ -115,7 +115,7 @@ const RejectedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/orders/getOrderByHotel`,
+                `${env.REACT_APP_API_URL}api/orders/getOrderByHotel`,
                 {
                     hotelId: user._id
                 },
@@ -191,7 +191,7 @@ const RejectedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/gethotelgrouporders`,
+                `${env.REACT_APP_API_URL}api/groupOrders/gethotelgrouporders`,
                 {
                     hotelId: user._id
                 },

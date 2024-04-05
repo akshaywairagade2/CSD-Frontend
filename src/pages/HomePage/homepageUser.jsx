@@ -83,7 +83,7 @@ const HomePageUser = () => {
             };
 
             const { data, status } = await axios.get(
-                `${env.API_URL}api/auth/hotels`,
+                `${env.REACT_APP_API_URL}api/auth/hotels`,
                 config
             );
 
@@ -138,6 +138,7 @@ const HomePageUser = () => {
     // }, [searchQuery])
 
 
+    console.log(currentHotels, "currentHotelscurrentHotels")
 
     return (
         <>
@@ -220,7 +221,9 @@ const HomePageUser = () => {
                                         {currentHotels.map((hotel) => (
                                             <GridItem key={hotel.id} height="50%" maxH={"50%"} >
                                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ bg: 'green.100', cursor: "pointer" }} >
-                                                    <Box p='6' onClick={() => { navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}`) }} >
+                                                    <Box p='6' onClick={() => { hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}`) }}
+                                                    // isDisabled={true}
+                                                    >
                                                         <Text fontSize={"45px"} mb={2} align="center" textTransform='uppercase' color="black">
                                                             {hotel.userName}
                                                         </Text>
@@ -262,6 +265,7 @@ const HomePageUser = () => {
                                                                 🟢 Veg
                                                             </Box>
 
+
                                                             <Box
                                                                 width="40%"
                                                                 color='white'
@@ -300,7 +304,7 @@ const HomePageUser = () => {
                                                         </Box>
 
 
-                                                        <Box display='flex' mt='2' alignItems='center'>
+                                                        {/* <Box display='flex' mt='2' alignItems='center'>
                                                             {Array(5)
                                                                 .fill('')
                                                                 .map((_, i) => (
@@ -309,10 +313,23 @@ const HomePageUser = () => {
                                                                         color={i < 3 ? 'teal.500' : 'gray.300'}
                                                                     />
                                                                 ))}
-                                                            {/* <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-                                                            {item?.reviews.length} reviews
+                                                            <Box as='span' ml='2' color='gray.600' fontSize='sm'>
+                                                                {item?.reviews.length} reviews
+                                                            </Box>
                                                         </Box> */}
-                                                        </Box>
+                                                        {
+                                                            hotel?.hotelStatus == "off" &&
+                                                            <Box
+                                                                mt='1'
+                                                                fontWeight='semibold'
+                                                                as='h4'
+                                                                lineHeight='tight'
+                                                                noOfLines={5}
+                                                                color="teal.500"
+                                                            >
+                                                                🔴 Hotel is Currently Closed
+                                                            </Box>
+                                                        }
 
                                                     </Box>
                                                 </Box>

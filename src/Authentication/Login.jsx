@@ -84,7 +84,7 @@ const Login = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/auth/login`,
+                `${env.REACT_APP_API_URL}api/auth/login`,
                 {
                     "emailId": email,
                     "password": password,
@@ -195,7 +195,7 @@ const Login = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/auth/login`,
+                `${env.REACT_APP_API_URL}api/auth/login`,
                 {
                     "emailId": email,
                     "password": password,
@@ -290,7 +290,7 @@ const Login = () => {
             };
 
             const { data } = await axios.post(
-                `${env.API_URL}api/auth/forgot-password`,
+                `${env.REACT_APP_API_URL}api/auth/forgot-password`,
                 {
                     "emailId": forgotemail,
                 },

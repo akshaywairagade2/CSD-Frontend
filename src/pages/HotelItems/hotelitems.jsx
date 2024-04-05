@@ -72,7 +72,7 @@ const HotelItems = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/items/getitems`,
+                `${env.REACT_APP_API_URL}api/items/getitems`,
                 {
                     id: user._id
                 },
@@ -177,7 +177,7 @@ const HotelItems = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/items/updateitem`,
+                    `${env.REACT_APP_API_URL}api/items/updateitem`,
                     {
                         "_id": selectedItem._id,
                         "name": selectedItem.name,
@@ -228,7 +228,7 @@ const HotelItems = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.API_URL}api/items/deleteitem`,
+                    `${env.REACT_APP_API_URL}api/items/deleteitem`,
                     {
                         "itemId": itemId
                     },

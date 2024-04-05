@@ -86,7 +86,7 @@ const GroupOrder = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/groupOrders/fetchgroup`,
+                `${env.REACT_APP_API_URL}api/groupOrders/fetchgroup`,
                 {
                     groupId: GroupId
                 },

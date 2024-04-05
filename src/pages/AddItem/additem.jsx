@@ -63,7 +63,7 @@ const AddItem = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/items/additem`,
+                `${env.REACT_APP_API_URL}api/items/additem`,
                 {
                     "name": item.name,
                     "hotelId": user._id,

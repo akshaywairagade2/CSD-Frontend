@@ -84,7 +84,7 @@ const SignUp = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/auth/signup`,
+                `${env.REACT_APP_API_URL}api/auth/signup`,
                 {
                     "userName": username,
                     "emailId": email,
@@ -213,7 +213,7 @@ const SignUp = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.API_URL}api/auth/signup`,
+                `${env.REACT_APP_API_URL}api/auth/signup`,
                 {
                     "userName": username,
                     "emailId": email,
