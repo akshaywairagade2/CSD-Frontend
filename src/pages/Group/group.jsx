@@ -214,7 +214,7 @@ const Group = () => {
                         position: "bottom",
                     });
 
-                    navigate(`/ congrats / ${GroupId}`)
+                    navigate(`/congrats/${GroupId}`)
                 }
 
             } catch (error) {
