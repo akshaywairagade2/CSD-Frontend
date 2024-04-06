@@ -604,7 +604,7 @@ const AddToCart = () => {
                                                 allGroups.map((group, ind) => (
                                                     <Box key={ind} color="black" border="1px solid black" bg="white" p={2} mt={2} borderRadius="md" _hover={{ cursor: "pointer" }}
                                                         onClick={() => {
-                                                            navigate(`/ group / ${group.groupId} / ${hotelid} / ${group.groupName}`)
+                                                            navigate(`/group/${group.groupId}/${hotelid}/${group.groupName}`)
                                                         }}
                                                     >
                                                         {group.groupName} - {group.groupId}
