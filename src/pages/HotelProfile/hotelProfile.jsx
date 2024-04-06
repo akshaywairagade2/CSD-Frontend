@@ -67,7 +67,7 @@ const HotelProfile = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `https://iitbh-campus-delivery.onrender.com/api/auth/userinfo`,
+                    `${APP_URL}api/auth/userinfo`,
                     {
                         "id": hotelId
                     },
@@ -90,7 +90,7 @@ const HotelProfile = () => {
         }
     }
 
-    console.log(hotelStatus, "hotel")
+    // console.log(hotelStatus, "hotel")
 
     const handleDelete = (indexToDelete) => {
         const updatedFiles = selectedFiles.filter((_, index) => index !== indexToDelete);
