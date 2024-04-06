@@ -19,6 +19,7 @@ import FoodBackgroundImage from '../img2.jpg'
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import env from "react-dotenv"
+import { APP_URL } from "../url";
 
 const VerifyEmailOnAccountCreation = () => {
 
@@ -36,7 +37,7 @@ const VerifyEmailOnAccountCreation = () => {
             };
 
             const { data } = await axios.post(
-                `${env.REACT_APP_API_URL}api/auth/verifynewemail/${params.id}/${params.token}`,
+                `${APP_URL}api/auth/verifynewemail/${params.id}/${params.token}`,
                 {
                     "id": params.id,
                 },

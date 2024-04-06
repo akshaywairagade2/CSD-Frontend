@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import FoodBackgroundImage from '../img2.jpg';
 import axios from "axios"
 import env from "react-dotenv";
+import { APP_URL } from '../url';
 
 const ContactUs = () => {
     const navigate = useNavigate();
@@ -128,7 +129,7 @@ const ContactUs = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/contact/contact-us`,
+                `${APP_URL}api/contact/contact-us`,
                 {
                     "name": name,
                     "email": email,

@@ -20,6 +20,8 @@ import Pagination from "../Pagination/pagination";
 import { StarIcon } from '@chakra-ui/icons';
 import FoodBackgroundImage from '../../img4.jpg';
 import env from "react-dotenv"
+import { APP_URL } from "../../url";
+
 const HomePageUser = () => {
 
 
@@ -83,7 +85,7 @@ const HomePageUser = () => {
             };
 
             const { data, status } = await axios.get(
-                `${env.REACT_APP_API_URL}api/auth/hotels`,
+                `${APP_URL}api/auth/hotels`,
                 config
             );
 
@@ -113,7 +115,7 @@ const HomePageUser = () => {
             const isVegMatch = !filterVeg || item.isVeg;
             const isNonVegMatch = !filterNonVeg || !item.isVeg;
             const isBothMatch = !filterBoth || item.isBoth;
-
+            setCurrentPage(0)
             return isMatchingSearch && isVegMatch && isNonVegMatch && isBothMatch;
         });
 

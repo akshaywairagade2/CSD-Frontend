@@ -25,6 +25,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import profile from "../../profile.png";
 import FoodBackgroundImage from '../../img4.jpg';
 import env from "react-dotenv"
+import { APP_URL } from "../../url";
 
 const HotelProfile = () => {
 
@@ -177,7 +178,7 @@ const HotelProfile = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/auth/edituserinfo`,
+                `${APP_URL}api/auth/edituserinfo`,
                 {
                     "id": hotelId,
                     "userName": hotelName,

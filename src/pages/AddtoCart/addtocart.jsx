@@ -28,6 +28,7 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import FoodBackgroundImage from '../../img4.jpg';
 import env from "react-dotenv"
+import { APP_URL } from "../../url";
 
 const AddToCart = () => {
 
@@ -64,7 +65,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/v1/cart/hotel/${hotelid}`,
+                `${APP_URL}api/v1/cart/hotel/${hotelid}`,
                 {
                     userID: user._id
                 },
@@ -107,7 +108,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/v1/cart/add`,
+                `${APP_URL}api/v1/cart/add`,
                 {
                     "hotelID": hotelid,
                     "item": item
@@ -134,7 +135,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/v1/cart/remove`,
+                `${APP_URL}api/v1/cart/remove`,
                 {
                     "hotelID": hotelid,
                     "item": item
@@ -163,7 +164,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.delete(
-                `${env.REACT_APP_API_URL}api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`,
+                `${APP_URL}api/v1/cart/erase?itemID=${item.itemID}&hotelID=${hotelid}`,
                 config
             );
             console.log(data, "sttata")
@@ -191,7 +192,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/orders/addOrder`,
+                    `${APP_URL}api/orders/addOrder`,
                     {
                         "userId": user._id,
                         "hotelId": hotelid,
@@ -247,7 +248,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.delete(
-                    `${env.REACT_APP_API_URL}api/v1/cart/hotel/${hotelid}`,
+                    `${APP_URL}api/v1/cart/hotel/${hotelid}`,
                     config
                 );
 
@@ -285,7 +286,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.delete(
-                `${env.REACT_APP_API_URL}api/v1/cart/hotel/${hotelid}`,
+                `${APP_URL}api/v1/cart/hotel/${hotelid}`,
                 config
             );
 
@@ -337,7 +338,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/groupOrders/createGroup`,
+                    `${APP_URL}api/groupOrders/createGroup`,
                     {
                         "hotelId": hotelid,
                         "hotelName": hotelName,
@@ -397,7 +398,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/groupOrders/joinGroup`,
+                    `${APP_URL}api/groupOrders/joinGroup`,
                     {
                         "userName": user.userName,
                         "userId": user._id,
@@ -450,7 +451,7 @@ const AddToCart = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/groupOrders/groups/addCartToGroup`,
+                    `${APP_URL}api/groupOrders/groups/addCartToGroup`,
                     {
                         "userName": user.userName,
                         "userId": user._id,
@@ -514,7 +515,7 @@ const AddToCart = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/groupOrders/getgroupbyuser`,
+                `${APP_URL}api/groupOrders/getgroupbyuser`,
                 {
                     "userId": user._id,
                     "hotelId": hotelid

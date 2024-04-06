@@ -27,6 +27,7 @@ import { useDispatch } from 'react-redux';
 import { signup, signupGoogle } from "../redux/actions/auth";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
+import { APP_URL } from "../url";
 
 
 const SignUp = () => {
@@ -42,7 +43,7 @@ const SignUp = () => {
     const [address, setAddress] = useState(null);
     const [mobileNumber, setMobileNumber] = useState(null);
 
-    console.log(mobileNumber, address, "Personal Data")
+    // console.log(mobileNumber, address, "Personal Data")
 
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -84,7 +85,7 @@ const SignUp = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/auth/signup`,
+                `${APP_URL}api/auth/signup`,
                 {
                     "userName": username,
                     "emailId": email,
@@ -213,7 +214,7 @@ const SignUp = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/auth/signup`,
+                `${APP_URL}api/auth/signup`,
                 {
                     "userName": username,
                     "emailId": email,

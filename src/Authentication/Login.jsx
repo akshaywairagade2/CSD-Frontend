@@ -8,6 +8,7 @@ import FoodBackgroundImage from '../foodbackgroundimage.jpg';
 import env from "react-dotenv";
 import img1 from '../img1.jpg'
 import img2 from '../img2.jpg'
+import { APP_URL } from "../url";
 import {
     Flex,
     Box,
@@ -84,7 +85,7 @@ const Login = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/auth/login`,
+                `${APP_URL}api/auth/login`,
                 {
                     "emailId": email,
                     "password": password,
@@ -195,7 +196,7 @@ const Login = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/auth/login`,
+                `${APP_URL}api/auth/login`,
                 {
                     "emailId": email,
                     "password": password,
@@ -204,7 +205,7 @@ const Login = () => {
             );
 
 
-            console.log(data, "datadatadatadatadatadatadatadata")
+            // console.log(data, "datadatadatadatadatadatadatadata")
 
 
             // if (data.msg == "Please Verify Mail") {
@@ -290,7 +291,7 @@ const Login = () => {
             };
 
             const { data } = await axios.post(
-                `${env.REACT_APP_API_URL}api/auth/forgot-password`,
+                `${APP_URL}api/auth/forgot-password`,
                 {
                     "emailId": forgotemail,
                 },

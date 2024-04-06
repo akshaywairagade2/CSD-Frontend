@@ -17,6 +17,7 @@ import env from "react-dotenv";
 import Footer from "../Footer/footer";
 import Header from "../Header/header";
 import FoodBackgroundImage from '../img2.jpg';
+import { APP_URL } from "../url";
 
 const ResetPassword = () => {
 
@@ -89,7 +90,7 @@ const ResetPassword = () => {
                 };
 
                 const { data } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/auth//reset-password/${params.id}/${params.token}`,
+                    `${APP_URL}api/auth//reset-password/${params.id}/${params.token}`,
                     {
                         "password": password,
                     },

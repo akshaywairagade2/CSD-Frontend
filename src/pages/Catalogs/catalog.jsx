@@ -37,7 +37,7 @@ import Pagination from '../Pagination/pagination';
 import { StarIcon } from '@chakra-ui/icons';
 import FoodBackgroundImage from '../../img4.jpg';
 import env from "react-dotenv"
-
+import { APP_URL } from '../../url';
 const Catalog = () => {
 
     const toast = useToast();
@@ -85,7 +85,7 @@ const Catalog = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/items/getitems`, {
+                `${APP_URL}api/items/getitems`, {
                 id: hotelid
             },
                 config
@@ -122,7 +122,7 @@ const Catalog = () => {
             };
 
             const { data } = await axios.post(
-                `${env.REACT_APP_API_URL}api/v1/cart/add`,
+                `${APP_URL}api/v1/cart/add`,
                 {
                     "hotelID": hotelid,
                     "item": item,
@@ -158,6 +158,17 @@ const Catalog = () => {
     const [filterBoth, setFilterBoth] = useState(false);
     const [filterPriceRange, setFilterPriceRange] = useState('');
 
+
+
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const ItemsPerPage = 30;
+    const totalPages = Math.ceil(catalogItems.length / ItemsPerPage)
+
+    const indexOfLastItem = (currentPage + 1) * ItemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
+    const currentItems = catalogItems.slice(indexOfFirstItem, indexOfLastItem);
+
     useEffect(() => {
         const filteredItems = originalcatalogItems.filter(item => {
             const isMatchingSearch = keys.some(key =>
@@ -167,7 +178,7 @@ const Catalog = () => {
             const isNonVegMatch = !filterNonVeg || item.category == "Non-Veg";
             // const isBothMatch = !filterBoth || !item.isBoth;
             const isPriceInRange = !filterPriceRange || item.price <= filterPriceRange;
-
+            setCurrentPage(0);
             return isMatchingSearch && isVegMatch && isNonVegMatch && isPriceInRange;
         });
 
@@ -181,31 +192,21 @@ const Catalog = () => {
         // setCatalogItems(filteredItems);
     }, [searchQuery, filterVeg, filterNonVeg, filterPriceRange, originalcatalogItems]);
 
-
-
-    const [currentPage, setCurrentPage] = useState(0);
-    const ItemsPerPage = 30;
-    const totalPages = Math.ceil(catalogItems.length / ItemsPerPage)
-
-    const indexOfLastItem = (currentPage + 1) * ItemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
-    const currentItems = catalogItems.slice(indexOfFirstItem, indexOfLastItem);
-
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
 
 
-    const property = {
-        imageUrl: 'https://bit.ly/2Z4KKcF',
-        imageAlt: 'Rear view of modern home with pool',
-        beds: 3,
-        baths: 2,
-        title: 'Modern home in city center in the heart of historic Los Angeles',
-        formattedPrice: '$1,900.00',
-        reviewCount: 34,
-        rating: 4,
-    }
+    // const property = {
+    //     imageUrl: 'https://bit.ly/2Z4KKcF',
+    //     imageAlt: 'Rear view of modern home with pool',
+    //     beds: 3,
+    //     baths: 2,
+    //     title: 'Modern home in city center in the heart of historic Los Angeles',
+    //     formattedPrice: '$1,900.00',
+    //     reviewCount: 34,
+    //     rating: 4,
+    // }
 
     // useEffect(() => {
     //     const arr = originalcatalogItems.filter((item) => keys.some((key) => item[key].toLowerCase().includes(searchQuery.toLowerCase())));
@@ -215,6 +216,7 @@ const Catalog = () => {
     //     else
     //         setCatalogItems(originalcatalogItems)
     // }, [searchQuery])
+    console.log(catalogItems, "catalogItemscatalogItems")
 
 
     return (
@@ -427,13 +429,28 @@ const Catalog = () => {
                                                             </Box>
 
                                                         </Box>
+                                                        {
+                                                            item?.availabilityStatus == false &&
+                                                            <Box
+                                                                mt='1'
+                                                                fontWeight='semibold'
+                                                                as='h4'
+                                                                lineHeight='tight'
+                                                                noOfLines={5}
+                                                                color="teal.500"
+                                                            >
+                                                                🔴 This Item is not available
+                                                            </Box>
+                                                        }
                                                     </Box>
+
                                                     <Button
                                                         mt={3}
                                                         colorScheme="blue"
                                                         onClick={(e) => { AddtoCart(item) }}
                                                         ml={"33%"}
                                                         mb={2}
+                                                        isDisabled={!item?.availabilityStatus}
                                                     >
                                                         Add to Cart
                                                     </Button>

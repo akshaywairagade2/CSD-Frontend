@@ -36,6 +36,7 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import FoodBackgroundImage from '../../img4.jpg';
 import env from "react-dotenv"
+import { APP_URL } from "../../url";
 
 const Group = () => {
 
@@ -72,7 +73,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/groupOrders/fetchgroup`,
+                `${APP_URL}api/groupOrders/fetchgroup`,
                 {
                     groupId: GroupId
                 },
@@ -132,7 +133,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/groupOrders/groups/addItem`,
+                `${APP_URL}api/groupOrders/groups/addItem`,
                 {
                     "groupId": GroupId,
                     "item": item,
@@ -162,7 +163,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/groupOrders/groups/removeItem`,
+                `${APP_URL}api/groupOrders/groups/removeItem`,
                 {
                     "groupId": GroupId,
                     "item": item,
@@ -194,7 +195,7 @@ const Group = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/groupOrders/placeGroupOrder`,
+                    `${APP_URL}api/groupOrders/placeGroupOrder`,
                     {
                         "groupId": GroupId,
                         "email": email,
@@ -242,7 +243,7 @@ const Group = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/groupOrders/groups/deleteCart`, {
+                    `${APP_URL}api/groupOrders/groups/deleteCart`, {
                     "groupId": GroupId,
                     "userId": user._id,
                     "userName": user.userName
@@ -278,7 +279,7 @@ const Group = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/groupOrders/groups/deleteItem`, {
+                `${APP_URL}api/groupOrders/groups/deleteItem`, {
                 "groupId": GroupId,
                 "userId": user._id,
                 "userName": user.userName,

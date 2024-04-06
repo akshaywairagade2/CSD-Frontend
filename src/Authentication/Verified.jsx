@@ -15,6 +15,7 @@ import Congrats from "../Congrats.png"
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import env from "react-dotenv"
+import { APP_URL } from "../url";
 
 const Verified = () => {
     const params = useParams()
@@ -29,7 +30,7 @@ const Verified = () => {
             };
 
             const { data } = await axios.post(
-                `${env.REACT_APP_API_URL}"api/auth/verify/`,
+                `${APP_URL}"api/auth/verify/`,
                 {
                     "id": params.id,
                 },

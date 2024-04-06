@@ -32,6 +32,7 @@ import { IconButton } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon, ViewIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import env from "react-dotenv"
+import { APP_URL } from '../../url';
 
 const AcceptedOrders = () => {
 
@@ -56,7 +57,7 @@ const AcceptedOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/orders/deliveredOrder`,
+                    `${APP_URL}api/orders/deliveredOrder`,
                     {
                         "orderId": orderId,
                         "email": email
@@ -98,7 +99,7 @@ const AcceptedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/orders/getOrderByHotel`,
+                `${APP_URL}api/orders/getOrderByHotel`,
                 {
                     hotelId: user._id
                 },
@@ -174,7 +175,7 @@ const AcceptedOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/groupOrders/gethotelgrouporders`,
+                `${APP_URL}api/groupOrders/gethotelgrouporders`,
                 {
                     hotelId: user._id
                 },
@@ -224,7 +225,7 @@ const AcceptedOrders = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/groupOrders/deliverGroupOrder`,
+                    `${APP_URL}api/groupOrders/deliverGroupOrder`,
                     {
                         "groupId": groupId,
                         "email": email

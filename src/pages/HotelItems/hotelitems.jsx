@@ -39,6 +39,7 @@ import Pagination from "../Pagination/pagination"
 import { useNavigate } from 'react-router-dom';
 import FoodBackgroundImage from '../../img4.jpg';
 import env from "react-dotenv"
+import { APP_URL } from '../../url';
 
 const HotelItems = () => {
 
@@ -56,7 +57,7 @@ const HotelItems = () => {
     const [originalcatalogItems, setOriginalCatalogItems] = useState([]);
     const [catalogItems, setCatalogItems] = useState([]);
 
-    console.log(selectedItem)
+    // console.log(selectedItem)
 
     useEffect(() => {
         if (!user) navigate('/login')
@@ -72,7 +73,7 @@ const HotelItems = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/items/getitems`,
+                `${APP_URL}api/items/getitems`,
                 {
                     id: user._id
                 },
@@ -177,7 +178,7 @@ const HotelItems = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/items/updateitem`,
+                    `${APP_URL}api/items/updateitem`,
                     {
                         "_id": selectedItem._id,
                         "name": selectedItem.name,
@@ -228,7 +229,7 @@ const HotelItems = () => {
                 };
 
                 const { data, status } = await axios.post(
-                    `${env.REACT_APP_API_URL}api/items/deleteitem`,
+                    `${APP_URL}api/items/deleteitem`,
                     {
                         "itemId": itemId
                     },
@@ -262,6 +263,14 @@ const HotelItems = () => {
     const [filterBoth, setFilterBoth] = useState(false);
     const [filterPriceRange, setFilterPriceRange] = useState('');
 
+    const [currentPage, setCurrentPage] = useState(0);
+    const ItemsPerPage = 30;
+    const totalPages = Math.ceil(catalogItems.length / ItemsPerPage)
+
+    const indexOfLastItem = (currentPage + 1) * ItemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
+    const currentItems = catalogItems.slice(indexOfFirstItem, indexOfLastItem);
+
     useEffect(() => {
         const filteredItems = originalcatalogItems.filter(item => {
             const isMatchingSearch = keys.some(key =>
@@ -270,7 +279,7 @@ const HotelItems = () => {
             const isVegMatch = !filterVeg || item.category == "Veg";
             const isNonVegMatch = !filterNonVeg || item.category == "Non-Veg";
             const isPriceInRange = !filterPriceRange || item.price <= filterPriceRange;
-
+            setCurrentPage(0);
             return isMatchingSearch && isVegMatch && isNonVegMatch && isPriceInRange;
         });
 
@@ -295,13 +304,6 @@ const HotelItems = () => {
     // }, [searchQuery])
 
 
-    const [currentPage, setCurrentPage] = useState(0);
-    const ItemsPerPage = 6;
-    const totalPages = Math.ceil(catalogItems.length / ItemsPerPage)
-
-    const indexOfLastItem = (currentPage + 1) * ItemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
-    const currentItems = catalogItems.slice(indexOfFirstItem, indexOfLastItem);
 
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
@@ -513,6 +515,19 @@ const HotelItems = () => {
                                                                     </Box>
                                                                 }
                                                             </Box>
+                                                            {
+                                                                item?.availabilityStatus == false &&
+                                                                <Box
+                                                                    mt='1'
+                                                                    fontWeight='semibold'
+                                                                    as='h4'
+                                                                    lineHeight='tight'
+                                                                    noOfLines={5}
+                                                                    color="teal.500"
+                                                                >
+                                                                    🔴 This Item is not available
+                                                                </Box>
+                                                            }
 
                                                             <Flex justify={"space-between"}>
                                                                 <Box>
@@ -547,7 +562,7 @@ const HotelItems = () => {
                                     </Grid>
 
                                     {
-                                        (catalogItems.length > 6) &&
+                                        (catalogItems.length > 30) &&
                                         <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
                                     }
                                 </Box>
@@ -684,6 +699,7 @@ const HotelItems = () => {
                                     onChange={(e) => setSelectedItem({ ...selectedItem, description: e.target.value })}
                                 />
                             </FormControl>
+
                             <FormControl id="availabilityStatus" isRequired>
                                 <FormLabel>Availability Status</FormLabel>
                                 <Select placeholder='Select option'

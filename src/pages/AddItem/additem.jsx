@@ -9,6 +9,8 @@ import Header from "../../Header/header";
 import Footer from "../../Footer/footer";
 import FoodBackgroundImage from '../../img2.jpg';
 import env from "react-dotenv"
+import { APP_URL } from "../../url";
+
 const AddItem = () => {
 
     const fileInput = useRef(null);
@@ -63,7 +65,7 @@ const AddItem = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/items/additem`,
+                `${APP_URL}api/items/additem`,
                 {
                     "name": item.name,
                     "hotelId": user._id,

@@ -1,3 +1,3 @@
 window.env = {
-  "REACT_APP_API_URL": "https://iitbh-campus-delivery.onrender.com/"
+  "REACT_APP_API_URL": "http://localhost:5000/"
 };

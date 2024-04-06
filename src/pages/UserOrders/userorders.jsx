@@ -31,6 +31,9 @@ import FoodBackgroundImage from '../../img4.jpg';
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import env from "react-dotenv"
+import { APP_URL } from '../../url';
+
+
 const UserOrders = () => {
 
 
@@ -72,7 +75,7 @@ const UserOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/orders/getOrderByUser`,
+                `${APP_URL}api/orders/getOrderByUser`,
                 {
                     userId: user._id
                 },
@@ -135,7 +138,7 @@ const UserOrders = () => {
             };
 
             const { data, status } = await axios.post(
-                `${env.REACT_APP_API_URL}api/groupOrders/getusergrouporders`,
+                `${APP_URL}api/groupOrders/getusergrouporders`,
                 {
                     "userId": user._id,
                 },

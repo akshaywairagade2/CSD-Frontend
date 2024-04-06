@@ -18,7 +18,7 @@ import Pagination from '../Pagination/pagination';
 import { FaTimes } from 'react-icons/fa';
 import FoodBackgroundImage from '../../img4.jpg';
 import env from "react-dotenv"
-
+import { APP_URL } from '../../url';
 
 const Notifications = () => {
 
@@ -63,7 +63,7 @@ const Notifications = () => {
 
 
                 // const { data, status } = await axios.post(
-                //       `${env.REACT_APP_API_URL}api/items/deleteitem`,
+                //       `${APP_URL}api/items/deleteitem`,
                 //     {
                 //         "itemId": itemId
                 //     },
