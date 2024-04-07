@@ -41,6 +41,8 @@ const AddToCart = () => {
     const user = userInfo ? userInfo.User : null;
 
     const [amount, setAmount] = useState(0);
+    const minimumAmount = JSON.parse(localStorage.getItem('minimumAmount'));
+
     const [cartItems, setCartItems] = useState([]);
     const [cartid, setCartId] = useState()
     const toast = useToast();
@@ -181,8 +183,19 @@ const AddToCart = () => {
 
     const Payment = async () => {
         const answer = window.confirm('Are you sure?');
-        console.log(hotelemailid, "hotelemailidhotelemailid")
+        // console.log(hotelemailid, "hotelemailidhotelemailid")
         if (answer) {
+
+            if (amount < minimumAmount) {
+                toast({
+                    title: "Your amount is less than the minimum order!",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+                return;
+            }
 
             try {
                 const config = {
@@ -203,7 +216,8 @@ const AddToCart = () => {
                         "email": emailId,
                         "hotelemailid": hotelemailid,
                         "userMobileNumber": user?.mobilenumber,
-                        "hotelMobileNumber": hotelmobilenumber
+                        "hotelMobileNumber": hotelmobilenumber,
+                        "address": address
                     },
                     config
                 );
@@ -311,6 +325,7 @@ const AddToCart = () => {
     const [flag, setFlag] = useState(0);
     const [display, setDisplay] = useState(0);
     const [code, setCode] = useState('');
+    const [address, setAddress] = useState('');
 
     const AddtoGroup = async () => {
         setCode("")
@@ -348,7 +363,7 @@ const AddToCart = () => {
                         "groupName": groupname,
                         "email": emailId,
                         "hotelMobileNumber": hotelmobilenumber,
-                        "userMobileNumber": user?.mobilenumber
+                        "userMobileNumber": user?.mobilenumber,
                     },
                     config
                 );
@@ -545,7 +560,7 @@ const AddToCart = () => {
         handleFetchAllGroups();
     }, [])
 
-
+    console.log(flag, ":flag")
     return (
         <>
             <Header />
@@ -693,8 +708,8 @@ const AddToCart = () => {
                                                         <Text fontSize="lg" color="black">₹{amount}</Text>
                                                     </HStack>
                                                     <Box>
-                                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={Payment}>
-                                                            Payment
+                                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={() => { setFlag(4); onOpen(); setAddress('') }}>
+                                                            Place Order
                                                         </Button>
                                                     </Box>
                                                     <Box>
@@ -866,6 +881,34 @@ const AddToCart = () => {
                                     ) : (
                                         generatedNumber && <Text fontSize="xl" pt={2} align={"center"} fontWeight={"300px"}>Group ID: {generatedNumber}</Text>
                                     )}
+                                </>
+                            }
+                            {
+                                flag == 4 &&
+                                <>
+                                    <ModalHeader align="center">Address</ModalHeader>
+                                    <Box display={"flex"} alignItems="center">
+                                        <Input
+                                            placeholder="Enter Your Address"
+                                            value={address}
+                                            onChange={(e) => { setAddress(e.target.value) }}
+                                            mt={4}
+                                            color="black"
+                                            border="solid"
+                                        />
+                                        <Button
+                                            colorScheme="blue"
+                                            size="md"
+                                            onClick={Payment}
+                                            mt={4}
+                                            ml={1}
+                                            pl={5}
+                                            pr={5}
+                                            isDisabled={!address.length}
+                                        >
+                                            Place Order
+                                        </Button>
+                                    </Box>
                                 </>
                             }
                         </ModalBody>

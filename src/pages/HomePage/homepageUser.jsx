@@ -57,6 +57,7 @@ const HomePageUser = () => {
             localStorage.removeItem("hotelname");
             localStorage.removeItem("hotelemailid");
             localStorage.removeItem("hotelmobilenumber");
+            localStorage.removeItem("minimumAmount");
         }
     }, [])
 
@@ -89,7 +90,7 @@ const HomePageUser = () => {
                 config
             );
 
-            // console.log(data.hotels, "hotelsssssssssssss")
+            console.log(data.hotels, "hotelsssssssssssss")
             if (status == 200) {
                 // setOriginalHotels(data.hotels)
                 // setHotels(data.hotels);
@@ -140,7 +141,7 @@ const HomePageUser = () => {
     // }, [searchQuery])
 
 
-    console.log(currentHotels, "currentHotelscurrentHotels")
+    // console.log(currentHotels, "currentHotelscurrentHotels")
 
     return (
         <>
@@ -152,7 +153,7 @@ const HomePageUser = () => {
             >
                 <Box p={20}>
 
-                    <Box display="flex" alignItems="center">
+                    {/* <Box display="flex" alignItems="center">
                         <Checkbox
                             isChecked={filterVeg}
                             onChange={() => setFilterVeg(!filterVeg)}
@@ -183,7 +184,7 @@ const HomePageUser = () => {
                         >
                             Both
                         </Checkbox>
-                    </Box>
+                    </Box> */}
 
                     <Text fontSize={"50px"} mb={5} align={'center'} color={"black"} >
                         Hotels
@@ -223,7 +224,9 @@ const HomePageUser = () => {
                                         {currentHotels.map((hotel) => (
                                             <GridItem key={hotel.id} height="50%" maxH={"50%"} >
                                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ bg: 'green.100', cursor: "pointer" }} >
-                                                    <Box p='6' onClick={() => { hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}`) }}
+                                                    <Box p='6' onClick={() => {
+                                                        hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}/${hotel?.minimumAmount}`)
+                                                    }}
                                                     // isDisabled={true}
                                                     >
                                                         <Text fontSize={"45px"} mb={2} align="center" textTransform='uppercase' color="black">

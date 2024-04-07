@@ -41,7 +41,8 @@ const HotelProfile = () => {
     const [hotelRating, setHotelRating] = useState(4.5);
     const [hotelAddress, sethotelAddress] = useState(null);
     const [hotelMobileNumber, sethotelMobileNumber] = useState(null);
-    const [hotelStatus, sethotelStatus] = useState(null)
+    const [hotelStatus, sethotelStatus] = useState(null);
+    const [minimumamount, setMinimumAmount] = useState(null);
     const [selectedFiles, setSelectedFiles] = useState(["http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",
         "http://res.cloudinary.com/dojtv6qwl/image/upload/v1704533187/ptk5pvkpxz1sassuiwfl.jpg",]);
 
@@ -81,6 +82,7 @@ const HotelProfile = () => {
                     sethotelAddress(data.info.address);
                     setHotelDescription(data.info.description)
                     sethotelStatus(data.info.hotelStatus)
+                    setMinimumAmount(data.info.minimumAmount)
                     // setUserAge(data.Info[0].age);
                 }
             } catch (error) {
@@ -185,7 +187,8 @@ const HotelProfile = () => {
                     "mobilenumber": hotelMobileNumber,
                     "address": hotelAddress,
                     "description": hotelDescription,
-                    "hotelStatus": hotelStatus
+                    "hotelStatus": hotelStatus,
+                    "minimumAmount": minimumamount
                 },
                 config
             );
@@ -408,7 +411,7 @@ const HotelProfile = () => {
                                 />
                             </FormControl>
 
-                            <FormControl id="rating" isRequired={edit}>
+                            {/* <FormControl id="rating" isRequired={edit}>
                                 <FormLabel>Rating of Hotel</FormLabel>
                                 <Input
                                     color="white"
@@ -418,7 +421,7 @@ const HotelProfile = () => {
                                     onChange={(e) => { setHotelRating(e.target.value) }}
                                     readOnly={!edit}
                                 />
-                            </FormControl>
+                            </FormControl> */}
 
                             <FormControl id="mobilenumber" isRequired={edit} >
                                 <FormLabel >Mobile Number</FormLabel>
@@ -478,6 +481,18 @@ const HotelProfile = () => {
                                     <option value="off" style={{ color: "black" }}>Off</option>
                                     {/* <option value="Both">Both</option> */}
                                 </Select>
+                            </FormControl>
+
+                            <FormControl id="minimumamount" isRequired={edit}>
+                                <FormLabel>Minimum Amount</FormLabel>
+                                <Input
+                                    color="white"
+                                    type="number"
+                                    placeholder="Enter Minimum Amount"
+                                    value={minimumamount}
+                                    onChange={(e) => { setMinimumAmount(e.target.value) }}
+                                    readOnly={!edit}
+                                />
                             </FormControl>
 
                             {/* <FormControl id="uploadimage" isRequired={edit}>

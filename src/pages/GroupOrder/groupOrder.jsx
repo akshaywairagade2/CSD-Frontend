@@ -52,7 +52,7 @@ const GroupOrder = () => {
     const [cartItems, setCartItems] = useState([]);
     const toast = useToast();
     var hotelName = JSON.parse(localStorage.getItem('hotelname'));
-
+    const minimumAmount = JSON.parse(localStorage.getItem('minimumAmount'));
 
 
 

@@ -56,6 +56,7 @@ const Group = () => {
     var hotelName = JSON.parse(localStorage.getItem('hotelname'));
     const [admin, setAdmin] = useState();
     const [totalamount, setTotalAmount] = useState()
+    const minimumAmount = JSON.parse(localStorage.getItem('minimumAmount'));
 
     useEffect(() => {
         if (!user) navigate('/login');
@@ -122,6 +123,7 @@ const Group = () => {
     const [count, setCount] = useState(5);
     const [individualtotal, setIndividualtotal] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [address, setAddress] = useState('');
 
     const increaseQuantity = async (item) => {
         onClose();
@@ -182,10 +184,21 @@ const Group = () => {
         }
     };
 
-    const Payment = async (email) => {
+    const Payment = async () => {
 
         const answer = window.confirm('Are you sure?');
         if (answer) {
+
+            if (totalamount < minimumAmount) {
+                toast({
+                    title: "Your amount is less than the minimum order!",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "bottom",
+                });
+                return;
+            }
 
             try {
                 const config = {
@@ -200,7 +213,7 @@ const Group = () => {
                         "groupId": GroupId,
                         "email": email,
                         "hotelemailid": hotelemailid,
-
+                        "address": address
                     },
                     config
                 );
@@ -355,7 +368,7 @@ const Group = () => {
                                                         size="lg"
                                                         fontSize="md"
                                                         icon={<ViewIcon />}
-                                                        onClick={() => { onOpen(); setIsEditable(false); setSelectedItems(items.items) }}
+                                                        onClick={() => { setFlag(0); onOpen(); setIsEditable(false); setSelectedItems(items.items) }}
                                                         aria-label="View"
                                                     />
                                                 </Td>
@@ -365,7 +378,7 @@ const Group = () => {
                                                         size="lg"
                                                         fontSize="md"
                                                         icon={<EditIcon />}
-                                                        onClick={() => { onOpen(); setIsEditable(true); setSelectedItems(items.items) }}
+                                                        onClick={() => { setFlag(0); onOpen(); setIsEditable(true); setSelectedItems(items.items) }}
                                                         aria-label="Edit"
                                                         isDisabled={items.userId == user._id ? false : true}
                                                     />
@@ -419,8 +432,8 @@ const Group = () => {
                                         <Text fontSize="lg" color="black">₹{totalamount}</Text>
                                     </HStack>
                                     <Box>
-                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={() => { Payment(email) }} isDisabled={admin == user._id ? false : true}>
-                                            Payment
+                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={() => { setFlag(1); onOpen(); setAddress('') }} isDisabled={admin == user._id ? false : true}>
+                                            Place Order
                                         </Button>
                                     </Box>
                                     {/* <Box>
@@ -446,72 +459,105 @@ const Group = () => {
                 <Modal size="3xl" onClose={onClose} isOpen={isOpen} isCentered>
                     <ModalOverlay />
                     <ModalContent >
-                        <ModalHeader align={"center"} fontSize={"40px"} color="black" fontWeight="bold" >Sushant</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                            <Box maxW="140%" borderWidth='1px' borderRadius='lg' overflow='hidden' ml={10} color="white">
-                                <Table variant="striped">
-                                    <Thead>
-                                        <Tr>
-                                            <Th color="black">Item</Th>
-                                            <Th color="black">Price</Th>
-                                            <Th color="black">Qnt.</Th>
-                                            {iseditable && <Th color="black">Inc</Th>}
-                                            {iseditable && <Th color="black">Dec</Th>}
-                                            <Th color="black">Total</Th>
-                                            {iseditable && <Th color="black">Delete</Th>}
+                            {
+                                flag == 0 &&
+                                <>
+                                    <ModalHeader align={"center"} fontSize={"40px"} color="black" fontWeight="bold" >Order</ModalHeader>
+                                    <Box maxW="140%" borderWidth='1px' borderRadius='lg' overflow='hidden' ml={10} color="white">
+                                        <Table variant="striped">
+                                            <Thead>
+                                                <Tr>
+                                                    <Th color="black">Item</Th>
+                                                    <Th color="black">Price</Th>
+                                                    <Th color="black">Qnt.</Th>
+                                                    {iseditable && <Th color="black">Inc</Th>}
+                                                    {iseditable && <Th color="black">Dec</Th>}
+                                                    <Th color="black">Total</Th>
+                                                    {iseditable && <Th color="black">Delete</Th>}
 
-                                        </Tr>
-                                    </Thead>
-                                    <Tbody >
-                                        {selectedItems.map((item) => (
-                                            <Tr key={item._id}>
-                                                <Td color="black">{item.name}</Td>
-                                                <Td color="black">{item.price}</Td>
-                                                <Td color="black">{item.quantity}</Td>
-                                                {
-                                                    iseditable &&
-                                                    <Td>
-                                                        <Button size="sm" variant="outline" onClick={() => { increaseQuantity(item) }} >
-                                                            +
-                                                        </Button>
-                                                    </Td>
-                                                }
-                                                {
-                                                    iseditable &&
-                                                    <Td>
-                                                        <Button size="sm" variant="outline" onClick={() => { decreaseQuantity(item) }}>
-                                                            -
-                                                        </Button>
-                                                    </Td>
-                                                }
-                                                <Td color="black">{item.price * item.quantity}</Td>
-                                                {
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody >
+                                                {selectedItems.map((item) => (
+                                                    <Tr key={item._id}>
+                                                        <Td color="black">{item.name}</Td>
+                                                        <Td color="black">{item.price}</Td>
+                                                        <Td color="black">{item.quantity}</Td>
+                                                        {
+                                                            iseditable &&
+                                                            <Td>
+                                                                <Button size="sm" variant="outline" onClick={() => { increaseQuantity(item) }} >
+                                                                    +
+                                                                </Button>
+                                                            </Td>
+                                                        }
+                                                        {
+                                                            iseditable &&
+                                                            <Td>
+                                                                <Button size="sm" variant="outline" onClick={() => { decreaseQuantity(item) }}>
+                                                                    -
+                                                                </Button>
+                                                            </Td>
+                                                        }
+                                                        <Td color="black">{item.price * item.quantity}</Td>
+                                                        {
 
-                                                    iseditable &&
-                                                    <Td color="black">
-                                                        <IconButton
-                                                            color="red.400"
-                                                            size="lg"
-                                                            fontSize="md"
-                                                            icon={<DeleteIcon />}
-                                                            aria-label="Delete"
-                                                            isDisabled={!iseditable}
-                                                            onClick={() => { DeleteItem(item); }}
-                                                        />
-                                                    </Td>
-                                                }
-                                            </Tr>
-                                        ))}
-                                    </Tbody>
-                                </Table>
-                            </Box>
+                                                            iseditable &&
+                                                            <Td color="black">
+                                                                <IconButton
+                                                                    color="red.400"
+                                                                    size="lg"
+                                                                    fontSize="md"
+                                                                    icon={<DeleteIcon />}
+                                                                    aria-label="Delete"
+                                                                    isDisabled={!iseditable}
+                                                                    onClick={() => { DeleteItem(item); }}
+                                                                />
+                                                            </Td>
+                                                        }
+                                                    </Tr>
+                                                ))}
+                                            </Tbody>
+                                        </Table>
+                                    </Box>
+                                </>
+                            }
+                            {
+                                flag == 1 &&
+                                <>
+                                    <ModalHeader align="center">Address</ModalHeader>
+                                    <Box display={"flex"} alignItems="center">
+                                        <Input
+                                            placeholder="Enter Your Address"
+                                            value={address}
+                                            onChange={(e) => { setAddress(e.target.value) }}
+                                            mt={4}
+                                            color="black"
+                                            border="solid"
+                                        />
+                                        <Button
+                                            colorScheme="blue"
+                                            size="md"
+                                            onClick={Payment}
+                                            mt={4}
+                                            ml={1}
+                                            pl={5}
+                                            pr={5}
+                                            isDisabled={!address.length}
+                                        >
+                                            Place Order
+                                        </Button>
+                                    </Box>
+                                </>
+                            }
                         </ModalBody>
-                        <ModalFooter>
+                        {/* <ModalFooter>
                             <Button colorScheme="blue" mr={3} onClick={() => { onClose(); setSelectedItems([]) }}>
                                 Close
                             </Button>
-                        </ModalFooter>
+                        </ModalFooter> */}
                     </ModalContent>
                 </Modal>
             </Flex>
