@@ -203,7 +203,7 @@ const HomePageUser = () => {
                     </Box> */}
 
                     <Text fontSize={"50px"} mb={5} align={'center'} color={"black"} >
-                        Hotels
+                        Shops
                     </Text>
 
                     <InputGroup   >

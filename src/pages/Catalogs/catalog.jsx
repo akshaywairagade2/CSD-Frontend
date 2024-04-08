@@ -217,7 +217,7 @@ const Catalog = () => {
     //     else
     //         setCatalogItems(originalcatalogItems)
     // }, [searchQuery])
-    console.log(catalogItems, "catalogItemscatalogItems")
+    // console.log(catalogItems, "catalogItemscatalogItems")
 
 
     return (
@@ -267,7 +267,7 @@ const Catalog = () => {
                             Both
                         </Checkbox> */}
                         <Select
-                            placeholder="Price Range"
+                            placeholder="All items"
                             value={filterPriceRange}
                             onChange={(e) => setFilterPriceRange(e.target.value)}
                             colorScheme="blue"

@@ -79,9 +79,9 @@ const Congrats = () => {
                             <Text color="black" >We are Pleased to confirm your order no {OrderNo}.</Text>
                             <Text color="black" >Thank you for shopping with Food Delivery Service!</Text>
 
-                            <Button fontSize="md" width={200} colorScheme="blue" mt={2} ml={10}>
+                            {/* <Button fontSize="md" width={200} colorScheme="blue" mt={2} ml={10}>
                                 Manage Your Order
-                            </Button>
+                            </Button> */}
                         </Stack>
                     </Flex>
                 </Box>

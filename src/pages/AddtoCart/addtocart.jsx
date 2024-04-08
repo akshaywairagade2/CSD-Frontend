@@ -723,12 +723,12 @@ const AddToCart = () => {
                                                     </HStack>
                                                     <Box>
                                                         <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={() => { setFlag(4); onOpen(); setAddress('') }}>
-                                                            Place Order
+                                                            Place order
                                                         </Button>
                                                     </Box>
                                                     <Box>
                                                         <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={AddtoGroup}>
-                                                            Add to Group
+                                                            Add order to group
                                                         </Button>
                                                     </Box>
                                                     <Box>
