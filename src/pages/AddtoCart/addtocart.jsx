@@ -417,14 +417,17 @@ const AddToCart = () => {
                     {
                         "userName": user.userName,
                         "userId": user._id,
-                        "groupId": code
+                        "groupId": code,
+                        "hotelId": hotelid
                     },
                     config
                 );
 
+
                 setTimeout(() => {
+                    setCode("")
                     toast({
-                        title: "Group Joined Successful",
+                        title: data.msg,
                         status: "success",
                         duration: 5000,
                         isClosable: true,
@@ -433,7 +436,9 @@ const AddToCart = () => {
                     handleFetchAllGroups()
                     setDisplay(1);
                     setLoading(false);
+                    onClose();
                 }, 1000);
+
             }
             else {
                 toast({
@@ -473,23 +478,25 @@ const AddToCart = () => {
                         "groupId": code,
                         "cartId": cartid,
                         "Amount": amount,
+                        "hotelId": hotelid
                     },
                     config
                 );
 
-
-
                 setTimeout(() => {
                     toast({
-                        title: "Item Added Successful",
-                        status: "success",
+                        title: data.message,
+                        status: status == 201 ? "error" : "success",
                         duration: 5000,
                         isClosable: true,
                         position: "bottom",
                     });
                     setDisplay(1)
                     setLoading(false);
-                    DirectDeleteCart();
+                    onClose();
+                    setCode('')
+                    if (status === 200)
+                        DirectDeleteCart();
                 }, 1000);
 
             }
@@ -504,7 +511,7 @@ const AddToCart = () => {
                 setLoading(false);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error, "errorerror")
             setLoading(false);
         }
 
@@ -800,6 +807,7 @@ const AddToCart = () => {
                                             mt={4}
                                             color="black"
                                             border="solid"
+                                            type="number"
                                         />
                                         <Button
                                             colorScheme="blue"
@@ -813,13 +821,13 @@ const AddToCart = () => {
                                             Add
                                         </Button>
                                     </Box>
-                                    {loading ? (
+                                    {/* {loading ? (
                                         <Center pt={2}>
                                             <Spinner />
                                         </Center>
                                     ) : (
                                         display == 1 && <Text fontSize="xl" pt={2} align={"center"} fontWeight={"300px"} color="green">Added to Group {code}</Text>
-                                    )}
+                                    )} */}
                                 </>
                             }
                             {
@@ -834,6 +842,7 @@ const AddToCart = () => {
                                             mt={4}
                                             color="black"
                                             border="solid"
+
                                         />
                                         <Button
                                             colorScheme="blue"
@@ -847,13 +856,13 @@ const AddToCart = () => {
                                             Join
                                         </Button>
                                     </Box>
-                                    {loading ? (
+                                    {/* {loading ? (
                                         <Center pt={2}>
                                             <Spinner />
                                         </Center>
                                     ) : (
                                         display == 1 && <Text fontSize="xl" pt={2} align={"center"} fontWeight={"300px"} color="green">You Joined {code} Group</Text>
-                                    )}
+                                    )} */}
                                 </>
                             }
                             {

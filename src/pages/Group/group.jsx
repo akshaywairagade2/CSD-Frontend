@@ -401,7 +401,7 @@ const Group = () => {
 
                             </Box>
                         </Box>
-                        <Box w="30%" pl={5}>
+                        <Box w="25%" pl={5}>
                             <Flex
                                 direction="column"
                                 justify="space-between"
@@ -410,29 +410,29 @@ const Group = () => {
                                 bg="white"
                                 boxShadow="md"
                                 borderRadius="md"
-                                height="320px"
+                                height="200px"
 
                             >
                                 <Stack spacing="4" align="left">
                                     <Text fontSize="xl" color="black" fontWeight="semibold">Order Summary</Text>
-                                    <HStack justify="space-between">
+                                    {/* <HStack justify="space-between">
                                         <Text fontSize="lg" fontWeight="semibold" color="black">Subtotal:</Text>
                                         <Text fontSize="lg" color="black">₹{totalamount}</Text>
-                                    </HStack>
-                                    <HStack justify="space-between">
+                                    </HStack> */}
+                                    {/* <HStack justify="space-between">
                                         <Text fontSize="lg" fontWeight="semibold" color="black">Shipping + Tax:</Text>
                                         <Text fontSize="lg" align="right" color="black">Calculate shipping</Text>
                                     </HStack>
                                     <HStack justify="space-between">
                                         <Text fontSize="lg" fontWeight="semibold" color="black">Coupon Code:</Text>
                                         <Text fontSize="lg" color="black">Add coupon code</Text>
-                                    </HStack>
+                                    </HStack> */}
                                     <HStack justify="space-between">
                                         <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
                                         <Text fontSize="lg" color="black">₹{totalamount}</Text>
                                     </HStack>
                                     <Box>
-                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={() => { setFlag(1); onOpen(); setAddress('') }} isDisabled={admin == user._id ? false : true}>
+                                        <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={() => { setFlag(1); onOpen(); setAddress('') }} isDisabled={admin == user._id ? false : true}>
                                             Place Order
                                         </Button>
                                     </Box>
