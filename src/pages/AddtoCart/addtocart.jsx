@@ -428,7 +428,7 @@ const AddToCart = () => {
                     setCode("")
                     toast({
                         title: data.msg,
-                        status: "success",
+                        status: status === 201 ? "success" : "error",
                         duration: 5000,
                         isClosable: true,
                         position: "bottom",
