@@ -601,7 +601,7 @@ const AddToCart = () => {
                             </Text>
 
                             <Flex>
-                                <Box w="35%" pr={4}>
+                                <Box w="33%" pr={4}>
                                     <Flex
                                         direction="column"
                                         justify="space-between"
@@ -637,7 +637,7 @@ const AddToCart = () => {
                                     </Flex>
                                 </Box>
                                 {/* {cartItems.length > 0 && */}
-                                <Box display={"flex"} w="70%">
+                                <Box display={"flex"} w="80%">
                                     <Box w="80%">
                                         {cartItems.map((item) => (
                                             <Flex
@@ -652,6 +652,7 @@ const AddToCart = () => {
                                                 <Text fontSize="xl" color="black" >{item.name}</Text>
                                                 <Image
                                                     rounded="lg"
+                                                    ml={3}
                                                     width="120px"
                                                     height="120px"
                                                     fit="cover"
@@ -660,7 +661,7 @@ const AddToCart = () => {
                                                     draggable="false"
                                                     loading="lazy"
                                                 />
-                                                <Text color="black" fontSize="20px" width={"100%"} ml={2}> Item price: {item.price}</Text>
+                                                <Text color="black" fontSize="20px" width={"50%"} ml={2}> Item price: {item.price}</Text>
                                                 <Flex alignItems="center">
                                                     <Button onClick={() => decreaseQuantity(item)} size="sm" variant="outline">
                                                         -
@@ -684,7 +685,7 @@ const AddToCart = () => {
                                         </Box>
                                     }
                                     {cartItems.length > 0 &&
-                                        <Box w="50%" pl={4}>
+                                        <Box w="40%" pl={4}>
                                             <Flex
                                                 direction="column"
                                                 justify="space-between"
@@ -693,11 +694,11 @@ const AddToCart = () => {
                                                 bg="white"
                                                 boxShadow="md"
                                                 borderRadius="md"
-                                                height="420px"
+                                                height="300px"
                                             >
                                                 <Stack spacing="4" align="left">
                                                     <Text fontSize="xl" color="black" fontWeight="semibold">Order Summary</Text>
-                                                    <HStack justify="space-between">
+                                                    {/* <HStack justify="space-between">
                                                         <Text fontSize="lg" fontWeight="semibold" color="black">Subtotal:</Text>
                                                         <Text fontSize="lg" color="black">₹{amount}</Text>
                                                     </HStack>
@@ -708,23 +709,23 @@ const AddToCart = () => {
                                                     <HStack justify="space-between">
                                                         <Text fontSize="lg" fontWeight="semibold" color="black">Coupon Code:</Text>
                                                         <Text fontSize="lg" color="black">Add coupon code</Text>
-                                                    </HStack>
+                                                    </HStack> */}
                                                     <HStack justify="space-between">
                                                         <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
                                                         <Text fontSize="lg" color="black">₹{amount}</Text>
                                                     </HStack>
                                                     <Box>
-                                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={() => { setFlag(4); onOpen(); setAddress('') }}>
+                                                        <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={() => { setFlag(4); onOpen(); setAddress('') }}>
                                                             Place Order
                                                         </Button>
                                                     </Box>
                                                     <Box>
-                                                        <Button colorScheme="green" size="lg" fontSize="md" width={320} onClick={AddtoGroup}>
+                                                        <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={AddtoGroup}>
                                                             Add to Group
                                                         </Button>
                                                     </Box>
                                                     <Box>
-                                                        <Button size="lg" fontSize="md" width={320} onClick={DeleteCart}>
+                                                        <Button size="lg" fontSize="md" width={250} onClick={DeleteCart}>
                                                             Delete Cart
                                                         </Button>
                                                     </Box>
