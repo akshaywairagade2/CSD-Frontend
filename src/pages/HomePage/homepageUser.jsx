@@ -14,6 +14,7 @@ import {
     Checkbox,
     Spinner
 } from '@chakra-ui/react'
+import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import { SearchIcon } from "@chakra-ui/icons";
 import Pagination from "../Pagination/pagination";
@@ -26,6 +27,12 @@ const HomePageUser = () => {
 
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const changeinfo = (type, value) => {
+        dispatch({ type: type, payload: value });
+    };
+
+    // const selectedField = useSelector((state) => state.selectedField);
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const hotelid = JSON.parse(localStorage.getItem('hotelid'));
     const [mobilenumber, setMobileNumber] = useState(9745683934)
@@ -90,7 +97,7 @@ const HomePageUser = () => {
                 config
             );
 
-            console.log(data.hotels, "hotelsssssssssssss")
+            // console.log(data.hotels, "hotelsssssssssssss")
             if (status == 200) {
                 // setOriginalHotels(data.hotels)
                 // setHotels(data.hotels);
@@ -107,6 +114,15 @@ const HomePageUser = () => {
     useEffect(() => {
         fetchallhotels();
     }, [])
+
+    const setValues = (id, userName, emailid, mobilenumber, minimumamount) => {
+        // console.log(id, userName, emailid, mobilenumber, minimumamount)
+        localStorage.setItem("hotelid", JSON.stringify(id));
+        localStorage.setItem("hotelname", JSON.stringify(userName));
+        localStorage.setItem("hotelemailid", JSON.stringify(emailid));
+        localStorage.setItem("hotelmobilenumber", JSON.stringify(mobilenumber));
+        localStorage.setItem("minimumAmount", JSON.stringify(minimumamount));
+    }
 
     useEffect(() => {
         const filteredHotels = originalhotels.filter(item => {
@@ -206,7 +222,7 @@ const HomePageUser = () => {
 
                     </InputGroup>
 
-
+                    {/* ${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}/${hotel?.minimumAmount} */}
                     {loading ? (
                         <Spinner
                             thickness="4px"
@@ -225,7 +241,9 @@ const HomePageUser = () => {
                                             <GridItem key={hotel.id} height="50%" maxH={"50%"} >
                                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ bg: 'green.100', cursor: "pointer" }} >
                                                     <Box p='6' onClick={() => {
-                                                        hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}/${hotel?.minimumAmount}`)
+                                                        hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog`);
+                                                        // hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}/${hotel?.minimumAmount}`);
+                                                        setValues(hotel?._id, hotel?.userName, hotel?.emailId, hotel?.mobilenumber, hotel?.minimumAmount);
                                                     }}
                                                     // isDisabled={true}
                                                     >

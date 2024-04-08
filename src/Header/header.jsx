@@ -51,9 +51,6 @@ const Header = () => {
     const hotelmobilenumber = JSON.parse(localStorage.getItem('hotelmobilenumber'));
     const minimumAmount = JSON.parse(localStorage.getItem('minimumAmount'));
 
-
-
-
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");
         navigate("/login");
@@ -120,9 +117,10 @@ const Header = () => {
                             </Box>
                         }
 
+                        {/* <Box as="a" href={`/catalog/${hotelid}/${hotelname}/${hotelemalid}/${hotelmobilenumber}/${minimumAmount}`} */}
                         {
                             (user && path == "/addtocart" && hotelid != null) &&
-                            <Box as="a" href={`/catalog/${hotelid}/${hotelname}/${hotelemalid}/${hotelmobilenumber}/${minimumAmount}`}
+                            <Box as="a" href={`/catalog`}
                                 // color={path == "/addtocart" ? "green" : null}
                                 _hover={{
                                     color: "white",
@@ -269,11 +267,11 @@ const Header = () => {
                                     </Button>
                                 )}
 
-                                {
+                                {/* {
                                     role == "user" &&
                                     <Button colorScheme='blue' size='sm' variant='outline' onClick={() => { navigate(`/notification`) }}>
                                         <FaBell />
-                                        {/* {numberOfItemsInCart > 0 && (
+                                        {numberOfItemsInCart > 0 && (
                                             <Badge
                                                 colorScheme="red"
                                                 borderRadius="50%"
@@ -284,10 +282,10 @@ const Header = () => {
                                             >
                                                 {numberOfItemsInCart}
                                             </Badge>
-                                        )} */}
+                                        )}
                                     </Button>
 
-                                }
+                                } */}
 
                                 {
                                     role == "user" &&
@@ -317,7 +315,7 @@ const Header = () => {
                 </HStack>
 
             </Flex>
-        </Box>
+        </Box >
 
     )
 }

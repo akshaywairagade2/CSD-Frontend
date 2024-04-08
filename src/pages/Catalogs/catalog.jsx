@@ -67,12 +67,12 @@ const Catalog = () => {
 
     useEffect(() => {
         if (hotelid != params.id || hotelid == null) {
-            localStorage.setItem("hotelid", JSON.stringify(params.id));
-            localStorage.setItem("hotelname", JSON.stringify(params.name));
-            localStorage.setItem("hotelemailid", JSON.stringify(params.emailid));
-            localStorage.setItem("hotelmobilenumber", JSON.stringify(params.mobilenumber));
-            localStorage.setItem("minimumAmount", JSON.stringify(params.minimumamount));
-            hotelid = params.id;
+            // localStorage.setItem("hotelid", JSON.stringify(params.id));
+            // localStorage.setItem("hotelname", JSON.stringify(params.name));
+            // localStorage.setItem("hotelemailid", JSON.stringify(params.emailid));
+            // localStorage.setItem("hotelmobilenumber", JSON.stringify(params.mobilenumber));
+            // localStorage.setItem("minimumAmount", JSON.stringify(params.minimumamount));
+            // hotelid = params.id;
         }
     }, [])
 
@@ -236,7 +236,7 @@ const Catalog = () => {
             >
                 <Box p={20}>
                     <Box display="flex" alignItems="center">
-                        <Checkbox
+                        {/* <Checkbox
                             isChecked={filterVeg}
                             onChange={() => setFilterVeg(!filterVeg)}
                             colorScheme="green"
@@ -255,7 +255,7 @@ const Catalog = () => {
                             borderColor="black"
                         >
                             Non-Veg
-                        </Checkbox>
+                        </Checkbox> */}
                         {/* <Checkbox
                             isChecked={filterBoth}
                             onChange={() => setFilterBoth(!filterBoth)}
@@ -276,9 +276,10 @@ const Catalog = () => {
                             borderColor="black"
                         >
                             <option value="">&nbsp;</option>
+                            <option value="30">Under 30</option>
+                            <option value="50">Under 50</option>
+                            <option value="80">Under 80</option>
                             <option value="100">Under 100</option>
-                            <option value="250">Under 250</option>
-                            <option value="600">Under 600</option>
                         </Select>
                     </Box>
                     <Text fontSize={"50px"} mb={5} align={'center'} color={"black"} >
@@ -293,6 +294,7 @@ const Catalog = () => {
                             color="black"
                             width="1190px"
                             placeholder="Search items..."
+                            // color="black"
                             mb={4}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}

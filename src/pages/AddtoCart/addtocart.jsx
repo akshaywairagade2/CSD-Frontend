@@ -560,7 +560,8 @@ const AddToCart = () => {
         handleFetchAllGroups();
     }, [])
 
-    console.log(flag, ":flag")
+    console.log(flag, cartItems, ":flag")
+    // minimum order Amount for {} should be {}
     return (
         <>
             <Header />
@@ -595,9 +596,12 @@ const AddToCart = () => {
                                 </Text>
                             }
 
+                            <Text fontSize={"30px"} align={'center'} fontWeight="bold" color={"black"} mb={3}>
+                                Minimum order amount for {hotelName} should be {minimumAmount}
+                            </Text>
 
                             <Flex>
-                                <Box w="30%" pr={4}>
+                                <Box w="35%" pr={4}>
                                     <Flex
                                         direction="column"
                                         justify="space-between"
@@ -610,6 +614,7 @@ const AddToCart = () => {
                                         overflowY="auto"
                                     >
                                         <Heading color="black">Groups</Heading>
+                                        <Text fontSize="25px" color="black">Please find your orders here</Text>
                                         <Box>
                                             <Button onClick={() => { setFlag(1); onOpen(); setCode(''); setDisplay(0) }}>Join Group</Button>
                                             <Button m={2} onClick={() => { setFlag(2); onOpen(); setGeneratedNumber('') }}>Create group</Button>
@@ -644,7 +649,7 @@ const AddToCart = () => {
                                                 boxShadow="md"
                                                 borderRadius="md"
                                             >
-                                                <Text fontSize="xl" color="black">{item.name}</Text>
+                                                <Text fontSize="xl" color="black" >{item.name}</Text>
                                                 <Image
                                                     rounded="lg"
                                                     width="120px"
@@ -655,6 +660,7 @@ const AddToCart = () => {
                                                     draggable="false"
                                                     loading="lazy"
                                                 />
+                                                <Text color="black" fontSize="20px" width={"100%"} ml={2}> Item price: {item.price}</Text>
                                                 <Flex alignItems="center">
                                                     <Button onClick={() => decreaseQuantity(item)} size="sm" variant="outline">
                                                         -
@@ -886,10 +892,10 @@ const AddToCart = () => {
                             {
                                 flag == 4 &&
                                 <>
-                                    <ModalHeader align="center">Address</ModalHeader>
+                                    <ModalHeader align="center">Enter Your Delivery Address</ModalHeader>
                                     <Box display={"flex"} alignItems="center">
                                         <Input
-                                            placeholder="Enter Your Address"
+                                            placeholder="Enter Your Delivery Address"
                                             value={address}
                                             onChange={(e) => { setAddress(e.target.value) }}
                                             mt={4}

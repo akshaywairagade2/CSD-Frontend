@@ -60,7 +60,7 @@ const Footer = () => {
                             />
                         </Box>
                         <Text fontSize={'sm'}>© 2023 Campus Delivery Services. All rights reserved</Text>
-                        <Stack direction={'row'} spacing={6}>
+                        {/* <Stack direction={'row'} spacing={6}>
                             <SocialButton label={'Twitter'} href={'#'}>
                                 <FaTwitter />
                             </SocialButton>
@@ -73,16 +73,16 @@ const Footer = () => {
                             <SocialButton label={'Linkedin'} href={'#'}>
                                 <FaLinkedin />
                             </SocialButton>
-                        </Stack>
+                        </Stack> */}
                     </Stack>
                     <Stack align={'flex-start'}>
                         <Box><b>Company</b></Box>
                         <Box as="a" href={'/about-us'}>
                             About us
                         </Box>
-                        <Box as="a" href={'blogs'}>
+                        {/* <Box as="a" href={'blogs'}>
                             Blog
-                        </Box>
+                        </Box> */}
                         <Box as="a" href={'/contact-us'}>
                             Contact us
                         </Box>
