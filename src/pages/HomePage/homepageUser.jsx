@@ -241,7 +241,8 @@ const HomePageUser = () => {
                                             <GridItem key={hotel.id} height="50%" maxH={"50%"} >
                                                 <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' _hover={{ bg: 'green.100', cursor: "pointer" }} >
                                                     <Box p='6' onClick={() => {
-                                                        hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog`);
+                                                        navigate(`/catalog`);
+                                                        // hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog`);
                                                         // hotel?.hotelStatus == "off" ? navigate(`/`) : navigate(`/catalog/${hotel._id}/${hotel.userName}/${hotel.emailId}/${hotel?.mobilenumber}/${hotel?.minimumAmount}`);
                                                         setValues(hotel?._id, hotel?.userName, hotel?.emailId, hotel?.mobilenumber, hotel?.minimumAmount);
                                                     }}
@@ -350,7 +351,7 @@ const HomePageUser = () => {
                                                                 noOfLines={5}
                                                                 color="teal.500"
                                                             >
-                                                                🔴 Hotel is Currently Closed
+                                                                🔴 Shop is currently closed
                                                             </Box>
                                                         }
 

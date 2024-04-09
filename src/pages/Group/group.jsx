@@ -25,6 +25,7 @@ import {
     Tbody,
     Th,
     Td,
+    Tooltip
 
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon, ViewIcon } from '@chakra-ui/icons';
@@ -124,7 +125,38 @@ const Group = () => {
     const [individualtotal, setIndividualtotal] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
     const [address, setAddress] = useState('');
+    const [hotelStatus, setHotelStatus] = useState("off");
 
+    const fetchUserInfo = async () => {
+        if (hotelid) {
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
+
+                const { data, status } = await axios.post(
+                    `${APP_URL}api/auth/userinfo`,
+                    {
+                        "id": hotelid
+                    },
+                    config
+                );
+
+                if (status === 201) {
+                    setHotelStatus(data.info.hotelStatus)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+    }
+
+    useEffect(() => {
+        fetchUserInfo()
+    })
     const increaseQuantity = async (item) => {
         onClose();
         try {
@@ -431,11 +463,22 @@ const Group = () => {
                                         <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
                                         <Text fontSize="lg" color="black">₹{totalamount}</Text>
                                     </HStack>
-                                    <Box>
-                                        <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={() => { setFlag(1); onOpen(); setAddress('') }} isDisabled={admin == user._id ? false : true}>
-                                            Place Order
-                                        </Button>
-                                    </Box>
+                                    {
+                                        hotelStatus == "off" &&
+                                        <Tooltip label="Shop is currently closed" placement="bottom">
+                                            <Button colorScheme="green" size="lg" fontSize="md" width={250} isDisabled>
+                                                Place order
+                                            </Button>
+                                        </Tooltip>
+                                    }
+                                    {
+                                        hotelStatus == "on" &&
+                                        <Box>
+                                            <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={() => { setFlag(1); onOpen(); setAddress('') }} isDisabled={admin == user._id ? false : true}>
+                                                Place Order
+                                            </Button>
+                                        </Box>
+                                    }
                                     {/* <Box>
                                         <Button size="lg" fontSize="md" width={320} onClick={Delete} isDisabled={admin == user._id ? false : true}>
                                             Delete Cart

@@ -18,7 +18,8 @@ import {
     ModalBody,
     ModalCloseButton,
     useDisclosure,
-    Spinner
+    Spinner,
+    Tooltip
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../../Footer/footer";
@@ -38,6 +39,7 @@ const AddToCart = () => {
     const hotelName = JSON.parse(localStorage.getItem('hotelname'));
     const hotelemailid = JSON.parse(localStorage.getItem('hotelemailid'));
     const hotelmobilenumber = JSON.parse(localStorage.getItem('hotelmobilenumber'));
+    const [hotelStatus, setHotelStatus] = useState("off");
     const user = userInfo ? userInfo.User : null;
 
     const [amount, setAmount] = useState(0);
@@ -54,6 +56,37 @@ const AddToCart = () => {
         if (!user) navigate('/login');
     }, [user]);
 
+
+    const fetchUserInfo = async () => {
+        if (hotelid) {
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
+
+                const { data, status } = await axios.post(
+                    `${APP_URL}api/auth/userinfo`,
+                    {
+                        "id": hotelid
+                    },
+                    config
+                );
+
+                if (status === 201) {
+                    setHotelStatus(data.info.hotelStatus)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+    }
+
+    useEffect(() => {
+        fetchUserInfo()
+    })
 
     const GetAllItems = async () => {
         setFetchLoading(true)
@@ -721,11 +754,22 @@ const AddToCart = () => {
                                                         <Text fontSize="lg" fontWeight="semibold" color="black">Total:</Text>
                                                         <Text fontSize="lg" color="black">₹{amount}</Text>
                                                     </HStack>
-                                                    <Box>
-                                                        <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={() => { setFlag(4); onOpen(); setAddress('') }}>
-                                                            Place order
-                                                        </Button>
-                                                    </Box>
+                                                    {
+                                                        hotelStatus == "off" &&
+                                                        <Tooltip label="Shop is currently closed" placement="bottom">
+                                                            <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={() => { setFlag(4); onOpen(); setAddress(''); }} isDisabled>
+                                                                Place order
+                                                            </Button>
+                                                        </Tooltip>
+                                                    }
+                                                    {
+                                                        hotelStatus == "on" &&
+                                                        <Box>
+                                                            <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={() => { setFlag(4); onOpen(); setAddress(''); }}>
+                                                                Place order
+                                                            </Button>
+                                                        </Box>
+                                                    }
                                                     <Box>
                                                         <Button colorScheme="green" size="lg" fontSize="md" width={250} onClick={AddtoGroup}>
                                                             Add order to group
@@ -935,7 +979,7 @@ const AddToCart = () => {
                         </ModalFooter> */}
                     </ModalContent>
                 </Modal>
-            </Flex>
+            </Flex >
             <Footer />
         </>
     );
