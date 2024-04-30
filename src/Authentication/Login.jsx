@@ -501,7 +501,7 @@ const Login = () => {
                                         Login
                                     </Button>
                                 )}
-                                {/* {signInLoading ? (
+                                {signInLoading ? (
                                     <Spinner
                                         thickness="4px"
                                         speed="0.65s"
@@ -530,7 +530,7 @@ const Login = () => {
                                         />
                                         Sign in with google
                                     </Button>
-                                )} */}
+                                )}
                                 {/* <Button
                                     onClick={() => login()}
                                     bg={'green.200'}

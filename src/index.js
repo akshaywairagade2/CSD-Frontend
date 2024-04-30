@@ -20,12 +20,21 @@ root.render(
   <ChakraProvider>
     <Provider store={store}>
       <GoogleOAuthProvider
-        clientId="798079972938-m4rquq9tk1q01mq6op742o1e87mm44tn.apps.googleusercontent.com">
+        // clientId="798079972938-m4rquq9tk1q01mq6op742o1e87mm44tn.apps.googleusercontent.com">
+        clientId="870910263745-4kn6i57s8p097mgq77c4peg0uk8g8p9f.apps.googleusercontent.com">
         <App />
       </GoogleOAuthProvider>
     </Provider>
   </ChakraProvider>
 );
+
+
+{/* <GoogleLogin
+    clientId="870910263745-4kn6i57s8p097mgq77c4peg0uk8g8p9f.apps.googleusercontent.com"
+    onSuccess={loginsuccess}
+    onFailure={loginerror}
+    cookiePolicy={'single_host_origin'}
+    /> */}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
